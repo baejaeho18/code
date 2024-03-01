@@ -10,7 +10,7 @@ public:
 
 	//operation | rhs: right-hand-size
 	complex_number add(complex_number rhs);
-	complex_number substract(complex_number rhs);
+	complex_number subtract(complex_number rhs);
 	complex_number multiply(complex_number rhs);
 	complex_number divide(complex_number rhs);
 };
@@ -22,7 +22,7 @@ complex_number complex_number::add(complex_number rhs) {
 	return ret;
 }
 
-complex_number complex_number::substract(complex_number rhs) {
+complex_number complex_number::subtract(complex_number rhs) {
 	complex_number ret;
 	ret.real = real - rhs.real;
 	ret.imag = imag - rhs.imag;
@@ -62,25 +62,25 @@ int main()
 			if (op == "+") {
 				c = a.add(b);
 				cout << "(" << a.real << "+" << a.imag << "i" << ")"
-					<< " + " 
+					<< " + "
 					<< "(" << b.real << "+" << b.imag << "i" << ")"
-					<< " = " 
+					<< " = "
 					<< "(" << c.real << "+" << c.imag << "i" << ")" << endl;
 			}
 			else if (op == "-") {
-				c = a.substract(b);
+				c = a.subtract(b);
 				cout << "(" << a.real << "+" << a.imag << "i" << ")"
-					<< " - " 
+					<< " - "
 					<< "(" << b.real << "+" << b.imag << "i" << ")"
-					<< " = " 
+					<< " = "
 					<< "(" << c.real << "+" << c.imag << "i" << ")" << endl;
 			}
 			else if (op == "*") {
 				c = a.multiply(b);
 				cout << "(" << a.real << "+" << a.imag << "i" << ")"
-					<< " * " 
+					<< " * "
 					<< "(" << b.real << "+" << b.imag << "i" << ")"
-					<< " = " 
+					<< " = "
 					<< "(" << c.real << "+" << c.imag << "i" << ")" << endl;
 			}
 			else if (op == "/") {
@@ -88,7 +88,7 @@ int main()
 				cout << "(" << a.real << "+" << a.imag << "i" << ")"
 					<< " / "
 					<< "(" << b.real << "+" << b.imag << "i" << ")"
-					<< " = " 
+					<< " = "
 					<< "(" << c.real << "+" << c.imag << "i" << ")" << endl;
 			}
 		}
