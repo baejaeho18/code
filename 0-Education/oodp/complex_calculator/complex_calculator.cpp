@@ -69,19 +69,19 @@ int main()
 
 			if (op == "+") {
 				c = a.add(b);
-				cout a << " + " << b << " = " << c << << endl;
+				cout << a << " + " << b << " = " << c << endl;
 			}
 			else if (op == "-") {
 				c = a.subtract(b);
-				cout a << " - " << b << " = " << c << << endl;
+				cout << a << " - " << b << " = " << c << endl;
 			}
 			else if (op == "*") {
 				c = a.multiply(b);
-				cout a << " * " << b << " = " << c << << endl;
+				cout << a << " * " << b << " = " << c << endl;
 			}
 			else if (op == "/") {
 				c = a.divide(b);
-				cout a << " / " << b << " = " << c << << endl;
+				cout << a << " / " << b << " = " << c << endl;
 			}
 		}
 		else if (op == "EXIT") {
