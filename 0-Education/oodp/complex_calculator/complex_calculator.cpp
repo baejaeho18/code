@@ -13,6 +13,9 @@ public:
 	complex_number subtract(complex_number rhs);
 	complex_number multiply(complex_number rhs);
 	complex_number divide(complex_number rhs);
+
+	// Overloading the << operator for complex_number
+	friend ostream& operator<<(ostream& os, const complex_number& cn);
 };
 
 complex_number complex_number::add(complex_number rhs) {
@@ -44,6 +47,11 @@ complex_number complex_number::divide(complex_number rhs) {
 	return ret;
 }
 
+ostream& operator<<(ostream& os, const complex_number& cn) {
+	os << cn.real << "+" << cn.imag << "i";
+	return os;
+}
+
 int main()
 {
 	string op;
@@ -61,35 +69,19 @@ int main()
 
 			if (op == "+") {
 				c = a.add(b);
-				cout << "(" << a.real << "+" << a.imag << "i" << ")"
-					<< " + "
-					<< "(" << b.real << "+" << b.imag << "i" << ")"
-					<< " = "
-					<< "(" << c.real << "+" << c.imag << "i" << ")" << endl;
+				cout a << " + " << b << " = " << c << << endl;
 			}
 			else if (op == "-") {
 				c = a.subtract(b);
-				cout << "(" << a.real << "+" << a.imag << "i" << ")"
-					<< " - "
-					<< "(" << b.real << "+" << b.imag << "i" << ")"
-					<< " = "
-					<< "(" << c.real << "+" << c.imag << "i" << ")" << endl;
+				cout a << " - " << b << " = " << c << << endl;
 			}
 			else if (op == "*") {
 				c = a.multiply(b);
-				cout << "(" << a.real << "+" << a.imag << "i" << ")"
-					<< " * "
-					<< "(" << b.real << "+" << b.imag << "i" << ")"
-					<< " = "
-					<< "(" << c.real << "+" << c.imag << "i" << ")" << endl;
+				cout a << " * " << b << " = " << c << << endl;
 			}
 			else if (op == "/") {
 				c = a.divide(b);
-				cout << "(" << a.real << "+" << a.imag << "i" << ")"
-					<< " / "
-					<< "(" << b.real << "+" << b.imag << "i" << ")"
-					<< " = "
-					<< "(" << c.real << "+" << c.imag << "i" << ")" << endl;
+				cout a << " / " << b << " = " << c << << endl;
 			}
 		}
 		else if (op == "EXIT") {
