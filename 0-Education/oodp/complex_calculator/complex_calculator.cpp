@@ -16,7 +16,7 @@ int main()
         if (op == "+" || op == "-" || op == "*" || op == "/") {
             cout << "Input the first number (real, imaginary): ";
             cin >> a.real >> a.imag;
-            cout << "Input the second number (Real, imaginzry): ";
+            cout << "Input the second number (real, imaginary): ";
             cin >> b.real >> b.imag;
 
             if (op == "+") {
