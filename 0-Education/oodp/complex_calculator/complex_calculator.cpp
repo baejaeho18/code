@@ -1,13 +1,15 @@
 #include <iostream>
 #include <string>
-#include "complex_number_oop.h"
+//#include "complex_number_oop.h"
+#include "complex_number_generic.h"
 
 using namespace std;
 
 int main()
 {
     string op;
-    complex_number a, b, c;
+    complex_number<float> a, b, c;
+    complex_number<double> ad, bd, cd;
 
     cout << "Complex number calculator" << endl;
     while (1) {
