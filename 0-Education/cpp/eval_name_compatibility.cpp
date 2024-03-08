@@ -27,7 +27,6 @@ int modulo10(int x) {
 */
 int main() {
 
-
 	// Input
 	char name1[3];	// last index is for end symbol(\0)
 	char name2[3];
@@ -40,12 +39,24 @@ int main() {
 	int four_digits[5] = { modulo10(nums[0]), modulo10(nums[1]), modulo10(nums[2]), modulo10(nums[3]) };
 	int three_digits[4] = { modulo10(four_digits[0] + four_digits[1]), modulo10(four_digits[1] + four_digits[2]), modulo10(four_digits[2] + four_digits[3]) };
 	int two_digits[3] = { modulo10(three_digits[0] + three_digits[1]), modulo10(three_digits[1] + three_digits[2]) };
+	/*
+	* Three upper statements could be replaced with following codes:
+	* int i;
+	* for (i = 0; i < 4; i++)	// four_digits
+	* 	nums[i] = modulo10(nums[i]);
+	* for (i = 0; i < 3; i++)	// three_digits
+	* 	nums[i] = modulo10(nums[i] + nums[i + 1]);
+	* for (i = 0; i < 2; i++)	// two_digits
+	* 	nums[i] = modulo10(nums[i] + nums[i + 1]);
+	*/
 	int percentage = two_digits[0] * 10 + two_digits[1];
 
 	// I have to change this statement to use only basic math operator
-	percentage = percentage == 0 ? 100 : percentage;
-	// how could be?
-
+	// percentage = percentage == 0 ? 100 : percentage;
+	// This is shorter.. but banned too
+	percentage += (percentage == 0) * 100;
+	// how could it be?
+	// God god god God god god
 
 	// Output
 	cout << name1[0] << " " << name2[0] << " " << name1[1] << " " << name2[1] << endl;
