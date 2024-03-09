@@ -21,3 +21,15 @@ int main()
 
 	return 0;
 }
+
+/*
+* Output:
+* Integer Literals of 42:
+* decimal     = 42 (42 in decimal)
+* hexadecimal = 66 (0x42 in hex : 16*4+2)
+* octal       = 34 (042 in octal : 8*4+2)
+*
+* decimal     = 42 (decimal for 42)
+* hexadecimal = 2a(hexadecimal for 42 : 16*2+10)
+* octal       = 52 (octal for 42 : 8*5+2)
+*/
