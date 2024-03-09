@@ -59,6 +59,16 @@ double Constants: 1e7/9.0 = 1111111.111111
 float constatns: 1e7f/9.0f = 1111111.125000
 ```
 
+### init_cast.cpp
+```bash
+tree = 31.000000
+guess = 3
+debt = 1634811904
+
+auks = 31, bats = 30, coots = 30
+The code for Z is 90
+```
+
 ## New Things to Know
 ### hexoct.cpp
 
@@ -76,3 +86,5 @@ Normally cout drops trailing zeros. For example, it would display 3333333.250000
 The reason why float tub and double mint display different value after multiplies million(1.0E+6) is float has 7 siginificant figures while double has 13 sigificant figures.
 - E notation : 3.45E6 == 3.45 * 10^6
 - By default, Floating-Point constant is **double**
+
+### init_cast.cpp
