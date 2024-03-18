@@ -86,11 +86,14 @@ size of pd = 8: size of *pd = 8
 ```
 ### New Things to Know
 
+*pd는 pd가 가리키는 메모리 위치에 저장된 값에 접근하고, pd는 해당 메모리의 주소를 나타내며, &pd는 pd 포인터 변수 자체의 주소를 나타낸다.
+
 
 ## array_new.cpp
 ### Output
 ```bash
-
+p3[0] is 0.2 and p3[1] is 0.5 and p3[2] is 0.8.
+Now p3[0] is 0.5 and p3[1] is 0.8 and p3[2] is 2.10535e-314.
 ```
 
 ### New Things to Know
