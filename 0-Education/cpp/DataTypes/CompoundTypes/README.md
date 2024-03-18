@@ -145,3 +145,16 @@ bear at 000001D09D2C4050
 왜 (const char*)가 붙을까? 이 함수들이 수행되는 동안 들어온 string이 변하는 것을 방지하고자 함이다.
 
 * 
+
+
+## ptr_structure.cpp
+### Output
+```bash
+Enter name of inflatable item: Fabulous Frodo
+Enter volume in cubic feet: 1.4
+Enter price: $27.99
+Name: Fabulous Frodo
+Volume: 1.4 cubic feet
+Price: $27.99
+```
+### New Things to Know
