@@ -31,14 +31,15 @@ The guests name's first characters are G, A, A, B, G.
 ```
 ### New Things to Know
 
+
 ## enum.cpp
 ### Output
 ```bash
 blue assigned 4 constant
-two assigned 2 constant
-fifth assigned 9 consant!
+color assigned 3 constant
+big step has 0, 100, 101
+smallnums has 0, 0, 1, 1
 ```
-
 ### New Things to Know
 Enumerate에는 정수형 상수가 0에서부터 순서대로 할당된다.
 이때, 명시적으로 어떤 값을 할당할지 표현할 수 있으며, 이 경우 다음 enum 값은 할당된 값에 1을 더한 값부터 할당된다.
