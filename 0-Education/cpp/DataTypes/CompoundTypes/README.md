@@ -49,7 +49,6 @@ smallnums has 0, 0, 1, 1
 Enumerate에는 정수형 상수가 0에서부터 순서대로 할당된다.
 이때, 명시적으로 어떤 값을 할당할지 표현할 수 있으며, 이 경우 다음 enum 값은 할당된 값에 1을 더한 값부터 할당된다.
 
-
 ## address.cpp
 ### Output
 ```bash
@@ -70,8 +69,35 @@ Now *p_updates = -858993460 and p_updates = 0000005DADAFF538
 4, 8
 8, 8
 ```
-
 ### New Things to Know
+
+## ptr_arith.cpp
+### Output
+```bash
+000000000000008C
+0000000000000078
+00000000000000B4
+000000000000008C
+
+pw = 00000098102FFA18, *pw = 10000
+add 1 to the pw pointer:
+pw = 00000098102FFA20, *pw = 20000
+
+ps = 00000098102FFA44, *ps = 3
+add 1 to the ps pointer:
+ps = 00000098102FFA46, *ps = 2
+
+access two elements with array notation
+stacks[0] = 3, stacks[1] = 2
+access two elements with pointer notation
+*stacks = 3, *(stacks + 1) =  2
+24 = size of wages array
+8 = size of pw pointer
+
+7
+```
+### New Things to Know
+
 
 
 ## use_new.cpp
@@ -85,7 +111,6 @@ size of pt = 8: size of *pt = 4
 size of pd = 8: size of *pd = 8
 ```
 ### New Things to Know
-
 *pd는 pd가 가리키는 메모리 위치에 저장된 값에 접근하고, pd는 해당 메모리의 주소를 나타내며, &pd는 pd 포인터 변수 자체의 주소를 나타낸다.
 
 
