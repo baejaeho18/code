@@ -1,8 +1,8 @@
 # Compound Types
 > Array, String, Pointer, Structure, etc.
 
-## Output
-### array.cpp
+## array.cpp
+### Output
 ```bash
 Total yams = 21
 The package with 8 yams costs 30 cents per yam.
@@ -16,8 +16,20 @@ Zeros: 0, 0
 One: 1, 0, 0
 Size of things: 4
 ```
+### New Things to Know
+
+
+## structure.cpp
+### Output
+```bash
+Expand your guest list with Glorious Gloria and Audacious Arthur!
+You can have both for $62.98!
+choice: Audacious Arthur for $32.99
+The guests Glorious Gloria and Audacious Arthur
+have a combined volume of 5 cubic feet.
+The guests name's first characters are G, A, A, B, G.
+```
+### New Things to Know
 
 
 
-## New Things to Know
-### array.cpp
