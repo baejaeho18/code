@@ -99,7 +99,6 @@ access two elements with pointer notation
 ### New Things to Know
 
 
-
 ## use_new.cpp
 ### Output
 ```bash
@@ -117,8 +116,15 @@ size of pd = 8: size of *pd = 8
 ## array_new.cpp
 ### Output
 ```bash
-p3[0] is 0.2 and p3[1] is 0.5 and p3[2] is 0.8.
-Now p3[0] is 0.5 and p3[1] is 0.8 and p3[2] is 2.10535e-314.
+p3[0] is 0.2 and p3[1] is 0.5 and p3[2] is 0.8 and p3[3] is 1.50201e-307.
+Now p3[0] is 0.5 and p3[1] is 0.8 and p3[2] is 1.50201e-307.
 ```
+### New Things to Know
+p3으
 
+## ptr_string.cpp
+### Output
+```bash
+
+```
 ### New Things to Know
