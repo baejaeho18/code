@@ -72,3 +72,25 @@ Now *p_updates = -858993460 and p_updates = 0000005DADAFF538
 ```
 
 ### New Things to Know
+
+
+## use_new.cpp
+### Output
+```bash
+nights value = 1001: location 0000003D630FFB64
+int value = 1001: location = 000001A5C9C56F50
+double value = 1e+07: location = 000001A5C9C64360
+location of pointer pd: 0000003D630FFBA8
+size of pt = 8: size of *pt = 4
+size of pd = 8: size of *pd = 8
+```
+### New Things to Know
+
+
+## array_new.cpp
+### Output
+```bash
+
+```
+
+### New Things to Know
