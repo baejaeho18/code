@@ -106,3 +106,6 @@ a_xor_B = 27    : 00011011 (1 bytes)
 
 ## bit_displayer.h
 ### Test I/O
+```bash
+
+```
