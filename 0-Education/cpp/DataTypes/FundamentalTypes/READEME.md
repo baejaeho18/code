@@ -88,3 +88,21 @@ The reason why float tub and double mint display different value after multiplie
 - By default, Floating-Point constant is **double**
 
 ### init_cast.cpp
+
+
+
+## bitwise.cpp
+### Output
+```bash
+a = 13  : 00001101 (1 bytes)
+b = 22  : 00010110 (1 bytes)
+sl_a = 104      : 01101000 (1 bytes)
+sr_a = 1        : 00000001 (1 bytes)
+neg_a = 242     : 11110010 (1 bytes)
+a_and_b = 4     : 00000100 (1 bytes)
+a_or_b = 31     : 00011111 (1 bytes)
+a_xor_B = 27    : 00011011 (1 bytes)
+```
+
+## bit_displayer.h
+### Test I/O
