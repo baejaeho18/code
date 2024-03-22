@@ -14,7 +14,7 @@ int main() {
 		cin >> selection;
 
 		if (selection == 1) {
-			if (add_student(students[student_number++]) > 0)
+			if (add_student(&students[student_number++]) > 0)
 				cout << "The student is added!" << endl;
 			else
 				student_number--;

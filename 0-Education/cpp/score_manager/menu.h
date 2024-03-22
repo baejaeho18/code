@@ -13,7 +13,7 @@ struct student {
 	int retake;				// 0/1
 
 	int total_score = 0;	// midterm_score + final_score
-	char grade ;			// Grade: A, B, C, D
+	char grade;			// Grade: A, B, C, D
 
 	int set_id() {
 		int temp_id;
@@ -39,7 +39,7 @@ struct student {
 			else
 				return -1;
 		}
-		
+
 		// size < 10
 		if (0 < temp_name.size() && temp_name.size() <= 10) {
 			name = temp_name;
@@ -85,7 +85,7 @@ struct student {
 };
 
 void show_menu();
-int add_student(student new_student);
+int add_student(student* new_student);
 int edit_score(student students[], int student_number);
 void print_score_average(student students[], int student_number);
 void print_score_list(student students[], int student_number);

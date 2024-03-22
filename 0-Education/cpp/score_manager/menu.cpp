@@ -12,25 +12,24 @@ void show_menu() {
 	cout << "Selection: ";
 }
 
-int add_student(student new_student) {
-
-	if (new_student.set_id() < 0) {
+int add_student(student* new_student) {
+	if (new_student->set_id() < 0) {
 		cout << "Failed to add: invalid student id!" << endl;
 		return -1;
 	}
-	if (new_student.set_name() < 0) {
+	if (new_student->set_name() < 0) {
 		cout << "Failed to add: invalid name!" << endl;
 		return -1;
 	}
-	if (new_student.set_midterm_exam_scroe() < 0) {
+	if (new_student->set_midterm_exam_scroe() < 0) {
 		cout << "Failed to add: invalid midterm exam score!" << endl;
 		return -1;
 	}
-	if (new_student.set_final_exam_score() < 0) {
+	if (new_student->set_final_exam_score() < 0) {
 		cout << "Failed to add: invalid final exam score!" << endl;
 		return -1;
 	}
-	if (new_student.set_retake() < 0) {
+	if (new_student->set_retake() < 0) {
 		cout << "Failed to add: invalid retake value!" << endl;
 		return -1;
 	}
@@ -113,10 +112,10 @@ void sort_students(student students[], int student_number) {
 	for (int length = student_number - 1; 1 < length; length--) {
 		for (int i = 0; i < length - 1; i++) {
 			if (students[i].total_score < students[i + 1].total_score ||
-				(students[i].total_score == students[i + 1].total_score && students[i].id > students[i + 1].id) ) {
-					temp = students[i];
-					students[i] = students[i + 1];
-					students[i + 1] = temp;
+				(students[i].total_score == students[i + 1].total_score && students[i].id > students[i + 1].id)) {
+				temp = students[i];
+				students[i] = students[i + 1];
+				students[i + 1] = temp;
 			}
 		}
 	}
@@ -144,7 +143,7 @@ void print_grade_list(student students[], int student_number) {
 	b_num = b_num < 2 ? 2 : b_num;
 	int c_num = student_number * 9 / 10;
 	c_num = c_num < 3 ? 3 : c_num;
-	
+
 	// evaluate Grade
 	for (int i = 0; i < student_number; i++) {
 		// 상위 30% 이내 : A
