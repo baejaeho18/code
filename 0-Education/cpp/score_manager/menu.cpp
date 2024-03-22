@@ -109,7 +109,7 @@ void print_score_average(student students[], int student_number) {
 void sort_students(student students[], int student_number) {
 	// bubble sort
 	student temp;
-	for (int length = student_number - 1; 1 < length; length--) {
+	for (int length = student_number; 1 < length; length--) {
 		for (int i = 0; i < length - 1; i++) {
 			if (students[i].midterm_exam_score + students[i].final_exam_score < students[i + 1].midterm_exam_score + students[i + 1].final_exam_score ||
 				(students[i].midterm_exam_score + students[i].final_exam_score == students[i + 1].midterm_exam_score + students[i + 1].final_exam_score && students[i].id > students[i + 1].id)) {
