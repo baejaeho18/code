@@ -143,17 +143,19 @@ void print_grade_list(student students[], int student_number) {
 	b_num = b_num < 2 ? 2 : b_num;
 	int c_num = student_number * 9 / 10;
 	c_num = c_num < 3 ? 3 : c_num;
+	// 하위 10퍼 이하기 아님이라면 students_number - student_number / 10이 되어야 하지 않나?
+	// 12명일 때 상위 90퍼면 10.8등, 즉 10명이지만, 하위 10퍼라면 1.2명, 즉 11명까지다..?
 
 	// evaluate Grade
 	for (int i = 0; i < student_number; i++) {
 		// 상위 30% 이내 : A
-		if (i <= a_num && 150 < students[i].midterm_exam_score + students[i].final_exam_score)
+		if (i < a_num && 150 < students[i].midterm_exam_score + students[i].final_exam_score)
 			students[i].grade = 'A';
 		// 상위 70% 이내 : B
-		else if (i <= b_num && 100 < students[i].midterm_exam_score + students[i].final_exam_score)
+		else if (i < b_num && 100 < students[i].midterm_exam_score + students[i].final_exam_score)
 			students[i].grade = 'B';
 		// 하위 10% 이내가 아님 : C
-		else if (i <= c_num && 50 < students[i].midterm_exam_score + students[i].final_exam_score)
+		else if (i < c_num && 50 < students[i].midterm_exam_score + students[i].final_exam_score)
 			students[i].grade = 'C';
 		// 나머지는 D
 		else
