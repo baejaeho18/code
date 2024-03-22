@@ -19,8 +19,9 @@ int main() {
 			else
 				student_number--;
 		}
-		else if (selection == 2 && edit_score(students, student_number) > 0) {
-			cout << "Score editing done!" << endl;
+		else if (selection == 2) {
+			if (edit_score(students, student_number) > 0)
+				cout << "Score editing done!" << endl;
 		}
 		else if (selection == 3) {
 			print_score_average(students, student_number);
