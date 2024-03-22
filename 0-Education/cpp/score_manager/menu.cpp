@@ -91,12 +91,12 @@ void print_score_average(student students[], int student_number) {
 	// evaluate average
 	int i;
 	for (i = 0; i < student_number; i++)
-		sum += students[i].total_score;
+		sum += students[i].midterm_exam_score + students[i].final_exam_score;
 	average = sum / (double)student_number;
 
 	// evaluate standard deviation
 	for (i = 0, sum = 0; i < student_number; i++)
-		sum += pow(students[i].total_score - average, 2);
+		sum += pow(students[i].midterm_exam_score + students[i].final_exam_score - average, 2);
 	std_deviation = sqrt(sum / (double)student_number);
 
 	// display
@@ -111,8 +111,8 @@ void sort_students(student students[], int student_number) {
 	student temp;
 	for (int length = student_number - 1; 1 < length; length--) {
 		for (int i = 0; i < length - 1; i++) {
-			if (students[i].total_score < students[i + 1].total_score ||
-				(students[i].total_score == students[i + 1].total_score && students[i].id > students[i + 1].id)) {
+			if (students[i].midterm_exam_score + students[i].final_exam_score < students[i + 1].midterm_exam_score + students[i + 1].final_exam_score ||
+				(students[i].midterm_exam_score + students[i].final_exam_score == students[i + 1].midterm_exam_score + students[i + 1].final_exam_score && students[i].id > students[i + 1].id)) {
 				temp = students[i];
 				students[i] = students[i + 1];
 				students[i + 1] = temp;
@@ -128,7 +128,7 @@ void print_score_list(student students[], int student_number) {
 	for (int i = 0; i < student_number; i++) {
 		cout << students[i].id << " " << students[i].name << " ";
 		cout << students[i].midterm_exam_score << " " << students[i].final_exam_score << " ";
-		cout << students[i].total_score << endl;
+		cout << students[i].midterm_exam_score + students[i].final_exam_score << endl;
 	}
 }
 
@@ -147,13 +147,13 @@ void print_grade_list(student students[], int student_number) {
 	// evaluate Grade
 	for (int i = 0; i < student_number; i++) {
 		// 상위 30% 이내 : A
-		if (i <= a_num && 150 < students[i].total_score)
+		if (i <= a_num && 150 < students[i].midterm_exam_score + students[i].final_exam_score)
 			students[i].grade = 'A';
 		// 상위 70% 이내 : B
-		else if (i <= b_num && 100 < students[i].total_score)
+		else if (i <= b_num && 100 < students[i].midterm_exam_score + students[i].final_exam_score)
 			students[i].grade = 'B';
 		// 하위 10% 이내가 아님 : C
-		else if (i <= c_num && 50 < students[i].total_score)
+		else if (i <= c_num && 50 < students[i].midterm_exam_score + students[i].final_exam_score)
 			students[i].grade = 'C';
 		// 나머지는 D
 		else
@@ -166,7 +166,7 @@ void print_grade_list(student students[], int student_number) {
 	// display grade
 	for (int i = 0; i < student_number; i++) {
 		cout << students[i].id << " " << students[i].name << " ";
-		cout << students[i].total_score << " " << students[i].retake << " ";
+		cout << students[i].midterm_exam_score + students[i].final_exam_score << " " << students[i].retake << " ";
 		cout << students[i].grade << endl;
 	}
 }

@@ -12,7 +12,6 @@ struct student {
 	int final_exam_score;	// 0~100
 	int retake;				// 0/1
 
-	int total_score = 0;	// midterm_score + final_score
 	char grade;			// Grade: A, B, C, D
 
 	int set_id() {
@@ -54,7 +53,6 @@ struct student {
 		cin >> temp_score;
 		if (0 <= temp_score && temp_score <= 100) {
 			midterm_exam_score = temp_score;
-			total_score += midterm_exam_score;
 			return 1;
 		}
 		return -1;
@@ -65,8 +63,7 @@ struct student {
 		cout << "Final exam score : ";
 		cin >> temp_score;
 		if (0 <= temp_score && temp_score <= 100) {
-			midterm_exam_score = temp_score;
-			total_score += midterm_exam_score;
+			final_exam_score = temp_score;
 			return 1;
 		}
 		return -1;
