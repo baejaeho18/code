@@ -19,7 +19,7 @@ int main() {
 		string input;
 		getline(cin, input);	// 공백 포함
 		cyphertext += input;
-		if (input.size() > 2 && input[input.size() - 2] == '.' && input[input.size() - 1] == '.')
+		if (input.size() >= 2 && input[input.size() - 2] == '.' && input[input.size() - 1] == '.')
 			break;
 		cyphertext += "\n";
 	}
@@ -46,11 +46,11 @@ int main() {
 	cout << "Ciphertext noise rate: " << noise_char_cnt / cyphertext_cnt * 100 << "%\n";
 
 	// diplay hexadecima digits
-	cout << "Hexadecimal digits: " << hexa_digits << "%\n";
+	cout << "Hexadecimal digits: " << hexa_digits << endl;
 
 	// Exception
 	if (hexa_digit_cnt == 0) {	// 없을 경우
-		cout << "Undecryptable:	where are the hexadecimal digits!" << endl;
+		cout << "Undecryptable: where are the hexadecimal digits!" << endl;
 	}
 	else if (hexa_digit_cnt % 2 == 1) {	// 홀수일 경우
 		cout << "Undecryptable: the number of hexadecimal digits is odd!" << endl;
@@ -58,7 +58,9 @@ int main() {
 	else {
 		string ascii_str;
 		for (int i = 0; i < hexa_digit_cnt; i += 2) {
-			ascii_str = hexa_digits[i] + hexa_digits[i + 1];
+			//ascii_str = hexa_digits[i] + (char)hexa_digits[i + 1];
+			ascii_str = hexa_digits[i];
+			ascii_str += hexa_digits[i + 1];
 			int ascii = stoul(ascii_str, nullptr, 16);
 			if (0 <= ascii && ascii < 127) {
 				decrypt_result += (char)ascii;
@@ -69,8 +71,8 @@ int main() {
 				return 0;
 			}
 		}
+		cout << "Decryption result: " << decrypt_result << endl;
 	}
-	cout << "Decryption result: " << decrypt_result << endl;
 	cout << "Decryptor turn off!" << endl;
 
 	return 0;
