@@ -54,9 +54,10 @@ int main() {
 	// I have to change this statement to use only basic math operator
 	// percentage = percentage == 0 ? 100 : percentage;
 	// This is shorter.. but banned too
-	percentage += (percentage == 0) * 100;
+	//percentage += (percentage == 0) * 100;
 	// how could it be?
 	// God god god God god god
+	percentage += int(1 / (1 + two_digits[0] + two_digits[1])) * 100;
 
 	// Output
 	cout << name1[0] << " " << name2[0] << " " << name1[1] << " " << name2[1] << endl;
