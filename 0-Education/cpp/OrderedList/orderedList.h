@@ -1,5 +1,5 @@
-#ifndef SET__
-#define SET__
+#ifndef LIST__
+#define LIST__
 
 
 struct Node {
@@ -19,4 +19,4 @@ int size(OrderedList* ordered);
 bool contains(OrderedList* ordered, int v);
 int getValue(OrderedList* ordered, int idx);
 
-#endif SET__
+#endif LIST__

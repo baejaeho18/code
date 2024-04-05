@@ -1,4 +1,5 @@
 #include "orderedList.h"
+#include "orderedSet.h"
 #include <iostream>
 
 void simpleTest1(OrderedSet* o) {
