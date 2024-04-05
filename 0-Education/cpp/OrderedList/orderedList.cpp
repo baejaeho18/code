@@ -69,14 +69,12 @@ bool contains(OrderedList* ordered, int v) {
 }
 
 int getValue(OrderedList* ordered, int idx) {
-	if (idx < 0)
+	if (idx < 0 || ordered->m_size <= idx)
 		return std::numeric_limits<int>::min();
 
 	Node* result = ordered->head;
 	for (int i = 0; i < idx; i++) {
 		result = result->next;
-		if (result == nullptr)
-			return std::numeric_limits<int>::min();
 	}
 	return result->element;
 }

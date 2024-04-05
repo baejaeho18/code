@@ -1,14 +1,15 @@
-#ifndef __PROB_1__
-#define __PROB_1__
+#ifndef SET__
+#define SET__
 
-struct OrderedList {
-	int m_size;
-	Node* head;
-};
 
 struct Node {
 	int element;
 	Node* next;
+};
+
+struct OrderedList {
+	int m_size;
+	Node* head;
 };
 
 void add(OrderedList* ordered, int v);
@@ -18,5 +19,4 @@ int size(OrderedList* ordered);
 bool contains(OrderedList* ordered, int v);
 int getValue(OrderedList* ordered, int idx);
 
-
-#endif __PROB_1__
+#endif SET__

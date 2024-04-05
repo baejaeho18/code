@@ -1,7 +1,7 @@
 #include "orderedList.h"
 #include <iostream>
 
-void simpleTest1(OrderedList* o) {
+void simpleTest1(OrderedSet* o) {
 	add(o, 5);
 	add(o, 4);
 	add(o, 3);
@@ -14,7 +14,7 @@ void simpleTest1(OrderedList* o) {
 	std::cout << std::endl;
 }
 
-void simpleTest2(OrderedList* o) {
+void simpleTest2(OrderedSet* o) {
 	int vals[] = { 10, 20, 35, 35, 10 };
 	add(o, vals, sizeof(vals) / sizeof(int));
 
@@ -24,7 +24,7 @@ void simpleTest2(OrderedList* o) {
 	std::cout << std::endl;
 }
 
-void simpleTest3(OrderedList* o) {
+void simpleTest3(OrderedSet* o) {
 	remove(o, 3);
 
 	for (int i = 0; i < o->m_size; ++i) {
@@ -33,16 +33,16 @@ void simpleTest3(OrderedList* o) {
 	std::cout << std::endl;
 }
 
-void simpleTest4(OrderedList* o) {
+void simpleTest4(OrderedSet* o) {
 	std::cout << std::boolalpha << contains(o, 20) << std::endl;
 	std::cout << std::boolalpha << contains(o, 40) << std::endl;
 }
 
-void simpleTest5(OrderedList* o) {
+void simpleTest5(OrderedSet* o) {
 	std::cout << size(o) << std::endl;
 }
 
-void simpleTest6(OrderedList* o) {
+void simpleTest6(OrderedSet* o) {
 	remove(o, 0);
 
 	for (int i = 0; i < o->m_size + 1; ++i) {
@@ -51,7 +51,7 @@ void simpleTest6(OrderedList* o) {
 	std::cout << std::endl;
 }
 
-void simpleTest7(OrderedList* o) {
+void simpleTest7(OrderedSet* o) {
 	int vals[] = { 90, 0, 2, 7, -1 };
 	add(o, vals, sizeof(vals) / sizeof(int));
 
@@ -61,7 +61,7 @@ void simpleTest7(OrderedList* o) {
 	std::cout << std::endl;
 }
 
-void simpleTest8(OrderedList* o) {
+void simpleTest8(OrderedSet* o) {
 	remove(o, 13);
 	remove(o, -1);
 	remove(o, 12);
@@ -74,7 +74,7 @@ void simpleTest8(OrderedList* o) {
 
 int main()
 {
-	OrderedList* orderedList = new OrderedList;
+	OrderedSet* orderedList = new OrderedSet;
 	orderedList->head = nullptr;
 	orderedList->m_size = 0;
 
