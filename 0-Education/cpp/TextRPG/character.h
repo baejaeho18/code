@@ -1,6 +1,7 @@
 #pragma once
 
 class Character {
+public:
 	int attack;
 	int defense;
 	int gold;
@@ -17,6 +18,8 @@ class Character {
 	void attack_fire();
 	void attack_grass();
 	void attack_Water();
+
+	void level_up();
 
 	void show_character_status();
 };
