@@ -41,6 +41,8 @@ int Map::movable(char direction) {
 		x++;
 	// else wouldn't be happen	
 	visited[y][x] = VISIT;
+	if (mapping[y][x] != SHOP)
+		mapping[y][x] = EMPTY;
 	return mapping[y][x];
 }
 

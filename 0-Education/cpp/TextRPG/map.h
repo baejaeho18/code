@@ -20,7 +20,7 @@ class Map {
 		{MYST, MYST, MYST, MYST, MYST, MYST, MYST, MYST},
 	};
 
-	const int mapping[8][8] =
+	int mapping[8][8] =
 	{
 		{EMPTY,	 RANDOM, MONSTER,MONSTER,RANDOM, EMPTY,  MONSTER,MONSTER},
 		{MONSTER,EMPTY,	 RANDOM, EMPTY,	 MONSTER,RANDOM, EMPTY,  RANDOM},
