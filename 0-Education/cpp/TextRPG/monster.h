@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "character.h"
 
+class Character;
 enum Attribute { NONE, GRASS, WATER, FIRE };
 
 class Monster {
@@ -18,7 +19,7 @@ public:
 	Monster(int attack_, int defense_, int hp_);	// boss
 	int get_reward();
 
-	void attack_basic(Character gamer);
+	void attack_basic(Character& gamer);
 	
 	int injured(int damage);
 	int injured_skill(int damage);

@@ -4,6 +4,8 @@
 #include "shop.h"
 #include "monster.h"
 
+class Monster;
+
 class Character {
 public:
 	int attack;
@@ -27,14 +29,13 @@ public:
 	int prev_curr_mp;
 	int prev_curr_exp;
 
-
 	Character();
 
-	void attack_basic(Monster enemy);
-	void attack_skill(Monster enemy);
-	void attack_fire(Monster enemy);
-	void attack_grass(Monster enemy);
-	void attack_water(Monster enemy);
+	void attack_basic(Monster& enemy);
+	void attack_skill(Monster& enemy);
+	void attack_fire(Monster& enemy);
+	void attack_grass(Monster& enemy);
+	void attack_water(Monster& enemy);
 
 	int injured(int damage);
 

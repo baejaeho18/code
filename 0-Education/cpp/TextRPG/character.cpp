@@ -11,47 +11,49 @@ Character::Character() {
 	prev_curr_exp = curr_exp = 0;
 }
 
-void Character::attack_basic(Monster enemy){
+void Character::attack_basic(Monster& enemy){
 	int damage = enemy.injured(attack);
 	std::cout << "You hit the monster with " << damage << " damage!" << std::endl;
 }
 
-void Character::attack_skill(Monster enemy){
+void Character::attack_skill(Monster& enemy){
 	if (curr_mp < 15) {
 		std::cout << "Not enough MP..." << std::endl;
 		return;
 	}
 	curr_mp -= 15;
 	int damage = enemy.injured_skill(attack);
-
+	std::cout << "You hit the monster with " << damage << " damage!" << std::endl;
 }
 
-void Character::attack_fire(Monster enemy){
+void Character::attack_fire(Monster& enemy){
 	if (curr_mp < 15) {
 		std::cout << "Not enough MP..." << std::endl;
 		return;
 	}
 	curr_mp -= 15;
 	int damage = enemy.injured_fire(attack);
-	
+	std::cout << "You hit the monster with " << damage << " damage!" << std::endl;
 }
 
-void Character::attack_grass(Monster enemy){
+void Character::attack_grass(Monster& enemy){
 	if (curr_mp < 15) {
 		std::cout << "Not enough MP..." << std::endl;
 		return;
 	}
 	curr_mp -= 15;
 	int damage = enemy.injured_grass(attack);
+	std::cout << "You hit the monster with " << damage << " damage!" << std::endl;
 }
 
-void Character::attack_water(Monster enemy){
+void Character::attack_water(Monster& enemy){
 	if (curr_mp < 15) {
 		std::cout << "Not enough MP..." << std::endl;
 		return;
 	}
 	curr_mp -= 15;
 	int damage = enemy.injured_water(attack);
+	std::cout << "You hit the monster with " << damage << " damage!" << std::endl;
 }
 
 int Character::injured(int damage) {

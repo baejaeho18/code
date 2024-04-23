@@ -94,12 +94,13 @@ int fight(Character gamer, Monster enemy) {
 	std::cout << std::endl;
 	while (1) {
 		std::cout << "=======================================" << std::endl;
+		std::cout << "Character status" << std::endl;
 		gamer.show_character_status();
 		std::cout << "=======================================" << std::endl;
 		enemy.show_monster_status();
 		std::cout << "=======================================" << std::endl;
 		std::cout << "Choose your action" << std::endl;
-		std::cout << "!. Meele attack" << std::endl;
+		std::cout << "1. Meele attack" << std::endl;
 		std::cout << "2. Magic attack" << std::endl;
 		std::cout << "3. Fire magic attack" << std::endl;
 		std::cout << "4. Grass magic attack" << std::endl;
@@ -185,7 +186,7 @@ void shopping(Character gamer) {
 	}
 	gamer.purchase(opt, shop.items[opt]);	// opt, item(buf, cost)
 	std::cout << "You bought an item!" << std::endl;
-
+	std::cout << std::endl;
 	// character status
 	std::cout << "======================================" << std::endl;
 	std::cout << "Character status" << std::endl;

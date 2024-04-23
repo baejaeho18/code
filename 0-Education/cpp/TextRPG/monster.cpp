@@ -22,7 +22,7 @@ int Monster::get_reward() {
 	return reward;
 }
 
-void Monster::attack_basic(Character gamer) {
+void Monster::attack_basic(Character& gamer) {
 	int damage = gamer.injured(attack);
 	std::cout << "Monster hit you with " << damage << " damage!" << std::endl;
 }
