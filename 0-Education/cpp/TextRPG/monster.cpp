@@ -5,7 +5,7 @@ Monster::Monster(int difficulty) {
 	max_hp = 50 + (difficulty * 5);
 	curr_hp = max_hp;
 	attack = 5 + difficulty * 2;
-	defense = 2 + difficulty / 2;
+	defense = 2 + difficulty / 2 + ROUND;
 	reward = 100 + difficulty * 10;
 	attribute = rand() % 4;
 }
@@ -34,7 +34,7 @@ int Monster::injured(int damage) {
 }
 
 int Monster::injured_skill(int damage) {
-	damage *= 1.5;
+	damage = (double)damage * 1.5 + ROUND;
 	return injured(damage);
 }
 

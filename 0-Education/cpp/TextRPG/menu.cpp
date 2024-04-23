@@ -70,12 +70,12 @@ void random_encounter(Character& gamer) {
 	int r = rand() % 4;
 	// 0이면 남은 HP 30%감소
 	if (r == 0) {
-		gamer.curr_hp *= (3 / 10);
+		gamer.curr_hp = gamer.curr_hp * 7 / 10.0 + ROUND;
 		std::cout << "You lost HP..." << std::endl;
 	}
 	// 1이면 잃은 HP 30% 회복
 	else if (r == 1) {
-		gamer.curr_hp += (gamer.max_hp - gamer.curr_hp) * 3 / 10;
+		gamer.curr_hp += (gamer.max_hp - gamer.curr_hp) * 3 / 10.0 + ROUND;
 		std::cout << "You restored HP" << std::endl;
 	}
 	// 2이면 100 Gold 증가
@@ -129,10 +129,10 @@ int fight(Character gamer, Monster enemy) {
 		enemy.attack_basic(gamer);
 
 		std::cout << std::endl;
-		if (!enemy.is_alive())
-			return WIN;
 		if (!gamer.is_alive())
 			return LOSE;
+		if (!enemy.is_alive())
+			return WIN;
 	}
 }
 

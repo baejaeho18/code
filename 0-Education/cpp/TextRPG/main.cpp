@@ -24,6 +24,8 @@ int main() {
 			}
 			else if (room == RANDOM) {
 				random_encounter(gamer);
+				if (!gamer.is_alive())
+					break;
 			}
 			else if (room == MONSTER) {
 				Monster enemy(map.distance());
@@ -36,8 +38,6 @@ int main() {
 					gamer.level_up_if_possible();
 				}
 				else {	// if (fight(gamer, boss0 == LOSE) {
-					std::cout << std::endl;
-					std::cout << "You died..." << std::endl;
 					break;
 				}
 			}
@@ -48,10 +48,6 @@ int main() {
 				Monster boss(30, 10, 200);
 				if (fight(gamer, boss) == WIN) {
 					std::cout << "Game Clear!" << std::endl;
-				}
-				else {
-					std::cout << std::endl;
-					std::cout << "You died..." << std::endl;
 				}
 				break;
 			}

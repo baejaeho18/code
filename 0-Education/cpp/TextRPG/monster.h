@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include "character.h"
 
+#define ROUND 0.5;
+
 class Character;
 enum Attribute { NONE, GRASS, WATER, FIRE };
 
