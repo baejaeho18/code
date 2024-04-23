@@ -10,13 +10,14 @@ int main() {
 	std::cout << std::endl;
 
 	int opt;
+	Map map;
 	Character gamer;
 	srand(time(NULL));
 
 	while (1) {
-		opt = progress_game();
+		opt = progress_game(map);
 		if (opt == 1) {
-			int room = move_character();
+			int room = move_character(map);
 			if (room == EMPTY) {
 				// Continue
 				continue;	// 이걸 쓰면 조금이라도 빨라지나?  ...별 차이 없더라

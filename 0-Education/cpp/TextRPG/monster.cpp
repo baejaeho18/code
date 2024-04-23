@@ -1,5 +1,6 @@
 #include "monster.h"
 
+// Monster
 Monster::Monster(int difficulty) {
 	max_hp = 50 + (difficulty * 5);
 	curr_hp = max_hp;
@@ -9,11 +10,10 @@ Monster::Monster(int difficulty) {
 	attribute = rand() % 4;
 }
 
-Monster::Monster(int attack, int defense, int hp) {
-	max_hp = hp;
-	curr_hp = hp;
-	this->attack = attack;
-	this->defense = defense;
+// Boss
+Monster::Monster(int attack_, int defense_, int hp_) 
+	: max_hp(hp_), curr_hp(hp_), attack(attack_), defense(defense_)
+{
 	reward = -1;
 	attribute = rand() % 4;
 }

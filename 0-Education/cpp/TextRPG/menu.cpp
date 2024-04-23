@@ -30,9 +30,9 @@ bool start_game() {
 	}
 }
 
-int progress_game() {
-	show_map();
-	std::cout << "1. Choose tmp" << std::endl;
+int progress_game(Map& map) {
+	map.show_map();
+	std::cout << "1. Choose direction" << std::endl;
 	std::cout << "2. Show character status" << std::endl;
 	std::cout << "3. Exit game" << std::endl;
 
@@ -45,23 +45,22 @@ int progress_game() {
 	}
 }
 
-int move_character() {
+int move_character(Map& map) {
 	char direction, tmp;
+	int room;
 	std::cout << "Where do you want to go?" << std::endl;
 	while (1) {
 		std::cout << "> ";
 		std::cin >> tmp;
 		if (tmp == 'w' || tmp == 'a' || tmp == 's' || tmp == 'd') {
 			direction = tmp;
-			//if (movable(direction))
-			//	break;
-			//else
-			//	std::cout << "You cannot move to that tmp." << std::endl;
+			if (room = map.movable(direction))
+				// direction으로 움직였을 때, room 이름 반환
+				return room;
+			else
+				std::cout << "You cannot move to that direction." << std::endl;
 		}
 	}
-
-	// direction으로 움직였을 때, room이름 반환
-	return EMPTY;
 }
 
 void random_encounter(Character& gamer) {
@@ -92,7 +91,8 @@ void random_encounter(Character& gamer) {
 
 int fight(Character gamer, Monster enemy) {
 
-	return LOSE;
+
+	return WIN;
 }
 
 void shopping(Character gamer) {
@@ -152,28 +152,28 @@ void shopping(Character gamer) {
 	std::cout << "Character status" << std::endl;
 	// level
 	std::cout << "Level: ";
-	if (opt == EXP_BUF)
-		std::cout << gamer.level << " => ";	// if level up, print previous level
+	if (opt == EXP_BUF && gamer.level != gamer.prev_level)
+		std::cout << gamer.prev_level << " => ";	// if level up, print previous level
 	std::cout << gamer.level << std::endl;
 	std::cout << "Attack: ";
 	if (opt == ATK_BUF)
-		std::cout << gamer.attack - 10 << " => "; 
+		std::cout << gamer.prev_attack << " => "; 
 	std::cout << gamer.attack << std::endl;
 	std::cout << "Defense: ";
 	if (opt == DEF_BUF)
-		std::cout << gamer.defense - 5 << " => ";
+		std::cout << gamer.prev_defense << " => ";
 	std::cout << gamer.defense<< std::endl;
 	std::cout << "HP: ";
 	if (opt == HP_BUF)
-		std::cout << gamer.prev_buf_value << " / " << gamer.max_hp << " => ";	// print previous hp
+		std::cout << gamer.prev_curr_hp << " / " << gamer.max_hp << " => ";	// print previous hp
 	std::cout << gamer.curr_hp << " / " << gamer.max_hp << std::endl;
 	std::cout << "MP: ";
 	if (opt == MP_BUF)
-		std::cout << gamer.prev_buf_value << " / " << gamer.max_mp << " => ";	// print previous mp
+		std::cout << gamer.prev_curr_mp << " / " << gamer.max_mp << " => ";	// print previous mp
 	std::cout << gamer.curr_mp << " / " << gamer.max_mp << std::endl;
 	std::cout << "EXP: ";
 	if (opt == 6)
-		std::cout << gamer.prev_buf_value << " / " << gamer.max_exp << " => ";	// print previous exp
+		std::cout << gamer.prev_curr_exp << " / " << gamer.max_exp << " => ";	// print previous exp
 	std::cout << gamer.curr_exp << " / " << gamer.max_exp << std::endl;
 	//shop item list
 	std::cout << "=====================================" << std::endl;

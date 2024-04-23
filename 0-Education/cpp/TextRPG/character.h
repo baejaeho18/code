@@ -27,7 +27,6 @@ public:
 	int prev_curr_mp;
 	int prev_curr_exp;
 
-	int prev_buf_value;
 
 	Character();
 

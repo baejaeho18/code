@@ -14,5 +14,5 @@ class Monster {
 
 public:
 	Monster(int difficulty);						// monster
-	Monster(int attack, int defense, int max_hp);	// boss
+	Monster(int attack_, int defense_, int hp_);	// boss
 };
