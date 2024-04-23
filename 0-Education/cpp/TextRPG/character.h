@@ -30,13 +30,16 @@ public:
 
 	Character();
 
-	void attack_basic();
-	void attack_skill();
-	void attack_fire();
-	void attack_grass();
-	void attack_Water();
+	void attack_basic(Monster enemy);
+	void attack_skill(Monster enemy);
+	void attack_fire(Monster enemy);
+	void attack_grass(Monster enemy);
+	void attack_water(Monster enemy);
 
-	void level_up();
+	int injured(int damage);
+
+	bool is_alive();
+	void level_up_if_possible();
 	void show_character_status();
 
 	void purchase(int opt, Item item);

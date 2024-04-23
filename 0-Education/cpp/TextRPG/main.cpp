@@ -26,10 +26,14 @@ int main() {
 				random_encounter(gamer);
 			}
 			else if (room == MONSTER) {
-				int difficulty = 5;
-				Monster enemy(difficulty);	// difficulty example
+				Monster enemy(map.distance());
 				if (fight(gamer, enemy) == WIN){
-					gamer.level_up();
+					std::cout << "You defeated the monster!" << std::endl;
+					std::cout << "Reward: " << enemy.get_reward() << " Gold, " << enemy.get_reward() << " EXP" << std::endl;
+					std::cout << std::endl;
+					gamer.curr_exp += enemy.get_reward();
+					gamer.gold += enemy.get_reward();
+					gamer.level_up_if_possible();
 				}
 				else {	// if (fight(gamer, boss0 == LOSE) {
 					std::cout << std::endl;
@@ -45,7 +49,7 @@ int main() {
 				if (fight(gamer, boss) == WIN) {
 					std::cout << "Game Clear!" << std::endl;
 				}
-				else {	// if (fight(gamer, boss0 == LOSE) {
+				else {
 					std::cout << std::endl;
 					std::cout << "You died..." << std::endl;
 				}
@@ -53,7 +57,9 @@ int main() {
 			}
 		}
 		else if (opt == 2) {
+			std::cout << std::endl;
 			gamer.show_character_status();
+			std::cout << std::endl;
 		}
 		else { // if (opt == 3) {
 			std::cout << "Exit..." << std::endl;

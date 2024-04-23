@@ -43,3 +43,7 @@ int Map::movable(char direction) {
 	visited[y][x] = VISIT;
 	return mapping[y][x];
 }
+
+int Map::distance() {
+	return x + y;
+}

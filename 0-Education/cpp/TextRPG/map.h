@@ -36,4 +36,5 @@ public:
 	Map();
 	void show_map();
 	int movable(char direction);
+	int distance();
 };

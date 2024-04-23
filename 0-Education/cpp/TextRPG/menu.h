@@ -4,7 +4,6 @@
 #include "shop.h"
 #include "map.h"
 
-
 enum Result { LOSE, WIN };
 
 bool start_game();				// start or not
