@@ -11,18 +11,22 @@ int main() {
 
 	int opt;
 	Character gamer;
+	srand(time(NULL));
+
 	while (1) {
 		opt = progress_game();
 		if (opt == 1) {
 			int room = move_character();
 			if (room == EMPTY) {
 				// Continue
+				continue;	// 이걸 쓰면 조금이라도 빨라지나?  ...별 차이 없더라
 			}
 			else if (room == RANDOM) {
 				random_encounter(gamer);
 			}
 			else if (room == MONSTER) {
-				Monster enemy(5);
+				int difficulty = 5;
+				Monster enemy(difficulty);	// difficulty example
 				if (fight(gamer, enemy) == WIN){
 					gamer.level_up();
 				}

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdlib>
+
 enum Attribute { NONE, GRASS, WATER, FIRE };
 
 class Monster {
@@ -10,6 +12,7 @@ class Monster {
 	int curr_hp;
 	int reward;
 
+public:
 	Monster(int difficulty);						// monster
 	Monster(int attack, int defense, int max_hp);	// boss
 };

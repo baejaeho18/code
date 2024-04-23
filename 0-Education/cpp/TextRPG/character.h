@@ -1,5 +1,9 @@
 #pragma once
 
+#include <iostream>
+#include "shop.h"
+#include "monster.h"
+
 class Character {
 public:
 	int attack;
@@ -13,6 +17,20 @@ public:
 	int max_exp;
 	int curr_exp;
 
+	int prev_level;
+	int prev_attack;
+	int prev_defense;
+	int prev_max_hp;
+	int prev_max_mp;
+	int prev_max_exp;
+	int prev_curr_hp;
+	int prev_curr_mp;
+	int prev_curr_exp;
+
+	int prev_buf_value;
+
+	Character();
+
 	void attack_basic();
 	void attack_skill();
 	void attack_fire();
@@ -20,6 +38,7 @@ public:
 	void attack_Water();
 
 	void level_up();
-
 	void show_character_status();
+
+	void purchase(int opt, Item item);
 };
