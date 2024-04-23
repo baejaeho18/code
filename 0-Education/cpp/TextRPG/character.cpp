@@ -135,7 +135,5 @@ void Character::purchase(int opt, Item item) {
 bool Character::is_alive() {
 	if (0 < curr_hp)
 		return true;
-	std::cout << std::endl;
-	std::cout << "You died..." << std::endl;
 	return false;
 }

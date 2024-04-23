@@ -19,7 +19,6 @@ int main() {
 		if (opt == 1) {
 			int room = move_character(map);
 			if (room == EMPTY) {
-				// Continue
 				continue;	// 이걸 쓰면 조금이라도 빨라지나?  ...별 차이 없더라
 			}
 			else if (room == RANDOM) {
@@ -29,26 +28,15 @@ int main() {
 			}
 			else if (room == MONSTER) {
 				Monster enemy(map.distance());
-				if (fight(gamer, enemy) == WIN){
-					std::cout << "You defeated the monster!" << std::endl;
-					std::cout << "Reward: " << enemy.get_reward() << " Gold, " << enemy.get_reward() << " EXP" << std::endl;
-					std::cout << std::endl;
-					gamer.curr_exp += enemy.get_reward();
-					gamer.gold += enemy.get_reward();
-					gamer.level_up_if_possible();
-				}
-				else {	// if (fight(gamer, boss0 == LOSE) {
+				if (fight(gamer, enemy) == LOSE)
 					break;
-				}
 			}
 			else if (room == SHOP) {
 				shopping(gamer);
 			}
 			else {	// if (room = BOSS) {
 				Monster boss(30, 10, 200);
-				if (fight(gamer, boss) == WIN) {
-					std::cout << "Game Clear!" << std::endl;
-				}
+				fight(gamer, boss);
 				break;
 			}
 		}
