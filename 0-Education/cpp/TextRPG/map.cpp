@@ -30,6 +30,8 @@ int Map::movable(char direction) {
 		|| (x == 0 && direction == 'a') || (x == 7 && direction == 'w')  )
 		return 0;
 
+	if (mapping[y][x] != SHOP)
+		mapping[y][x] = EMPTY;
 	// x,y좌표 바꾸고
 	if (direction == 'w')		// up
 		y--;
@@ -41,8 +43,6 @@ int Map::movable(char direction) {
 		x++;
 	// else wouldn't be happen	
 	visited[y][x] = VISIT;
-	if (mapping[y][x] != SHOP)
-		mapping[y][x] = EMPTY;
 	return mapping[y][x];
 }
 
