@@ -6,7 +6,7 @@
 #define ROUND 0.5;
 
 class Character;
-enum Attribute { NONE, GRASS, WATER, FIRE };
+enum Attribute { BASIC, NONE, GRASS, WATER, FIRE };
 
 class Monster {
 	int attack;
@@ -19,7 +19,8 @@ class Monster {
 public:
 	Monster(int difficulty);						// monster
 	Monster(int attack_, int defense_, int hp_);	// boss
-	int get_reward();
+	~Monster();
+	int getReward();
 
 	void attack_basic(Character& gamer);
 	

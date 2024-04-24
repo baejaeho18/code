@@ -11,6 +11,23 @@ Character::Character() {
 	prev_curr_exp = curr_exp = 0;
 }
 
+Character::~Character() {
+	std::cout << std::endl;
+	std::cout << "You died..." << std::endl;
+}
+
+//int Character::getGold() const { return gold; }
+//int Character::getLevel() const { return level; }
+//int Character::getAttack() const { return attack; }
+//int Character::getDefense() const { return defense; }
+//int Character::getMaxHP() const { return max_hp; }
+//int Character::getCurrHP() const { return curr_hp; }
+//int Character::getMaxMP() const { return max_mp; }
+//int Character::getCurrMP() const { return curr_mp; }
+//int Character::getMaxExp() const { return max_exp; }
+//int Character::getCurrExp() const { return curr_exp; }
+//void Character::setCurrHP(int value) { curr_hp = value; }
+
 void Character::attack_basic(Monster& enemy){
 	int damage = enemy.injured(attack);
 	std::cout << "You hit the monster with " << damage << " damage!" << std::endl;

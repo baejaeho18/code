@@ -8,17 +8,6 @@ class Monster;
 
 class Character {
 public:
-	int attack;
-	int defense;
-	int gold;
-	int level;
-	int max_hp;
-	int curr_hp;
-	int max_mp;
-	int curr_mp;
-	int max_exp;
-	int curr_exp;
-
 	int prev_level;
 	int prev_attack;
 	int prev_defense;
@@ -29,7 +18,31 @@ public:
 	int prev_curr_mp;
 	int prev_curr_exp;
 
+	int gold;
+	int level;
+	int attack;
+	int defense;
+	int max_hp;
+	int curr_hp;
+	int max_mp;
+	int curr_mp;
+	int max_exp;
+	int curr_exp;
+
 	Character();
+	~Character();
+
+	//int getGold() const;
+	//int getLevel() const;
+	//int getAttack() const;
+	//int getDefense() const;
+	//int getMaxHP() const;
+	//int getCurrHP() const;
+	//int getMaxMP() const;
+	//int getCurrMP() const;
+	//int getMaxExp() const;
+	//int getCurrExp() const;
+	//void setCurrHP(int value);
 
 	void attack_basic(Monster& enemy);
 	void attack_skill(Monster& enemy);

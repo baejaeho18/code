@@ -135,17 +135,17 @@ int fight(Character& gamer, Monster& enemy) {
 			return LOSE;
 		}
 		if (!enemy.is_alive()) {
-			int reward = enemy.get_reward();
+			int reward = enemy.getReward();
 			if (reward == -1) { // boss
 				std::cout << std::endl;
 				std::cout << "Game Clear!" << std::endl;
 			}
 			else if (0 < reward) { // mpnster
 				std::cout << "You defeated the monster!" << std::endl;
-				std::cout << "Reward: " << enemy.get_reward() << " Gold, " << enemy.get_reward() << " EXP" << std::endl;
+				std::cout << "Reward: " << reward << " Gold, " << reward << " EXP" << std::endl;
 				std::cout << std::endl;
-				gamer.curr_exp += enemy.get_reward();
-				gamer.gold += enemy.get_reward();
+				gamer.curr_exp += reward;
+				gamer.gold += reward;
 				gamer.level_up_if_possible();
 			}
 			return WIN;

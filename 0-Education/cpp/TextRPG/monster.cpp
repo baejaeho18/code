@@ -18,7 +18,19 @@ Monster::Monster(int attack_, int defense_, int hp_)
 	attribute = rand() % 4;
 }
 
-int Monster::get_reward() {
+Monster::~Monster() {
+	if (reward == -1) { // boss
+		std::cout << std::endl;
+		std::cout << "Game Clear!" << std::endl;
+	}
+	else if (0 < reward) { // mpnster
+		std::cout << "You defeated the monster!" << std::endl;
+		std::cout << "Reward: " << reward << " Gold, " << reward << " EXP" << std::endl;
+		std::cout << std::endl;
+	}
+}
+
+int Monster::getReward() {
 	return reward;
 }
 
