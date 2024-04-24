@@ -55,6 +55,6 @@ public:
 	bool is_alive();
 	void level_up_if_possible();
 	void show_character_status();
-
+	void show_purchased_status(int opt);
 	void purchase(int opt, Item item);
 };

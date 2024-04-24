@@ -123,6 +123,35 @@ void Character::show_character_status() {
 	cout << "EXP: " << curr_exp << " / " << max_exp << endl;
 }
 
+void Character::show_purchased_status(int opt) {
+	std::cout << "Character status" << std::endl;
+	// level
+	std::cout << "Level: ";
+	if (opt == EXP_BUF && level != prev_level)
+		std::cout << prev_level << " => ";	// if level up, print previous level
+	std::cout << level << std::endl;
+	std::cout << "Attack: ";
+	if (opt == ATK_BUF)
+		std::cout << prev_attack << " => ";
+	std::cout << attack << std::endl;
+	std::cout << "Defense: ";
+	if (opt == DEF_BUF)
+		std::cout << prev_defense << " => ";
+	std::cout << defense << std::endl;
+	std::cout << "HP: ";
+	if (opt == HP_BUF)
+		std::cout << prev_curr_hp << " / " << max_hp << " => ";	// print previous hp
+	std::cout << curr_hp << " / " << max_hp << std::endl;
+	std::cout << "MP: ";
+	if (opt == MP_BUF)
+		std::cout << prev_curr_mp << " / " << max_mp << " => ";	// print previous mp
+	std::cout << curr_mp << " / " << max_mp << std::endl;
+	std::cout << "EXP: ";
+	if (opt == 6)
+		std::cout << prev_curr_exp << " / " << max_exp << " => ";	// print previous exp
+	std::cout << curr_exp << " / " << max_exp << std::endl;
+}
+
 void Character::purchase(int opt, Item item) {
 	if (opt == 1) {
 		prev_attack = attack;

@@ -206,32 +206,7 @@ void shopping(Character& gamer) {
 	std::cout << std::endl;
 	// character status
 	std::cout << "======================================" << std::endl;
-	std::cout << "Character status" << std::endl;
-	// level
-	std::cout << "Level: ";
-	if (opt == EXP_BUF && gamer.level != gamer.prev_level)
-		std::cout << gamer.prev_level << " => ";	// if level up, print previous level
-	std::cout << gamer.level << std::endl;
-	std::cout << "Attack: ";
-	if (opt == ATK_BUF)
-		std::cout << gamer.prev_attack << " => "; 
-	std::cout << gamer.attack << std::endl;
-	std::cout << "Defense: ";
-	if (opt == DEF_BUF)
-		std::cout << gamer.prev_defense << " => ";
-	std::cout << gamer.defense<< std::endl;
-	std::cout << "HP: ";
-	if (opt == HP_BUF)
-		std::cout << gamer.prev_curr_hp << " / " << gamer.max_hp << " => ";	// print previous hp
-	std::cout << gamer.curr_hp << " / " << gamer.max_hp << std::endl;
-	std::cout << "MP: ";
-	if (opt == MP_BUF)
-		std::cout << gamer.prev_curr_mp << " / " << gamer.max_mp << " => ";	// print previous mp
-	std::cout << gamer.curr_mp << " / " << gamer.max_mp << std::endl;
-	std::cout << "EXP: ";
-	if (opt == 6)
-		std::cout << gamer.prev_curr_exp << " / " << gamer.max_exp << " => ";	// print previous exp
-	std::cout << gamer.curr_exp << " / " << gamer.max_exp << std::endl;
+	gamer.show_purchased_status(opt);
 	//shop item list
 	std::cout << "=======================================" << std::endl;
 	std::cout << "Shop item list" << std::endl;
