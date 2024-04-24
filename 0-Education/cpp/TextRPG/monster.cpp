@@ -5,7 +5,7 @@ Monster::Monster(int difficulty) {
 	max_hp = 50 + (difficulty * 5);
 	curr_hp = max_hp;
 	attack = 5 + difficulty * 2;
-	defense = 2 + difficulty / 2 + ROUND;
+	defense = 2 + difficulty / 2.0 + ROUND;
 	reward = 100 + difficulty * 10;
 	attribute = rand() % 4;
 }

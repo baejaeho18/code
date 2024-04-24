@@ -11,5 +11,5 @@ int progress_game(Map& map);	// return 1. move 2. show_status 3. exit
 int move_character(Map& map);			// arriving Room is Empty or Random or Monster or Shop or Boss
 
 void random_encounter(Character &gamer);
-int fight(Character gamer, Monster enemy);	// LOSE or WIN
-void shopping(Character gamer);
+int fight(Character& gamer, Monster& enemy);	// LOSE or WIN
+void shopping(Character& gamer);

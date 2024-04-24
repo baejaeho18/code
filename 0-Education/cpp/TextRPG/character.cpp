@@ -81,17 +81,18 @@ void Character::level_up_if_possible() {
 		curr_exp -= max_exp;
 		max_exp = level * 100;
 	}
-
-	std::cout << "Level up!" << std::endl;
-	std::cout << "=======================================" << std::endl;
-	std::cout << "Character status" << std::endl;
-	std::cout << "Level: " << prev_level << " => " << level << std::endl;
-	std::cout << "Attack: " << prev_attack << " => " << attack << std::endl;
-	std::cout << "Defense: " << prev_defense << " => " << defense << std::endl;
-	std::cout << "HP: " << prev_curr_hp << " / " << prev_max_hp << " => " << curr_hp << " / " << max_hp << std::endl;
-	std::cout << "MP: " << prev_curr_mp << " / " << prev_max_mp << " => " << curr_mp << " / " << max_mp << std::endl;
-	std::cout << "EXP: " << prev_curr_exp << " / " << prev_max_exp << " => " << curr_exp << " / " << max_exp << std::endl;
-	std::cout << "=======================================" << std::endl;
+	if (prev_level != level) {
+		std::cout << "Level up!" << std::endl;
+		std::cout << "=======================================" << std::endl;
+		std::cout << "Character status" << std::endl;
+		std::cout << "Level: " << prev_level << " => " << level << std::endl;
+		std::cout << "Attack: " << prev_attack << " => " << attack << std::endl;
+		std::cout << "Defense: " << prev_defense << " => " << defense << std::endl;
+		std::cout << "HP: " << prev_curr_hp << " / " << prev_max_hp << " => " << curr_hp << " / " << max_hp << std::endl;
+		std::cout << "MP: " << prev_curr_mp << " / " << prev_max_mp << " => " << curr_mp << " / " << max_mp << std::endl;
+		std::cout << "EXP: " << prev_curr_exp << " / " << prev_max_exp << " => " << curr_exp << " / " << max_exp << std::endl;
+		std::cout << "=======================================" << std::endl;
+	}
 }
 
 void Character::show_character_status() {

@@ -89,7 +89,7 @@ void random_encounter(Character& gamer) {
 	}
 }
 
-int fight(Character gamer, Monster enemy) {
+int fight(Character& gamer, Monster& enemy) {
 	std::cout << "Wild monster appeared!" << std::endl;
 	std::cout << std::endl;
 	while (1) {
@@ -153,7 +153,7 @@ int fight(Character gamer, Monster enemy) {
 	}
 }
 
-void shopping(Character gamer) {
+void shopping(Character& gamer) {
 	Shop shop;
 	std::cout << "Welcome to the item shop!" << std::endl;
 	std::cout << "You have " << gamer.gold << " gold." << std::endl;
