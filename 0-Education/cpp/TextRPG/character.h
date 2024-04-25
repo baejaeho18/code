@@ -7,7 +7,6 @@
 class Monster;
 
 class Character {
-public:
 	int prev_level;
 	int prev_attack;
 	int prev_defense;
@@ -29,10 +28,11 @@ public:
 	int max_exp;
 	int curr_exp;
 
+public:
 	Character();
 	~Character();
 
-	//int getGold() const;
+	int getGold() const;
 	//int getLevel() const;
 	//int getAttack() const;
 	//int getDefense() const;
@@ -44,17 +44,24 @@ public:
 	//int getCurrExp() const;
 	//void setCurrHP(int value);
 
+	// level up
+	void level_up_if_possible();
+	// fight
 	void attack_basic(Monster& enemy);
 	void attack_skill(Monster& enemy);
 	void attack_fire(Monster& enemy);
 	void attack_grass(Monster& enemy);
 	void attack_water(Monster& enemy);
-
 	int injured(int damage);
-
-	bool is_alive();
-	void level_up_if_possible();
+	bool is_alive();	
+	// show status
 	void show_character_status();
+	// shopping
 	void show_purchased_status(int opt);
 	void purchase(int opt, Item item);
+	// random encounter
+	void percentage_damage(double percentage);
+	void percentage_restore(double percentage);
+	void looting_gold(int gold_);
+	void looting_exp(int exp_);
 };

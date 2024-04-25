@@ -70,17 +70,17 @@ void random_encounter(Character& gamer) {
 	int r = rand() % 4;
 	// 0이면 남은 HP 30%감소
 	if (r == 0) {
-		gamer.curr_hp = gamer.curr_hp * 7 / 10.0 + ROUND;
+		gamer.percentage_damage(0.3);
 		std::cout << "You lost HP..." << std::endl;
 	}
 	// 1이면 잃은 HP 30% 회복
 	else if (r == 1) {
-		gamer.curr_hp += (gamer.max_hp - gamer.curr_hp) * 3 / 10.0 + ROUND;
+		gamer.percentage_restore(0.3);
 		std::cout << "You restored HP" << std::endl;
 	}
 	// 2이면 100 Gold 증가
 	else if (r == 2) {
-		gamer.gold += 100;
+		gamer.looting_gold(100);
 		std::cout << "You found 100 gold!" << std::endl;
 	}
 	// 3이면 nothing happen
@@ -144,8 +144,8 @@ int fight(Character& gamer, Monster& enemy) {
 				std::cout << "You defeated the monster!" << std::endl;
 				std::cout << "Reward: " << reward << " Gold, " << reward << " EXP" << std::endl;
 				std::cout << std::endl;
-				gamer.curr_exp += reward;
-				gamer.gold += reward;
+				gamer.looting_exp(reward);
+				gamer.looting_gold(reward);
 				gamer.level_up_if_possible();
 			}
 			return WIN;
@@ -156,7 +156,7 @@ int fight(Character& gamer, Monster& enemy) {
 void shopping(Character& gamer) {
 	Shop shop;
 	std::cout << "Welcome to the item shop!" << std::endl;
-	std::cout << "You have " << gamer.gold << " gold." << std::endl;
+	std::cout << "You have " << gamer.getGold() << " gold." << std::endl;
 	std::cout << "=======================================" << std::endl;
 	std::cout << "============== Item list ==============" << std::endl;
 	std::cout << "=======================================" << std::endl;
@@ -183,7 +183,7 @@ void shopping(Character& gamer) {
 	std::cout << "=======================================" << std::endl;
 
 	int opt;
-	int gold = gamer.gold;
+	int gold = gamer.getGold();
 	while (1) {
 		std::cout << "> ";
 		std::cin >> opt;
