@@ -30,7 +30,7 @@ class Character {
 
 public:
 	Character();
-	~Character();
+	// ~Character();	// No need
 
 	int getGold() const;
 	//int getLevel() const;

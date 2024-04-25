@@ -11,10 +11,10 @@ Character::Character() {
 	prev_curr_exp = curr_exp = 0;
 }
 
-Character::~Character() {
-	std::cout << std::endl;
-	std::cout << "You died..." << std::endl;
-}
+//Character::~Character() {
+//	std::cout << std::endl;
+//	std::cout << "You died..." << std::endl;
+//}
 
 int Character::getGold() const { return gold; }
 //int Character::getLevel() const { return level; }

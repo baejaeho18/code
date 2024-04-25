@@ -19,11 +19,11 @@ class Monster {
 public:
 	Monster(int difficulty);						// monster
 	Monster(int attack_, int defense_, int hp_);	// boss
-	~Monster();
+	// ~Monster();	// No need
+
 	int getReward();
 
 	void attack_basic(Character& gamer);
-	
 	int injured(int damage);
 	int injured_skill(int damage);
 	int injured_fire(int damage);
