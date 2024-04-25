@@ -155,8 +155,9 @@ int fight(Character& gamer, Monster& enemy) {
 
 void shopping(Character& gamer) {
 	Shop shop;
+	int gold = gamer.getGold();
 	std::cout << "Welcome to the item shop!" << std::endl;
-	std::cout << "You have " << gamer.getGold() << " gold." << std::endl;
+	std::cout << "You have " << gold << " gold." << std::endl;
 	std::cout << "=======================================" << std::endl;
 	std::cout << "============== Item list ==============" << std::endl;
 	std::cout << "=======================================" << std::endl;
@@ -183,7 +184,6 @@ void shopping(Character& gamer) {
 	std::cout << "=======================================" << std::endl;
 
 	int opt;
-	int gold = gamer.getGold();
 	while (1) {
 		std::cout << "> ";
 		std::cin >> opt;
@@ -204,11 +204,11 @@ void shopping(Character& gamer) {
 	gamer.purchase(opt, shop.items[opt]);	// opt, item(buf, cost)
 	std::cout << "You bought an item!" << std::endl;
 	std::cout << std::endl;
-	// character status
 	std::cout << "======================================" << std::endl;
+	// character status
 	gamer.show_purchased_status(opt);
-	//shop item list
 	std::cout << "=======================================" << std::endl;
+	//shop item list
 	std::cout << "Shop item list" << std::endl;
 	std::cout << "1. Attack +10 (700 Gold) ";
 	if (shop.attack_available())

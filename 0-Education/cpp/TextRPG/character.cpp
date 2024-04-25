@@ -114,7 +114,7 @@ void Character::attack_water(Monster& enemy){
 
 int Character::injured(int damage) {
 	damage -= defense;
-	curr_hp -= damage;
+	curr_hp -= (damage < 0) ? 0 : damage;
 	return damage;
 }
 

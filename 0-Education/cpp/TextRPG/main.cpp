@@ -19,7 +19,7 @@ int main() {
 		if (opt == 1) {
 			int room = move_character(map);
 			if (room == EMPTY) {
-				continue;	// 이걸 쓰면 조금이라도 빨라지나?  ...별 차이 없더라
+				continue;	// Is it faster?  ...not really
 			}
 			else if (room == RANDOM) {
 				random_encounter(gamer);
