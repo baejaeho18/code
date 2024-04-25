@@ -171,7 +171,7 @@ void Character::purchase(int opt, Item item) {
 		prev_curr_exp = curr_exp;
 		curr_exp += item.buf;
 		// level up
-		level_up_if_possible();
+		level_up_if_possible();		// Todo: should not show levelup message and keep prev_curr_exp
 	}
 	else if (opt == 4) {
 		prev_curr_hp = curr_hp;
