@@ -60,7 +60,7 @@ public:
 	void show_character_status_changed();
 	// shopping
 	bool purchasable(int cost);
-	void purchase(int opt, Item item);
+	void purchase(int opt, Item& item);
 	// random encounter
 	void percentage_damage(double percentage);
 	void percentage_restore(double percentage);

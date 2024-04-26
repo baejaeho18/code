@@ -160,27 +160,9 @@ void shopping(Shop& shop, Character& gamer) {
 	std::cout << "============== Item list ==============" << std::endl;
 	std::cout << "=======================================" << std::endl;
 	std::cout << std::endl;
-	std::cout << "1. Attack +10 (700 Gold) ";
-	if (shop.attack_available())
-		std::cout << "(Available)" << std::endl;
-	else
-		std::cout << "(Sold Out)" << std::endl;
-	std::cout << "2. Defense +5 (700 Gold) ";
-	if (shop.defense_available())
-		std::cout << "(Available)" << std::endl;
-	else
-		std::cout << "(Sold Out)" << std::endl;
-	std::cout << "3. Exp +300 (700 Gold) ";
-	if (shop.exp_available())
-		std::cout << "(Available)" << std::endl;
-	else
-		std::cout << "(Sold Out)" << std::endl;
-	std::cout << "4. Restore HP (500 Gold) (Always available)" << std::endl;
-	std::cout << "5. Restore MP (500 Gold) (Always available)" << std::endl;
-	std::cout << "6. Exit shop" << std::endl;
+	shop.show_item_list();
 	std::cout << std::endl;
 	std::cout << "=======================================" << std::endl;
-	shop.show_item_list();
 
 	int opt;
 	while (1) {
@@ -188,14 +170,17 @@ void shopping(Shop& shop, Character& gamer) {
 		std::cin >> opt;
 		if (ATK_BUF <= opt && opt <= MP_BUF) {
 			// available?
-			if ((opt == ATK_BUF && !shop.attack_available())
+			if (!shop.available(opt))
+			/*if ((opt == ATK_BUF && !shop.attack_available())
 				|| (opt == DEF_BUF && !shop.defense_available())
 				|| (opt == EXP_BUF && !shop.exp_available())
-				)
+				)*/
 				std::cout << "Selected item is not available...\n" << std::endl;
 			// enough gold?
-			else if (gamer.purchasable(shop.items[opt].cost))
+			else if (!gamer.purchasable(shop.items[opt].cost))
 				std::cout << "You do not have enough gold...\n" << std::endl;
+			else
+				break;
 		}
 		if (opt == 6)	// EXIT
 			return;
@@ -210,29 +195,6 @@ void shopping(Shop& shop, Character& gamer) {
 	std::cout << "=======================================" << std::endl;
 	//shop item list
 	std::cout << "Shop item list" << std::endl;
-	std::cout << "1. Attack +10 (700 Gold) ";
-	if (shop.attack_available())
-		std::cout << "(Available)" << std::endl;
-	else if (opt == ATK_BUF)
-		std::cout << "(Available) => (Sold Out)" << std::endl;
-	else 
-		std::cout << "(Sold Out)" << std::endl;
-	std::cout << "2. Defense +5 (700 Gold) ";
-	if (shop.defense_available())
-		std::cout << "(Available)" << std::endl;
-	else if (opt == DEF_BUF)
-		std::cout << "(Available) => (Sold Out)" << std::endl;
-	else
-		std::cout << "(Sold Out)" << std::endl;
-	std::cout << "3. Exp +300 (700 Gold) ";
-	if (shop.exp_available())
-		std::cout << "(Available)" << std::endl;
-	else if (opt == EXP_BUF)
-		std::cout << "(Available) => (Sold Out)" << std::endl;
-	else
-		std::cout << "(Sold Out)" << std::endl;
-	std::cout << "4. Restore HP (500 Gold) (Always available)" << std::endl;
-	std::cout << "5. Restore MP (500 Gold) (Always available)" << std::endl;
 	shop.show_item_list_changed(opt);
 	std::cout << "=======================================" << std::endl;
 	std::cout << std::endl;

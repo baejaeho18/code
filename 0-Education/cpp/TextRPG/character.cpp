@@ -170,13 +170,32 @@ void Character::show_character_status_changed() {
 	if (prev_curr_exp != curr_exp || prev_max_exp != max_exp)
 		std::cout << prev_curr_exp << " / " << max_exp << " => ";	// print previous exp
 	std::cout << curr_exp << " / " << max_exp << std::endl;
+	// init prevs
+	prev_level = level;
+	prev_attack = attack;
+	prev_defense = defense;
+	prev_curr_exp = curr_exp;
+	prev_max_exp = max_exp;
+	prev_curr_hp = curr_hp;
+	prev_max_hp = max_hp;
+	prev_curr_mp = curr_mp;
+	prev_max_mp = max_mp;
 }
 
 bool Character::purchasable(int cost) {
 	return (cost <= gold);
 }
 
-void Character::purchase(int opt, Item item) {
+void Character::purchase(int opt, Item& item) {
+	prev_level = level;
+	prev_attack = attack;
+	prev_defense = defense;
+	prev_curr_exp = curr_exp;
+	prev_max_exp = max_exp;
+	prev_curr_hp = curr_hp;
+	prev_max_hp = max_hp;
+	prev_curr_mp = curr_mp;
+	prev_max_mp = max_mp;
 	if (opt == ATK_BUF) {
 		prev_attack = attack;
 		attack += item.buf;
@@ -200,15 +219,18 @@ void Character::purchase(int opt, Item item) {
 		curr_mp = max_mp;
 	}
 	// else wouldn't be happen
+	item.inventory--;
 	gold -= item.cost;
 }
 
 void Character::percentage_damage(double percentage) {
 	curr_hp = curr_hp * (1 - percentage) + ROUND;
+	prev_curr_hp = curr_hp;
 }
 
 void Character::percentage_restore(double percentage) {
 	curr_hp += (max_hp - curr_hp) * percentage + ROUND;
+	prev_curr_hp = curr_hp;
 }
 
 void Character::looting_gold(int gold_) {
@@ -217,4 +239,5 @@ void Character::looting_gold(int gold_) {
 
 void Character::looting_exp(int exp_) {
 	curr_exp += exp_;
+	prev_curr_exp = curr_exp;
 }
