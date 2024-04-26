@@ -28,7 +28,7 @@ int Character::getGold() const { return gold; }
 //int Character::getCurrExp() const { return curr_exp; }
 //void Character::setCurrHP(int value) { curr_hp = value; }
 
-void Character::level_up_if_possible() {
+void Character::level_up_if_possible() {	// after fighting
 	prev_level = level;
 	prev_attack = attack;
 	prev_defense = defense;
@@ -51,13 +51,29 @@ void Character::level_up_if_possible() {
 		std::cout << "Level up!" << std::endl;
 		std::cout << "=======================================" << std::endl;
 		std::cout << "Character status" << std::endl;
-		std::cout << "Level: " << prev_level << " => " << level << std::endl;
-		std::cout << "Attack: " << prev_attack << " => " << attack << std::endl;
-		std::cout << "Defense: " << prev_defense << " => " << defense << std::endl;
-		std::cout << "HP: " << prev_curr_hp << " / " << prev_max_hp << " => " << curr_hp << " / " << max_hp << std::endl;
-		std::cout << "MP: " << prev_curr_mp << " / " << prev_max_mp << " => " << curr_mp << " / " << max_mp << std::endl;
-		std::cout << "EXP: " << prev_curr_exp << " / " << prev_max_exp << " => " << curr_exp << " / " << max_exp << std::endl;
+		show_character_status_changed();
 		std::cout << "=======================================" << std::endl;
+	}
+}
+
+void Character::level_up_if_possible(int prev_curr_exp_) {	// after shopping
+	prev_level = level;
+	prev_attack = attack;
+	prev_defense = defense;
+	prev_curr_exp = prev_curr_exp_;
+	prev_max_exp = max_exp;
+	prev_curr_hp = curr_hp;
+	prev_max_hp = max_hp;
+	prev_curr_mp = curr_mp;
+	prev_max_mp = max_mp;
+	while (max_exp < curr_exp) {
+		level += 1;
+		attack += 3;
+		defense += 1;
+		curr_hp = max_hp += 50;
+		curr_mp = max_mp += 10;
+		curr_exp -= max_exp;
+		max_exp = level * 100;
 	}
 }
 
@@ -129,33 +145,35 @@ void Character::show_character_status() {
 	cout << "EXP: " << curr_exp << " / " << max_exp << endl;
 }
 
-void Character::show_purchased_status(int opt) {
-	std::cout << "Character status" << std::endl;
-	// level
+void Character::show_character_status_changed() {
 	std::cout << "Level: ";
-	if (opt == EXP_BUF && level != prev_level)
-		std::cout << prev_level << " => ";	// if level up, print previous level
+	if (level != prev_level)
+		std::cout << prev_level << " => ";
 	std::cout << level << std::endl;
 	std::cout << "Attack: ";
-	if (opt == ATK_BUF)
+	if (attack != prev_attack)
 		std::cout << prev_attack << " => ";
 	std::cout << attack << std::endl;
 	std::cout << "Defense: ";
-	if (opt == DEF_BUF)
+	if (defense != prev_defense)
 		std::cout << prev_defense << " => ";
 	std::cout << defense << std::endl;
 	std::cout << "HP: ";
-	if (opt == HP_BUF)
-		std::cout << prev_curr_hp << " / " << max_hp << " => ";	// print previous hp
+	if (curr_hp != prev_curr_hp)
+		std::cout << prev_curr_hp << " / " << max_hp << " => ";		// print previous hp
 	std::cout << curr_hp << " / " << max_hp << std::endl;
 	std::cout << "MP: ";
-	if (opt == MP_BUF)
-		std::cout << prev_curr_mp << " / " << max_mp << " => ";	// print previous mp
+	if (prev_curr_mp != curr_mp)
+		std::cout << prev_curr_mp << " / " << max_mp << " => ";		// print previous mp
 	std::cout << curr_mp << " / " << max_mp << std::endl;
 	std::cout << "EXP: ";
-	if (opt == 6)
+	if (prev_curr_exp != curr_exp || prev_max_exp != max_exp)
 		std::cout << prev_curr_exp << " / " << max_exp << " => ";	// print previous exp
 	std::cout << curr_exp << " / " << max_exp << std::endl;
+}
+
+bool  Character::purchasable(int cost) {
+	return (cost <= gold);
 }
 
 void Character::purchase(int opt, Item item) {
@@ -171,7 +189,7 @@ void Character::purchase(int opt, Item item) {
 		prev_curr_exp = curr_exp;
 		curr_exp += item.buf;
 		// level up
-		level_up_if_possible();		// Todo: should not show levelup message and keep prev_curr_exp
+		level_up_if_possible(prev_curr_exp);		// Todo: should not show levelup message and keep prev_curr_exp
 	}
 	else if (opt == 4) {
 		prev_curr_hp = curr_hp;

@@ -45,7 +45,8 @@ public:
 	//void setCurrHP(int value);
 
 	// level up
-	void level_up_if_possible();
+	void level_up_if_possible();					// by fight
+	void level_up_if_possible(int prev_curr_exp_);	// by shopping
 	// fight
 	void attack_basic(Monster& enemy);
 	void attack_skill(Monster& enemy);
@@ -56,8 +57,9 @@ public:
 	bool is_alive();	
 	// show status
 	void show_character_status();
+	void show_character_status_changed();
 	// shopping
-	void show_purchased_status(int opt);
+	bool purchasable(int cost);
 	void purchase(int opt, Item item);
 	// random encounter
 	void percentage_damage(double percentage);

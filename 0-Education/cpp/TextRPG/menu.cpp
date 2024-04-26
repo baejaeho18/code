@@ -66,24 +66,24 @@ int move_character(Map& map) {
 void random_encounter(Character& gamer) {
 	std::cout << "Random encounter!" << std::endl;
 	std::cout << std::endl;
-	// 0~3 임의의 숫자 고르고
+	// choose random number from 0 to 3
 	int r = rand() % 4;
-	// 0이면 남은 HP 30%감소
+	// if 0, lost 30% of remained hp
 	if (r == 0) {
 		gamer.percentage_damage(0.3);
 		std::cout << "You lost HP..." << std::endl;
 	}
-	// 1이면 잃은 HP 30% 회복
+	// if 1, restore 30% of lost hp
 	else if (r == 1) {
 		gamer.percentage_restore(0.3);
 		std::cout << "You restored HP" << std::endl;
 	}
-	// 2이면 100 Gold 증가
+	// if 2, get 100 gold
 	else if (r == 2) {
 		gamer.looting_gold(100);
 		std::cout << "You found 100 gold!" << std::endl;
 	}
-	// 3이면 nothing happen
+	// if 4, nothing happened
 	else {	// if (r == 3) {
 		std::cout << "Nothing happened..." << std::endl;
 	}
@@ -114,7 +114,7 @@ int fight(Character& gamer, Monster& enemy) {
 				break;
 		}
 		std::cout << std::endl;
-		// player attack monster
+		// player attack monster as choosen method
 		if (opt == 1)
 			gamer.attack_basic(enemy);
 		else if (opt == 2)
@@ -195,7 +195,7 @@ void shopping(Character& gamer) {
 				)
 				std::cout << "Selected item is not available...\n" << std::endl;
 			// enough gold?
-			else if ((opt <= EXP_BUF && gold < 700) || (HP_BUF <= opt && gold < 500))
+			else if (gamer.purchasable(shop.items[opt].cost))
 				std::cout << "You do not have enough gold...\n" << std::endl;
 		}
 		if (opt == 6)	// EXIT
@@ -206,7 +206,8 @@ void shopping(Character& gamer) {
 	std::cout << std::endl;
 	std::cout << "======================================" << std::endl;
 	// character status
-	gamer.show_purchased_status(opt);
+	std::cout << "Character status" << std::endl;
+	gamer.show_character_status_changed();
 	std::cout << "=======================================" << std::endl;
 	//shop item list
 	std::cout << "Shop item list" << std::endl;
