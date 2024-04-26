@@ -45,9 +45,9 @@ int progress_game(Map& map) {
 	}
 }
 
-int move_character(Map& map) {
+Room move_character(Map& map) {
 	char direction, tmp;
-	int room;
+	Room room;
 	std::cout << "Where do you want to go?" << std::endl;
 	while (1) {
 		std::cout << "> ";
@@ -89,7 +89,7 @@ void random_encounter(Character& gamer) {
 	}
 }
 
-int fight(Character& gamer, Monster& enemy) {
+Result fight(Character& gamer, Monster& enemy) {
 	std::cout << "Wild monster appeared!" << std::endl;
 	std::cout << std::endl;
 	while (1) {
