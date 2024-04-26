@@ -11,11 +11,13 @@ int main() {
 
 	int opt;
 	Map map;
+	Shop shop;
 	Character gamer;
 	srand(time(NULL));
 
 	while (1) {
-		opt = progress_game(map);
+		map.show_map();
+		opt = progress_game();
 		if (opt == 1) {
 			int room = move_character(map);
 			if (room == EMPTY) {
@@ -32,7 +34,7 @@ int main() {
 					break;
 			}
 			else if (room == SHOP) {
-				shopping(gamer);
+				shopping(shop, gamer);
 			}
 			else {	// if (room = BOSS) {
 				Monster boss(30, 10, 200);

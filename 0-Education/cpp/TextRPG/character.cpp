@@ -172,30 +172,30 @@ void Character::show_character_status_changed() {
 	std::cout << curr_exp << " / " << max_exp << std::endl;
 }
 
-bool  Character::purchasable(int cost) {
+bool Character::purchasable(int cost) {
 	return (cost <= gold);
 }
 
 void Character::purchase(int opt, Item item) {
-	if (opt == 1) {
+	if (opt == ATK_BUF) {
 		prev_attack = attack;
 		attack += item.buf;
 	}
-	else if (opt == 2) {
+	else if (opt == DEF_BUF) {
 		prev_defense = defense;
 		defense += item.buf;
 	}
-	else if (opt == 3) {
+	else if (opt == EXP_BUF) {
 		prev_curr_exp = curr_exp;
 		curr_exp += item.buf;
 		// level up
 		level_up_if_possible(prev_curr_exp);		// Todo: should not show levelup message and keep prev_curr_exp
 	}
-	else if (opt == 4) {
+	else if (opt == HP_BUF) {
 		prev_curr_hp = curr_hp;
 		curr_hp = max_hp;
 	}
-	else if (opt == 5) {
+	else if (opt == MP_BUF) {
 		prev_curr_mp = curr_mp;
 		curr_mp = max_mp;
 	}

@@ -1,12 +1,13 @@
 #pragma once
 
-//#include <iostream>
+#include <iostream>
 
 #define MAX 9999
 
 enum Items {ATK_BUF = 1, DEF_BUF, EXP_BUF, HP_BUF, MP_BUF};
 
 struct Item {
+	char name[11];
 	int buf;
 	int cost;
 	int inventory;
@@ -14,21 +15,19 @@ struct Item {
 
 class Shop {
 
-	Item attack = { 10, 700, 1 };
-	Item defense = { 5, 700, 1 };
-	Item exp = { 300, 700, 1 };
-	Item hp = { MAX, 500, MAX };
-	Item mp = { MAX, 500, MAX };
-
 public:
 	Item items[6] = {
 		{},
-		{ 10, 700, 1 },
-		{ 5, 700, 1 },
-		{ 300, 700, 1 },
-		{ MAX, 500, MAX },
-		{ MAX, 500, MAX }
+		{ "Attack", 10, 700, 1},
+		{ "Defense", 5, 700, 1 },
+		{ "Exp", 300, 700, 1 },
+		{ "Restore HP", MAX, 500, MAX},
+		{ "Restore MP", MAX, 500, MAX}
 	};
+
+	void show_item_list();
+	void show_item_list_changed(int opt);
+	bool available(int opt);
 
 	bool attack_available();
 	bool defense_available();

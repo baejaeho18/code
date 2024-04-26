@@ -30,8 +30,7 @@ bool start_game() {
 	}
 }
 
-int progress_game(Map& map) {
-	map.show_map();
+int progress_game() {
 	std::cout << "1. Choose direction" << std::endl;
 	std::cout << "2. Show character status" << std::endl;
 	std::cout << "3. Exit game" << std::endl;
@@ -47,7 +46,7 @@ int progress_game(Map& map) {
 
 Room move_character(Map& map) {
 	char direction, tmp;
-	Room room;
+	int room;
 	std::cout << "Where do you want to go?" << std::endl;
 	while (1) {
 		std::cout << "> ";
@@ -56,7 +55,7 @@ Room move_character(Map& map) {
 			direction = tmp;
 			if (room = map.movable(direction))
 				// direction으로 움직였을 때, room 이름 반환
-				return room;
+				return (Room)room;
 			else
 				std::cout << "You cannot move to that direction." << std::endl;
 		}
@@ -153,8 +152,7 @@ Result fight(Character& gamer, Monster& enemy) {
 	}
 }
 
-void shopping(Character& gamer) {
-	Shop shop;
+void shopping(Shop& shop, Character& gamer) {
 	int gold = gamer.getGold();
 	std::cout << "Welcome to the item shop!" << std::endl;
 	std::cout << "You have " << gold << " gold." << std::endl;
@@ -182,6 +180,7 @@ void shopping(Character& gamer) {
 	std::cout << "6. Exit shop" << std::endl;
 	std::cout << std::endl;
 	std::cout << "=======================================" << std::endl;
+	shop.show_item_list();
 
 	int opt;
 	while (1) {
@@ -234,6 +233,7 @@ void shopping(Character& gamer) {
 		std::cout << "(Sold Out)" << std::endl;
 	std::cout << "4. Restore HP (500 Gold) (Always available)" << std::endl;
 	std::cout << "5. Restore MP (500 Gold) (Always available)" << std::endl;
+	shop.show_item_list_changed(opt);
 	std::cout << "=======================================" << std::endl;
 	std::cout << std::endl;
 }

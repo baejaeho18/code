@@ -8,9 +8,9 @@ class Map {
 	int x, y;	// current position
 
 	enum Visit { MYST, VISIT };
-	int visited[8][8] =
+	Visit visited[8][8] =
 	{
-		{VISIT, MYST, MYST, MYST, MYST, MYST, MYST, MYST},
+		{MYST, MYST, MYST, MYST, MYST, MYST, MYST, MYST},
 		{MYST, MYST, MYST, MYST, MYST, MYST, MYST, MYST},
 		{MYST, MYST, MYST, MYST, MYST, MYST, MYST, MYST},
 		{MYST, MYST, MYST, MYST, MYST, MYST, MYST, MYST},
@@ -35,6 +35,6 @@ class Map {
 public:
 	Map();
 	void show_map();
-	Room movable(char direction);
+	int movable(char direction);
 	int distance();
 };

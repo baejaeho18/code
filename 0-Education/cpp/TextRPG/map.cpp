@@ -2,6 +2,7 @@
 
 Map::Map() {
 	x = y = 0;
+	visited[y][x] = VISIT;
 }
 
 void Map::show_map() {
@@ -24,7 +25,7 @@ void Map::show_map() {
 	std::cout << "└───┴───┴───┴───┴───┴───┴───┴───┘" << std::endl;
 }
 
-Room Map::movable(char direction) {
+int Map::movable(char direction) {
 	// 가장자리일 때 wasd 움직임 불가능
 	if ( (y == 0 && direction == 'w') || (y == 7 && direction == 's')
 		|| (x == 0 && direction == 'a') || (x == 7 && direction == 'w')  )
