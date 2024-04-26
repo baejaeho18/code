@@ -28,7 +28,7 @@ void Map::show_map() {
 int Map::movable(char direction) {
 	// 가장자리일 때 wasd 움직임 불가능
 	if ( (y == 0 && direction == 'w') || (y == 7 && direction == 's')
-		|| (x == 0 && direction == 'a') || (x == 7 && direction == 'w')  )
+		|| (x == 0 && direction == 'a') || (x == 7 && direction == 'd')  )
 		return 0;
 
 	if (mapping[y][x] != SHOP)
