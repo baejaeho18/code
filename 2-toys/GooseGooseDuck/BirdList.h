@@ -14,6 +14,7 @@ public:
 
 	BirdNode* GetHead() const;
 	BirdNode* GetTail() const;
-	void AddBirdNode(BirdNode*);
+	void AddBirdNodeAsVoteOrder(BirdNode*);
+	void AddBirdNodeAsRoleOrder(BirdNode*);
 };
 

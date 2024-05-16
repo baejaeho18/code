@@ -7,7 +7,7 @@ class Falcon :
 protected:
 private:
 public:
-    Falcon();
+    Falcon(const std::string& name_);
     ~Falcon();
-    void Skill(BirdList*);
+    void Skill(BirdList*) override;
 };

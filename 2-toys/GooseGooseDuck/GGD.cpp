@@ -4,10 +4,13 @@
 #include "Macro.h"
 
 GGD::GGD() {
-
+	role_ordered_bird_list = new BirdList();
+	vote_ordered_bird_list = new BirdList();
+	max_slayer_limit = 1;
 }
 GGD::~GGD() {
-
+	role_ordered_bird_list->~BirdList();
+	vote_ordered_bird_list->~BirdList();
 }
 void GGD::GameStart() {
 	int select;
@@ -24,10 +27,15 @@ void GGD::GameStart() {
 		switch (select)
 		{
 		case 1:
+			AddPlayer();
 			break;
 		case 2:
+			SetSlayerLimit();
 			break;
 		case 3:
+			while (!IsGameOver()) {
+				RoundProgress();
+			}
 			break;
 		default:
 			break;
@@ -35,7 +43,11 @@ void GGD::GameStart() {
 	}
 }
 void GGD::RoundProgress() {
+	// 역할별 능력 사용
 
+	// 투표
+
+	// 승리 조건
 }
 
 bool GGD::IsGameOver() {
@@ -56,10 +68,13 @@ void GGD::AddPlayer() {
 	std::cout << "역할 번호를 입력해주세요: ";
 	std::cin >> role_code;
 
+	Bird *temp = nullptr;
 	switch (BirdRoleCode(role_code)) {
 	case BirdRoleCode::kFalcon:
+		temp = new Falcon(player_name);
 		break;
 	case BirdRoleCode::kAssassinDuck:
+		temp = new AssassinDuck(palyer_name);
 		break;
 	case BirdRoleCode::kDuck:
 		break;
@@ -74,4 +89,13 @@ void GGD::AddPlayer() {
 	default:
 		break;
 	}
+
+	if (temp != nullptr) {
+		vote_ordered_bird_list->AddBirdNodeAsVoteOrder(new BirdNode(temp));
+		role_ordered_bird_list->AddBirdNodeAsRoleOrder(new BirdNode(temp));
+	}
+}
+
+void GGD::SetSlayerLimit() {
+	std::cout << "값을 입력하세요";
 }

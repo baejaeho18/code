@@ -1,15 +1,10 @@
 #include "Bird.h"
-#include "BirdList.h"
 
 #include <iostream>
 
-Bird::Bird() {
-}
+Bird::Bird() { }
 
-Bird::~Bird() {
+Bird::Bird(std::string name_, BirdRoleCode code_) 
+	: player_name(name_), role_code(code_) { }
 
-}
-
-std::string Bird::GetPlayerName() const{
-	return this->player_name;
-}
+Bird::~Bird() { }

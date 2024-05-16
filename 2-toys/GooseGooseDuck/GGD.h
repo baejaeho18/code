@@ -1,9 +1,17 @@
 #pragma once
 #include "BirdList.h"
+#include "DodoBird.h"
+#include "Falcon.h"
+#include "AssassinDuck.h"
+#include "DetectiveGoose.h"
+#include "MorticianGoose.h"
+
 class GGD
 {
 private:
-	BirdList* bird_list;
+	BirdList* role_ordered_bird_list;
+	BirdList* vote_ordered_bird_list;
+	int max_slayer_limit;
 public:
 	// Do not change any function declaration from here //
 	GGD(); 
@@ -15,5 +23,6 @@ public:
 	// Do not change any function declaration to here //
 
 	void AddPlayer(); // You can change the function declaration
+	void SetSlayerLimit();
 };
 

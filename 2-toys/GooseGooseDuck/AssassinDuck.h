@@ -5,11 +5,9 @@ class AssassinDuck :
     public Duck
 {
 protected:
-
 private:
-
 public:
-    AssassinDuck();
+    AssassinDuck(const std::string& name_);
     ~AssassinDuck();
-    void Skill(BirdList*);
+    void Skill(BirdList*) override;
 };

@@ -11,9 +11,10 @@ protected:
 	BirdRoleCode role_code;
 public:
 	Bird();
+	Bird(std::string name_, BirdRoleCode code_);
 	virtual ~Bird();
-	std::string GetPlayerName() const;
-	BirdRoleCode GetRoleCode() const;
+	std::string GetPlayerName() const { return this->player_name; };
+	BirdRoleCode GetRoleCode() const { return role_code; };
 	virtual void Skill(BirdList*)=0;
 };
 

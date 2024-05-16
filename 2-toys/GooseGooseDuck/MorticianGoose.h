@@ -5,12 +5,10 @@ class MorticianGoose :
     public Goose
 {
 protected:
-
 private:
-
 public:
-    MorticianGoose();
+    MorticianGoose(const std::string& name);
     ~MorticianGoose();
-    void Skill(BirdList*);
+    void Skill(BirdList*) override;
 };
 

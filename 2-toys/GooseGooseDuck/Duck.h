@@ -10,7 +10,8 @@ protected:
 private:
 
 public:
-    Duck();
+    Duck(const std::string& name_);
     ~Duck();
-    void Skill(BirdList*);
+    void Skill(BirdList*) override;
+    void SetSlayerLimit(int limit);
 };
