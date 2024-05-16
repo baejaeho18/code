@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include "GGD.h"
 #include "Macro.h"
 
@@ -16,12 +14,12 @@ void GGD::GameStart() {
 	int select;
 	bool game_start = false;
 	while (!game_start) {
-		std::cout << "------------ê²Œìž„ ì„¤ì • ë©”ë‰´-------------\n";
-		std::cout << "1. í”Œë ˆì´ì–´ ì¶”ê°€\n";
-		std::cout << "2. ë¼ìš´ë“œë‹¹ ì˜¤ë¦¬ ì§„ì˜ ì‚´ì¡° ì œí•œ íšŸìˆ˜ ì„¤ì •\n";
-		std::cout << "3. ê²Œìž„ ì‹œìž‘í•˜ê¸°!\n";
+		std::cout << "------------°ÔÀÓ ¼³Á¤ ¸Þ´º-------------\n";
+		std::cout << "1. ÇÃ·¹ÀÌ¾î Ãß°¡\n";
+		std::cout << "2. ¶ó¿îµå´ç ¿À¸® Áø¿µ »ìÁ¶ Á¦ÇÑ È½¼ö ¼³Á¤\n";
+		std::cout << "3. °ÔÀÓ ½ÃÀÛÇÏ±â!\n";
 		std::cout << "---------------------------------------\n";
-		std::cout << "ë©”ë‰´ ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ì„¸ìš”: ";
+		std::cout << "¸Þ´º ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ";
 		std::cin >> select;
 
 		switch (select)
@@ -43,11 +41,11 @@ void GGD::GameStart() {
 	}
 }
 void GGD::RoundProgress() {
-	// ì—­í• ë³„ ëŠ¥ë ¥ ì‚¬ìš©
+	// ¿ªÇÒº° ´É·Â »ç¿ë
 
-	// íˆ¬í‘œ
+	// ÅõÇ¥
 
-	// ìŠ¹ë¦¬ ì¡°ê±´
+	// ½Â¸® Á¶°Ç
 }
 
 bool GGD::IsGameOver() {
@@ -61,30 +59,35 @@ void GGD::PrintGameResult() {
 
 void GGD::AddPlayer() {
 	std::string player_name;
-	std::cout << "í”Œë ˆì´ì–´ì˜ ì´ë¦„ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”: ";
+	std::cout << "ÇÃ·¹ÀÌ¾îÀÇ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
 	std::cin >> player_name;
-	
+
 	int role_code;
-	std::cout << "ì—­í•  ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”: ";
+	std::cout << "¿ªÇÒ ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä: ";
 	std::cin >> role_code;
 
-	Bird *temp = nullptr;
+	Bird* temp = nullptr;
 	switch (BirdRoleCode(role_code)) {
 	case BirdRoleCode::kFalcon:
 		temp = new Falcon(player_name);
 		break;
 	case BirdRoleCode::kAssassinDuck:
-		temp = new AssassinDuck(palyer_name);
+		temp = new AssassinDuck(player_name);
 		break;
 	case BirdRoleCode::kDuck:
+		temp = new Duck(player_name);
 		break;
 	case BirdRoleCode::kDetectiveGoose:
+		temp = new DetectiveGoose(player_name);
 		break;
 	case BirdRoleCode::kMorticianGoose:
+		temp = new MorticianGoose(player_name);
 		break;
 	case BirdRoleCode::kGoose:
+		temp = new Goose(player_name);
 		break;
 	case BirdRoleCode::kDodoBird:
+		temp = new DodoBird(player_name);
 		break;
 	default:
 		break;
@@ -94,8 +97,11 @@ void GGD::AddPlayer() {
 		vote_ordered_bird_list->AddBirdNodeAsVoteOrder(new BirdNode(temp));
 		role_ordered_bird_list->AddBirdNodeAsRoleOrder(new BirdNode(temp));
 	}
+
+	vote_ordered_bird_list->showList();
+	role_ordered_bird_list->showList();
 }
 
 void GGD::SetSlayerLimit() {
-	std::cout << "ê°’ì„ ìž…ë ¥í•˜ì„¸ìš”";
+	std::cout << "°ªÀ» ÀÔ·ÂÇÏ¼¼¿ä" << std::endl;
 }

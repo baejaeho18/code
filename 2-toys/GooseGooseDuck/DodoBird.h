@@ -7,7 +7,7 @@ class DodoBird :
 protected:
 private:
 public:
-    DodoBird();
+    DodoBird(const std::string& name);
     ~DodoBird();
-    void Skill(BirdList*);
+    void Skill(BirdList*) override;
 };

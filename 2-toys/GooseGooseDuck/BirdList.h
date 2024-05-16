@@ -1,7 +1,7 @@
 #pragma once
 #include "BirdNode.h"
-
 #include <string>
+#include <iostream>
 
 class BirdList
 {
@@ -16,5 +16,7 @@ public:
 	BirdNode* GetTail() const;
 	void AddBirdNodeAsVoteOrder(BirdNode*);
 	void AddBirdNodeAsRoleOrder(BirdNode*);
+
+	void showList();
 };
 

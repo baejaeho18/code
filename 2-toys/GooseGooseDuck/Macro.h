@@ -3,7 +3,7 @@
 #include <string>
 
 const std::string BirdRoleName[7] =
-{ "ì†¡ê³¨ë§¤","ì•”ì‚´ìž ì˜¤ë¦¬","ì˜¤ë¦¬","íƒì • ê±°ìœ„", "ìž¥ì˜ì‚¬ ê±°ìœ„","ê±°ìœ„","ë„ë„ìƒˆ" };
+{ "¼Û°ñ¸Å","¾Ï»ìÀÚ ¿À¸®","¿À¸®","Å½Á¤ °ÅÀ§", "ÀåÀÇ»ç °ÅÀ§","°ÅÀ§","µµµµ»õ" };
 
 enum class BirdRoleCode {
 	kFalcon = 0,

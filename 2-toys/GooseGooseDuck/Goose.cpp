@@ -8,5 +8,5 @@ Goose::Goose(const std::string& name)
 Goose::~Goose() { }
 
 void Goose::Skill(BirdList*) {
-	std::cout << "ë‹¹ì‹ ì€ ëŠ¥ë ¥ì´ ì—†ëŠ” ì¡°ë¥˜ìž…ë‹ˆë‹¤." << std::endl;
+	std::cout << "´ç½ÅÀº ´É·ÂÀÌ ¾ø´Â Á¶·ùÀÔ´Ï´Ù." << std::endl;
 }

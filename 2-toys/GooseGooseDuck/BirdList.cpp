@@ -1,7 +1,5 @@
 #include "BirdList.h"
 
-#include "Bird.h"
-
 BirdList::BirdList() {
 	this->head = NULL;
 	this->tail = NULL;
@@ -60,5 +58,15 @@ void BirdList::AddBirdNodeAsRoleOrder(BirdNode* node) {
 		if (current == nullptr) {
 			tail = node;
 		}
+	}
+}
+
+// for test
+void BirdList::showList() {
+	BirdNode* current = head;
+	while (current != nullptr) {
+		std::cout << "name:" << current->GetBird()->GetPlayerName()
+			<< " code:" << static_cast<int>(current->GetBird()->GetRoleCode()) << std::endl;
+		current = current->GetNext();
 	}
 }
