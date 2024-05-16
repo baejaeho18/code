@@ -1,16 +1,13 @@
 #pragma once
 #include "Bird.h"
 
-class Goose :
+class Falcon :
     public Bird
 {
 protected:
-
 private:
-
 public:
-    Goose();
-    ~Goose();
-    void Skill(BirdList*)=0;
+    Falcon();
+    ~Falcon();
+    void Skill(BirdList*);
 };
-
