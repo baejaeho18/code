@@ -11,7 +11,6 @@ class GGD
 private:
 	BirdList* role_ordered_bird_list;
 	BirdList* vote_ordered_bird_list;
-	int max_slayer_limit;
 public:
 	// Do not change any function declaration from here //
 	GGD(); 

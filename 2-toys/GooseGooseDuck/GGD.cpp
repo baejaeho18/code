@@ -4,7 +4,6 @@
 GGD::GGD() {
 	role_ordered_bird_list = new BirdList();
 	vote_ordered_bird_list = new BirdList();
-	max_slayer_limit = 1;
 }
 GGD::~GGD() {
 	role_ordered_bird_list->~BirdList();
@@ -49,6 +48,9 @@ void GGD::RoundProgress() {
 }
 
 bool GGD::IsGameOver() {
+	// 플레이어가 한명도 없거나
+
+	// 승리조건이 만족되어 있을 경우
 	bool res = true;
 	return res;
 }
@@ -103,5 +105,8 @@ void GGD::AddPlayer() {
 }
 
 void GGD::SetSlayerLimit() {
-	std::cout << "값을 입력하세요" << std::endl;
+	int max_slayer_limit;
+	std::cout << "값을 입력하세요: ";
+	std::cin >> max_slayer_limit;
+	Duck::SetSlayerLimit(max_slayer_limit);
 }
