@@ -10,6 +10,7 @@ protected:
 	std::string player_name;
 	BirdRoleCode role_code;
 	bool isDead;
+	bool killed;
 public:
 	Bird();
 	Bird(std::string name_, BirdRoleCode code_);
@@ -19,6 +20,8 @@ public:
 	BirdRoleCode GetRoleCode() const { return role_code; };
 	bool GetIsDead() const { return isDead; };
 	void SetDead();
+	void ResetKilled();
+	bool DidKill();
 
 	virtual void Skill(BirdList*) = 0;
 	//virtual void Vote(BirdList*) = 0;

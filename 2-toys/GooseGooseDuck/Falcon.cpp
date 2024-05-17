@@ -17,6 +17,7 @@ void Falcon::Skill(BirdList* bird_list) {
 		std::cin >> target_name;
 		bird_list->Kill(target_name);
 		std::cout << "전체 메시지: " << target_name << "이(가) 무참히 살해당하였습니다.." << std::endl;
+		bird_list->IncreaseNumDead();
 		killed = true;
 	}
 }
@@ -25,11 +26,3 @@ void Falcon::Skill(BirdList* bird_list) {
 //	std::cout << player_name << "님";
 //	std::cout << "은 송골매이므로 무효표에 자동 투표됩니다." << std::endl;
 //}
-
-void Falcon::ResetKilled() {
-	killed = false;
-}
-
-bool Falcon::DidKill() {
-	return killed;
-}

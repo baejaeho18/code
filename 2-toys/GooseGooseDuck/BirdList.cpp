@@ -1,9 +1,12 @@
 #include "BirdList.h"
 #include "Bird.h"
+#include "Duck.h"
+#include "Falcon.h"
 
 BirdList::BirdList() {
 	this->head = NULL;
 	this->tail = NULL;
+	num_dead = 0;
 }
 
 BirdList::~BirdList() {
@@ -17,12 +20,30 @@ BirdList::~BirdList() {
 	delete this->tail;
 }
 
+void BirdList::IncreaseNumDead() {
+	num_dead++;
+}
+
+int BirdList::GetNumDead() const {
+	return num_dead;
+}
+
 BirdNode* BirdList::GetHead() const {
 	return this->head;
 }
 
 BirdNode* BirdList::GetTail() const {
 	return this->tail;
+}
+
+
+BirdNode* BirdList::GetBirdNodeAsName(const std::string& name) {
+	BirdNode* current = head;
+	while (current != nullptr) {
+		if (current->GetBird()->GetPlayerName() == name)
+			return current;
+		current = current->GetNext();
+	}
 }
 
 void BirdList::AddBirdNodeAsVoteOrder(BirdNode* node) {
@@ -89,7 +110,37 @@ void BirdList::Kill(const std::string& name) {
 	}
 }
 
-bool BirdList::existNode(const std::string& name, BirdRoleCode code) {
+// 한 list에서 죽은 bird들을 다른 list에서도 죽은 것으로 처리	// vote에서도 increasNumDead() 호출해야 함
+void BirdList::Kills(BirdList* bird_list) {
+	if (num_dead <= 0)
+		return;
+
+	BirdNode* current = bird_list->GetHead();
+	while (current != nullptr || 0 < num_dead) {
+		Bird* current_bird = current->GetBird();
+		if (current_bird->GetIsDead()) {
+			this->Kill(current_bird->GetPlayerName());
+			num_dead--;
+		}
+		current = current->GetNext();
+	}
+}
+
+void updateDeathStatus(BirdList* role_ordered_bird_list, BirdList* vote_ordered_bird_list) {
+	// role_ordered_bird_list를 순회하면서 죽은 Bird를 vote_ordered_bird_list에서도 죽은 것으로 처리
+	BirdNode* current = role_ordered_bird_list->GetHead();
+	while (current != nullptr) {
+		Bird* current_bird = current->GetBird();
+		if (current_bird->GetIsDead()) {
+			// 죽은 Bird를 vote_ordered_bird_list에서 찾아서 죽은 것으로 처리
+			vote_ordered_bird_list->Kill(current_bird->GetPlayerName());
+		}
+		current = current->GetNext();
+	}
+}
+
+
+bool BirdList::IsRoleCorrect(const std::string& name, BirdRoleCode code) {
 	BirdNode* current = head;
 	while (current != nullptr) {
 		if (current->GetBird()->GetPlayerName() == name &&
@@ -98,6 +149,20 @@ bool BirdList::existNode(const std::string& name, BirdRoleCode code) {
 		current = current->GetNext();
 	}
 	return false;
+}
+
+void BirdList::ResetKilled() {
+	BirdNode* current = head; 
+	while (current != nullptr) {
+		Bird* current_bird = current->GetBird();
+		if (current_bird != nullptr) {
+			if (Duck* duck = dynamic_cast<Duck*>(current_bird))
+				duck->ResetKilled();
+			else if (Falcon* falcon = dynamic_cast<Falcon*>(current_bird))
+				falcon->ResetKilled();
+		}
+		current = current->GetNext();
+	}
 }
 
 // for test

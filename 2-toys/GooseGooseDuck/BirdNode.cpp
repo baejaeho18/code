@@ -1,5 +1,7 @@
 #include "BirdNode.h"
 
+#include "BirdNode.h"
+
 BirdNode::BirdNode() {
 	this->bird = NULL;
 	this->next = NULL;
@@ -22,10 +24,10 @@ void BirdNode::SetNext(BirdNode* next) {
 	this->next = next;
 }
 
-Bird* BirdNode::GetBird() const{
+Bird* BirdNode::GetBird() const {
 	return this->bird;
 }
 
-BirdNode* BirdNode::GetNext() const{
+BirdNode* BirdNode::GetNext() const {
 	return this->next;
 }

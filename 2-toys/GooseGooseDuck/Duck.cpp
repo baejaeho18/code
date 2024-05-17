@@ -6,7 +6,6 @@ int Duck::slayer_count = 0;
 
 Duck::Duck(const std::string& name)
 	: Bird(name, BirdRoleCode::kDuck) {
-	killed = false;
 }
 
 Duck::~Duck() {};
@@ -22,10 +21,11 @@ void Duck::Skill(BirdList* bird_list) {
 		std::cin >> target_name;
 		bird_list->Kill(target_name);
 		std::cout << "전체 메시지: " << target_name << "이(가) 무참히 살해당하였습니다.." << std::endl;
+		bird_list->IncreaseNumDead();
 		slayer_count++;
 		killed = true;
 	}
-	else {
+	else if (choice == 'Y') {
 		std::cout << "라운드당 오리 진영의 살조제한 횟수에 도달했습니다." << std::endl;
 	}
 }
@@ -36,12 +36,4 @@ void Duck::SetSlayerLimit(int limit) {
 
 void Duck::ResetSlayerCount() {
 	slayer_count = 0;
-}
-
-void Duck::ResetKilled() {
-	killed = false;
-}
-
-bool Duck::DidKill() {
-	return killed;
 }

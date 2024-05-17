@@ -106,10 +106,13 @@ bool GGD::IsGameOver() {
 void GGD::RoundProgress() {
 	// 초기화
 	Duck::ResetSlayerCount();
+	role_ordered_bird_list->ResetKilled();
 	std::cout << "----------------Round " << round << "----------------" << std::endl;
 	// 역할별 능력 사용
 	role_ordered_bird_list->UseSkills();
+	vote_ordered_bird_list->Kills(role_ordered_bird_list);
 	// 투표
+	//vote_ordered_bird_list->
 	//vote_ordered_bird_list->DoVotes();
 	// 승리 조건
 }
