@@ -7,6 +7,7 @@ class Duck :
 protected:
     static int slayer_limit;
     static int slayer_count;
+    bool killed;
 private:
 
 public:
@@ -14,4 +15,7 @@ public:
     ~Duck();
     void Skill(BirdList*) override;
     static void SetSlayerLimit(int limit);
+    static void ResetSlayerCount();
+    void ResetKilled();
+    bool DidKill();
 };

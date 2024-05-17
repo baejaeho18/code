@@ -1,4 +1,5 @@
 #include "BirdList.h"
+#include "Bird.h"
 
 BirdList::BirdList() {
 	this->head = NULL;
@@ -59,6 +60,44 @@ void BirdList::AddBirdNodeAsRoleOrder(BirdNode* node) {
 			tail = node;
 		}
 	}
+}
+
+void BirdList::UseSkills() {
+	BirdNode* current = head;
+	while (current != nullptr) {
+		if (!current->GetBird()->GetIsDead())
+			current->GetBird()->Skill(this);
+		current = current->GetNext();
+	}
+}
+
+//void BirdList::Vote() {
+//	BirdNode* current = head;
+//	while (current != nullptr) {
+//		if (!current->GetBird()->GetIsDead())
+//			current->GetBird()->Vote(this);
+//		current = current->GetNext();
+//	}
+//}
+
+void BirdList::Kill(const std::string& name) {
+	BirdNode* current = head;
+	while (current != nullptr) {
+		if (current->GetBird()->GetPlayerName() == name)
+			current->GetBird()->SetDead();
+		current = current->GetNext();
+	}
+}
+
+bool BirdList::existNode(const std::string& name, BirdRoleCode code) {
+	BirdNode* current = head;
+	while (current != nullptr) {
+		if (current->GetBird()->GetPlayerName() == name &&
+			current->GetBird()->GetRoleCode() == code)
+			return true;
+		current = current->GetNext();
+	}
+	return false;
 }
 
 // for test

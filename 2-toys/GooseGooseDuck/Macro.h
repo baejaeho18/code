@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 
 const std::string BirdRoleName[7] =

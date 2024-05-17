@@ -4,6 +4,7 @@
 GGD::GGD() {
 	role_ordered_bird_list = new BirdList();
 	vote_ordered_bird_list = new BirdList();
+	round = 1;
 }
 GGD::~GGD() {
 	role_ordered_bird_list->~BirdList();
@@ -30,33 +31,16 @@ void GGD::GameStart() {
 			SetSlayerLimit();
 			break;
 		case 3:
+			// 1.3 게임 시작하기!
 			while (!IsGameOver()) {
 				RoundProgress();
+				round++;
 			}
 			break;
 		default:
 			break;
 		}
 	}
-}
-void GGD::RoundProgress() {
-	// 역할별 능력 사용
-
-	// 투표
-
-	// 승리 조건
-}
-
-bool GGD::IsGameOver() {
-	// 플레이어가 한명도 없거나
-
-	// 승리조건이 만족되어 있을 경우
-	bool res = true;
-	return res;
-}
-
-void GGD::PrintGameResult() {
-
 }
 
 void GGD::AddPlayer() {
@@ -110,3 +94,28 @@ void GGD::SetSlayerLimit() {
 	std::cin >> max_slayer_limit;
 	Duck::SetSlayerLimit(max_slayer_limit);
 }
+
+bool GGD::IsGameOver() {
+	bool res = false;
+	// 플레이어가 한명도 없거나
+
+	// 승리조건이 만족되어 있을 경우
+	return res;
+}
+
+void GGD::RoundProgress() {
+	// 초기화
+	Duck::ResetSlayerCount();
+	std::cout << "----------------Round " << round << "----------------" << std::endl;
+	// 역할별 능력 사용
+	role_ordered_bird_list->UseSkills();
+	// 투표
+	//vote_ordered_bird_list->DoVotes();
+	// 승리 조건
+}
+
+
+void GGD::PrintGameResult() {
+
+}
+
