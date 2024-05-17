@@ -21,7 +21,6 @@ void Duck::Skill(BirdList* bird_list) {
 		std::cin >> target_name;
 		bird_list->Kill(target_name);
 		std::cout << "전체 메시지: " << target_name << "이(가) 무참히 살해당하였습니다.." << std::endl;
-		bird_list->IncreaseNumDead();
 		slayer_count++;
 		killed = true;
 	}

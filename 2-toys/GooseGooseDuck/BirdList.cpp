@@ -20,10 +20,6 @@ BirdList::~BirdList() {
 	delete this->tail;
 }
 
-void BirdList::IncreaseNumDead() {
-	num_dead++;
-}
-
 int BirdList::GetNumDead() const {
 	return num_dead;
 }
@@ -104,8 +100,10 @@ void BirdList::UseSkills() {
 void BirdList::Kill(const std::string& name) {
 	BirdNode* current = head;
 	while (current != nullptr) {
-		if (current->GetBird()->GetPlayerName() == name)
+		if (current->GetBird()->GetPlayerName() == name) {
 			current->GetBird()->SetDead();
+			num_dead++;
+		}
 		current = current->GetNext();
 	}
 }
@@ -125,20 +123,6 @@ void BirdList::Kills(BirdList* bird_list) {
 		current = current->GetNext();
 	}
 }
-
-void updateDeathStatus(BirdList* role_ordered_bird_list, BirdList* vote_ordered_bird_list) {
-	// role_ordered_bird_list를 순회하면서 죽은 Bird를 vote_ordered_bird_list에서도 죽은 것으로 처리
-	BirdNode* current = role_ordered_bird_list->GetHead();
-	while (current != nullptr) {
-		Bird* current_bird = current->GetBird();
-		if (current_bird->GetIsDead()) {
-			// 죽은 Bird를 vote_ordered_bird_list에서 찾아서 죽은 것으로 처리
-			vote_ordered_bird_list->Kill(current_bird->GetPlayerName());
-		}
-		current = current->GetNext();
-	}
-}
-
 
 bool BirdList::IsRoleCorrect(const std::string& name, BirdRoleCode code) {
 	BirdNode* current = head;
