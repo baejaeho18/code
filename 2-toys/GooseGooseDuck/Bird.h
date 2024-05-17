@@ -11,6 +11,7 @@ protected:
 	BirdRoleCode role_code;
 	bool isDead;
 	bool killed;
+	int isVoted;
 public:
 	Bird();
 	Bird(std::string name_, BirdRoleCode code_);
@@ -23,7 +24,11 @@ public:
 	void ResetKilled();
 	bool DidKill();
 
+	void ResetVoted();
+	virtual void Vote(const std::string& name);	// vote to the name
+	int Voted();	// voted and return number of voted
+
 	virtual void Skill(BirdList*) = 0;
-	//virtual void Vote(BirdList*) = 0;
+	virtual void Vote(BirdList*) = 0;
 };
 

@@ -7,6 +7,7 @@ BirdList::BirdList() {
 	this->head = NULL;
 	this->tail = NULL;
 	num_dead = 0;
+	num_birds_alive = num_duck_alive = num_goose_alive = 0;
 }
 
 BirdList::~BirdList() {
@@ -77,6 +78,14 @@ void BirdList::AddBirdNodeAsRoleOrder(BirdNode* node) {
 			tail = node;
 		}
 	}
+
+	if (node->GetBird()->GetRoleCode() == BirdRoleCode::kAssassinDuck || node->GetBird()->GetRoleCode() == BirdRoleCode::kDuck)
+		num_duck_alive++;
+	if (node->GetBird()->GetRoleCode() == BirdRoleCode::kDetectiveGoose ||
+		node->GetBird()->GetRoleCode() == BirdRoleCode::kMorticianGoose ||
+		node->GetBird()->GetRoleCode() == BirdRoleCode::kGoose)
+		num_goose_alive++;
+	num_birds_alive++;
 }
 
 void BirdList::UseSkills() {
@@ -103,6 +112,14 @@ void BirdList::Kill(const std::string& name) {
 		if (current->GetBird()->GetPlayerName() == name) {
 			current->GetBird()->SetDead();
 			num_dead++;
+			num_birds_alive--;
+			if (current->GetBird()->GetRoleCode() == BirdRoleCode::kAssassinDuck || current->GetBird()->GetRoleCode() == BirdRoleCode::kDuck)
+				num_duck_alive--;
+			if (current->GetBird()->GetRoleCode() == BirdRoleCode::kDetectiveGoose ||
+				current->GetBird()->GetRoleCode() == BirdRoleCode::kMorticianGoose ||
+				current->GetBird()->GetRoleCode() == BirdRoleCode::kGoose)
+				num_goose_alive--;
+			return;
 		}
 		current = current->GetNext();
 	}
@@ -138,20 +155,34 @@ bool BirdList::IsRoleCorrect(const std::string& name, BirdRoleCode code) {
 void BirdList::ResetKilled() {
 	BirdNode* current = head; 
 	while (current != nullptr) {
-		Bird* current_bird = current->GetBird();
-		if (current_bird != nullptr) {
-			if (Duck* duck = dynamic_cast<Duck*>(current_bird))
-				duck->ResetKilled();
-			else if (Falcon* falcon = dynamic_cast<Falcon*>(current_bird))
-				falcon->ResetKilled();
-		}
+		current->GetBird()->ResetKilled();
+		//Bird* current_bird = current->GetBird();
+		//if (current_bird != nullptr) {
+		//	if (Duck* duck = dynamic_cast<Duck*>(current_bird))
+		//		duck->ResetKilled();
+		//	else if (Falcon* falcon = dynamic_cast<Falcon*>(current_bird))
+		//		falcon->ResetKilled();
+		//}
 		current = current->GetNext();
 	}
 }
 
 bool BirdList::isEmpty() {
-	return (head == NULL);
+	return (num_birds_alive == 0);
 }
+
+//void BirdList::VoteTo(const std::string& name) {
+//	BirdNode* current = head;
+//	while (current != nullptr) {
+//		if (current->GetBird()->GetPlayerName() == name) {
+//			current->GetBird()->Voted();
+//			return;
+//		}
+//		current = current->GetNext();
+//
+//	}
+//}
+
 
 // for test
 void BirdList::showList() {

@@ -8,6 +8,10 @@ private:
 	BirdNode* head;
 	BirdNode* tail;
 	int num_dead;
+
+	int num_birds_alive;
+	int num_goose_alive;
+	int num_duck_alive;
 public:
 	BirdList();
 	~BirdList();
@@ -26,6 +30,7 @@ public:
 	void ResetKilled();
 	bool IsRoleCorrect(const std::string& name, BirdRoleCode role);
 	bool isEmpty();
+	void VoteTo(const std::string& name);
 
 	void showList();
 };

@@ -21,7 +21,7 @@ void Falcon::Skill(BirdList* bird_list) {
 	}
 }
 
-//void Falcon::Vote(BirdList* vote_list) {
-//	std::cout << player_name << "님";
-//	std::cout << "은 송골매이므로 무효표에 자동 투표됩니다." << std::endl;
-//}
+void Falcon::Vote(BirdList* vote_list) {
+	std::cout << player_name << "님";
+	std::cout << "은 송골매이므로 무효표에 자동 투표됩니다." << std::endl;
+}
