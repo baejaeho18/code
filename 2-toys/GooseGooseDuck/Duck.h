@@ -13,6 +13,7 @@ public:
     Duck(const std::string& name_);
     ~Duck();
     void Skill(BirdList*) override;
+    void Vote(BirdList*) override;
     static void SetSlayerLimit(int limit);
     static void ResetSlayerCount();
 };

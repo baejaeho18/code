@@ -12,4 +12,5 @@ public:
     AssassinDuck(const std::string& name_);
     ~AssassinDuck();
     void Skill(BirdList*) override;
+    void Vote(BirdList*) override;
 };

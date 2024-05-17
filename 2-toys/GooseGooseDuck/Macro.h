@@ -13,3 +13,5 @@ enum class BirdRoleCode {
 	kGoose = 5,
 	kDodoBird = 6,
 };
+
+enum class Winner { None, wGoose, wDuck, wFalcon, wDodo};

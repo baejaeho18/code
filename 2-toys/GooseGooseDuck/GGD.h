@@ -12,6 +12,7 @@ private:
 	BirdList* role_ordered_bird_list;
 	BirdList* vote_ordered_bird_list;
 	int round;
+	Winner winner;
 public:
 	// Do not change any function declaration from here //
 	GGD(); 

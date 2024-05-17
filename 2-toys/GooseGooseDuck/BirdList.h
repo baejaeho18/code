@@ -20,11 +20,12 @@ public:
 	void AddBirdNodeAsRoleOrder(BirdNode*);
 
 	void UseSkills();
-	//void DoVotes();
+	void DoVotes();
 	void Kill(const std::string& name);
 	void Kills(BirdList*);
 	void ResetKilled();
 	bool IsRoleCorrect(const std::string& name, BirdRoleCode role);
+	bool isEmpty();
 
 	void showList();
 };

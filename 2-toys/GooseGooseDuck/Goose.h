@@ -9,6 +9,7 @@ private:
 public:
     Goose(const std::string& name);
     ~Goose();
-    virtual void Skill(BirdList*) override;
+    void Skill(BirdList*) override;
+    void Vote(BirdList*) override;
 };
 

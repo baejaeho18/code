@@ -88,14 +88,14 @@ void BirdList::UseSkills() {
 	}
 }
 
-//void BirdList::Vote() {
-//	BirdNode* current = head;
-//	while (current != nullptr) {
-//		if (!current->GetBird()->GetIsDead())
-//			current->GetBird()->Vote(this);
-//		current = current->GetNext();
-//	}
-//}
+void BirdList::DoVotes() {
+	BirdNode* current = head;
+	while (current != nullptr) {
+		if (!current->GetBird()->GetIsDead())
+			current->GetBird()->Vote(this);
+		current = current->GetNext();
+	}
+}
 
 void BirdList::Kill(const std::string& name) {
 	BirdNode* current = head;
@@ -147,6 +147,10 @@ void BirdList::ResetKilled() {
 		}
 		current = current->GetNext();
 	}
+}
+
+bool BirdList::isEmpty() {
+	return (head == NULL);
 }
 
 // for test

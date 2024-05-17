@@ -5,6 +5,7 @@ GGD::GGD() {
 	role_ordered_bird_list = new BirdList();
 	vote_ordered_bird_list = new BirdList();
 	round = 1;
+	winner = Winner::None;
 }
 GGD::~GGD() {
 	role_ordered_bird_list->~BirdList();
@@ -32,9 +33,15 @@ void GGD::GameStart() {
 			break;
 		case 3:
 			// 1.3 게임 시작하기!
-			while (!IsGameOver()) {
-				RoundProgress();
-				round++;
+			if (IsGameOver) {
+				std::cout << "게임을 시작할 수 없습니다!!" << std::endl;
+			}
+			else {
+				std::cout << "게임 시작!!" << std::endl;
+				while (!IsGameOver()) {
+					RoundProgress();
+					round++;
+				}
 			}
 			break;
 		default:
@@ -96,11 +103,13 @@ void GGD::SetSlayerLimit() {
 }
 
 bool GGD::IsGameOver() {
-	bool res = false;
 	// 플레이어가 한명도 없거나
-
+	if (vote_ordered_bird_list->isEmpty())
+		return true;
 	// 승리조건이 만족되어 있을 경우
-	return res;
+	if (winner != Winner::None)
+		return true;
+	return false;
 }
 
 void GGD::RoundProgress() {
@@ -112,13 +121,18 @@ void GGD::RoundProgress() {
 	role_ordered_bird_list->UseSkills();
 	vote_ordered_bird_list->Kills(role_ordered_bird_list);
 	// 투표
-	//vote_ordered_bird_list->
-	//vote_ordered_bird_list->DoVotes();
-	// 승리 조건
+	vote_ordered_bird_list->DoVotes();
+	role_ordered_bird_list->Kills(vote_ordered_bird_list);
 }
 
-
 void GGD::PrintGameResult() {
-
+	if (winner == Winner::wGoose)
+		std::cout << "전체 메시지: 거위의 승리입니다!" << std::endl;
+	else if (winner == Winner::wDuck)
+		std::cout << "전체 메시지: 오리의 승리입니다!" << std::endl;
+	else if (winner == Winner::wFalcon)
+		std::cout << "전체 메시지: 송골매의 승리입니다!" << std::endl;
+	else if (winner == Winner::wDodo)
+		std::cout << "전체 메시지: 도도새의 승리입니다!" << std::endl;
 }
 
