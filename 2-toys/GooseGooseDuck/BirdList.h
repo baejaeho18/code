@@ -15,6 +15,8 @@ private:
 	bool is_falcon_alive;
 	int absentation_vote;
 	bool isDodoWin;
+
+	void update_deadness(BirdRoleCode code);
 public:
 	BirdList();
 	~BirdList();
@@ -33,7 +35,7 @@ public:
 	bool IsRoleCorrect(const std::string& name, BirdRoleCode role);
 
 	void DoVotes();
-	void ResetAbsentationVote();
+	void ResetVote();
 	void DoAbsentationVote();
 	bool isEmpty();
 

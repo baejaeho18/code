@@ -42,6 +42,7 @@ void GGD::GameStart() {
 					RoundProgress();
 					round++;
 				}
+				vote_ordered_bird_list->ResetIsDodoWin();
 				vote_ordered_bird_list->DeleteDeadBird();
 				role_ordered_bird_list->DeleteDeadBird();
 			}
@@ -122,7 +123,6 @@ bool GGD::IsGameOver() {
 		winner = Winner::wGoose;
 	else
 		winner == Winner::None;
-
 	if (winner != Winner::None)
 		return true;
 	return false;
@@ -132,6 +132,7 @@ void GGD::RoundProgress() {
 	// 초기화
 	Duck::ResetSlayerCount();
 	role_ordered_bird_list->ResetKilled();
+	vote_ordered_bird_list->ResetVote();
 	std::cout << "----------------Round " << round << "----------------" << std::endl;
 	// 역할별 능력 사용
 	role_ordered_bird_list->UseSkills();
