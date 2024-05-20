@@ -256,7 +256,29 @@ void BirdList::showList() {
 
 void BirdList::DeleteDeadBird() {
 	BirdNode* current = head;
-	while (current != nullptr) {
+	BirdNode* previous = nullptr;
 
+	while (current != nullptr) {
+		BirdNode* next = current->GetNext();
+
+		if (current->GetBird()->GetIsDead()) {
+			if (previous == nullptr) {  // Removing head node
+				head = next;
+				if (head == nullptr) {  // If list becomes empty
+					tail = nullptr;
+				}
+			}
+			else {
+				previous->SetNext(next);
+				if (next == nullptr) {  // Removing tail node
+					tail = previous;
+				}
+			}
+			delete current;  // Delete dead bird node
+		}
+		else {
+			previous = current;
+		}
+		current = next;
 	}
 }
