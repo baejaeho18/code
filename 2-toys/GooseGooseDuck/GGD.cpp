@@ -33,7 +33,7 @@ void GGD::GameStart() {
 			break;
 		case 3:
 			// 1.3 게임 시작하기!
-			if (IsGameOver) {
+			if (IsGameOver()) {
 				std::cout << "게임을 시작할 수 없습니다!!" << std::endl;
 			}
 			else {
@@ -122,7 +122,7 @@ bool GGD::IsGameOver() {
 		vote_ordered_bird_list->GetNumAliveDuck() <= 0 && !vote_ordered_bird_list->IsFalconAlive())
 		winner = Winner::wGoose;
 	else
-		winner == Winner::None;
+		winner = Winner::None;
 	if (winner != Winner::None)
 		return true;
 	return false;

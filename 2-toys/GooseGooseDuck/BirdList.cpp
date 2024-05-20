@@ -9,6 +9,7 @@ BirdList::BirdList() {
 	num_dead = 0;
 	num_birds_alive = num_duck_alive = num_goose_alive = 0;
 	absentation_vote = 0;
+	is_falcon_alive = false;
 	isDodoWin = false;
 }
 
@@ -43,6 +44,8 @@ BirdNode* BirdList::GetBirdNodeAsName(const std::string& name) {
 			return current;
 		current = current->GetNext();
 	}
+	std::cout << "존재하지 않는 Bird입니다." << std::endl;
+	return nullptr;
 }
 
 void BirdList::AddBirdNodeAsVoteOrder(BirdNode* node) {
@@ -117,7 +120,6 @@ void BirdList::Kill(const std::string& name) {
 void BirdList::Kills(BirdList* bird_list) {
 	if (num_dead <= 0)
 		return;
-
 	BirdNode* current = bird_list->GetHead();
 	while (current != nullptr || 0 < num_dead) {
 		Bird* current_bird = current->GetBird();
@@ -170,7 +172,7 @@ void BirdList::DoVotes() {
 	current = head;
 	int max_voted = 0;
 	int sec_max_voted = 0;
-	Bird* max_voted_bird;
+	Bird* max_voted_bird = nullptr;
 	while (current != nullptr) {
 		if (!current->GetBird()->GetIsDead())
 			if (max_voted <= current->GetBird()->GetVoted()) {
@@ -184,7 +186,7 @@ void BirdList::DoVotes() {
 		sec_max_voted = max_voted;
 		max_voted = absentation_vote;
 	}
-	if (max_voted != sec_max_voted) {
+	if (max_voted != sec_max_voted && max_voted_bird != nullptr) {
 		max_voted_bird->SetDead();
 		update_deadness(max_voted_bird->GetRoleCode());
 		if (max_voted_bird->GetRoleCode() == BirdRoleCode::kDodoBird)

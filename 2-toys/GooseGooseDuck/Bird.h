@@ -30,6 +30,5 @@ public:
 	int GetVoted();
 
 	virtual void Skill(BirdList*) = 0;
-	virtual void Vote(BirdList*) = 0;
 };
 

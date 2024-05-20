@@ -10,5 +10,4 @@ public:
     DodoBird(const std::string& name);
     ~DodoBird();
     void Skill(BirdList*) override;
-    void Vote(BirdList*) override;
 };

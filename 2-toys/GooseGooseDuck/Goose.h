@@ -10,6 +10,5 @@ public:
     Goose(const std::string& name);
     ~Goose();
     void Skill(BirdList*) override;
-    void Vote(BirdList*) override;
 };
 
