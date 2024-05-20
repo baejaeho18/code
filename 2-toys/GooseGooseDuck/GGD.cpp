@@ -125,6 +125,7 @@ bool GGD::IsGameOver() {
 		winner = Winner::None;
 	if (winner != Winner::None)
 		return true;
+	std::cout << (int)winner << std::endl;
 	return false;
 }
 
