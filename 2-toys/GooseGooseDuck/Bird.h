@@ -27,7 +27,7 @@ public:
 	void ResetVoted();
 	virtual void Vote(BirdList*);	// vote to the name
 	void Voted();	// voted and return number of voted
-	int VotedNumber();
+	int GetVoted();
 
 	virtual void Skill(BirdList*) = 0;
 	virtual void Vote(BirdList*) = 0;

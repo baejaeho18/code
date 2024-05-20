@@ -98,15 +98,6 @@ void BirdList::UseSkills() {
 	}
 }
 
-void BirdList::DoVotes() {
-	BirdNode* current = head;
-	while (current != nullptr) {
-		if (!current->GetBird()->GetIsDead())
-			current->GetBird()->Vote(this);
-		current = current->GetNext();
-	}
-}
-
 void BirdList::Kill(const std::string& name) {
 	BirdNode* current = head;
 	while (current != nullptr) {
@@ -170,6 +161,45 @@ void BirdList::ResetKilled() {
 
 bool BirdList::isEmpty() {
 	return (num_birds_alive == 0);
+}
+
+void BirdList::DoVotes() {
+	BirdNode* current = head;
+	while (current != nullptr) {
+		if (!current->GetBird()->GetIsDead())
+			current->GetBird()->Vote(this);
+		current = current->GetNext();
+	}
+	// Who will be out?
+	current = head;
+	int max_voted = 0;
+	int sec_max_voted = 0;
+	Bird* max_voted_bird;
+	while (current != nullptr) {
+		if (!current->GetBird()->GetIsDead())
+			if (max_voted <= current->GetBird()->GetVoted()) {
+				max_voted_bird = current->GetBird();
+				sec_max_voted = max_voted;
+				max_voted = current->GetBird()->GetVoted();
+			}
+		current = current->GetNext();
+	}
+	if (max_voted <= absentation_vote) {
+		sec_max_voted = max_voted;
+		max_voted = absentation_vote;
+	}
+	if (max_voted != sec_max_voted) {
+		max_voted_bird->SetDead();
+		std::cout << "전체 메시지: [" << max_voted_bird->GetPlayerName() << "[은(는) 더 좋은 곳을 갔습니다." << std::endl;
+		if (max_voted_bird->GetRoleCode() == BirdRoleCode::kAssassinDuck ||
+			max_voted_bird->GetRoleCode() == BirdRoleCode::kDuck)
+			std::cout << "전체 메시지: 만세 [" << max_voted_bird->GetPlayerName() << "]은(는) 오리입니다!!" << std::endl;
+		else
+			std::cout << "전체 메시지: 맙소사 [" << max_voted_bird->GetPlayerName() << "]은(는) 오리가 아닙니다!!" << std::endl;
+	}
+	else {
+		std::cout << "전체 메시지: 이번 투표에서는 아무 조류도 당첨되지 않았습니다." << std::endl;
+	}
 }
 
 void BirdList::ResetAbsentationVote() {

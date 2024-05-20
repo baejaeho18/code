@@ -43,6 +43,6 @@ void Bird::Voted() {
 	isVoted++;
 }
 
-int Bird::VotedNumber() {
+int Bird::GetVoted() {
 	return isVoted;
 }
