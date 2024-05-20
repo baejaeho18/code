@@ -34,9 +34,15 @@ void Bird::Vote(BirdList* bird_list) {
 		//bird_list->VoteTo(target_name);
 		bird_list->GetBirdNodeAsName(target_name)->GetBird()->Voted();
 	}
+	else {
+		bird_list->DoAbsentationVote();
+	}
 }
 
-int Bird::Voted() {
+void Bird::Voted() {
 	isVoted++;
+}
+
+int Bird::VotedNumber() {
 	return isVoted;
 }

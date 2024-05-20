@@ -8,6 +8,7 @@ BirdList::BirdList() {
 	this->tail = NULL;
 	num_dead = 0;
 	num_birds_alive = num_duck_alive = num_goose_alive = 0;
+	absentation_vote = 0;
 }
 
 BirdList::~BirdList() {
@@ -171,18 +172,13 @@ bool BirdList::isEmpty() {
 	return (num_birds_alive == 0);
 }
 
-//void BirdList::VoteTo(const std::string& name) {
-//	BirdNode* current = head;
-//	while (current != nullptr) {
-//		if (current->GetBird()->GetPlayerName() == name) {
-//			current->GetBird()->Voted();
-//			return;
-//		}
-//		current = current->GetNext();
-//
-//	}
-//}
+void BirdList::ResetAbsentationVote() {
+	absentation_vote = 0;
+}
 
+void BirdList::DoAbsentationVote() {
+	absentation_vote++;
+}
 
 // for test
 void BirdList::showList() {

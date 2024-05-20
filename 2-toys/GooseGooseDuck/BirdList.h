@@ -12,6 +12,7 @@ private:
 	int num_birds_alive;
 	int num_goose_alive;
 	int num_duck_alive;
+	int absentation_vote;
 public:
 	BirdList();
 	~BirdList();
@@ -24,13 +25,15 @@ public:
 	void AddBirdNodeAsRoleOrder(BirdNode*);
 
 	void UseSkills();
-	void DoVotes();
 	void Kill(const std::string& name);
 	void Kills(BirdList*);
 	void ResetKilled();
 	bool IsRoleCorrect(const std::string& name, BirdRoleCode role);
+
+	void DoVotes();
+	void ResetAbsentationVote();
+	void DoAbsentationVote();
 	bool isEmpty();
-	void VoteTo(const std::string& name);
 
 	void showList();
 };

@@ -25,8 +25,9 @@ public:
 	bool DidKill();
 
 	void ResetVoted();
-	virtual void Vote(const std::string& name);	// vote to the name
-	int Voted();	// voted and return number of voted
+	virtual void Vote(BirdList*);	// vote to the name
+	void Voted();	// voted and return number of voted
+	int VotedNumber();
 
 	virtual void Skill(BirdList*) = 0;
 	virtual void Vote(BirdList*) = 0;
