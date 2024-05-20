@@ -9,6 +9,7 @@ BirdList::BirdList() {
 	num_dead = 0;
 	num_birds_alive = num_duck_alive = num_goose_alive = 0;
 	absentation_vote = 0;
+	isDodoWin = false;
 }
 
 BirdList::~BirdList() {
@@ -190,6 +191,8 @@ void BirdList::DoVotes() {
 	}
 	if (max_voted != sec_max_voted) {
 		max_voted_bird->SetDead();
+		if (max_voted_bird->GetRoleCode() == BirdRoleCode::kDodoBird)
+			isDodoWin = true;
 		std::cout << "전체 메시지: [" << max_voted_bird->GetPlayerName() << "[은(는) 더 좋은 곳을 갔습니다." << std::endl;
 		if (max_voted_bird->GetRoleCode() == BirdRoleCode::kAssassinDuck ||
 			max_voted_bird->GetRoleCode() == BirdRoleCode::kDuck)
@@ -210,6 +213,28 @@ void BirdList::DoAbsentationVote() {
 	absentation_vote++;
 }
 
+bool BirdList::GetIsDodoWin() {
+	return isDodoWin;
+}
+
+void BirdList::ResetIsDodoWin() {
+	isDodoWin = false;
+}
+
+
+int BirdList::GetNumAliveBird() {
+	return num_birds_alive;
+}
+int BirdList::GetNumAliveGoose() {
+	return num_goose_alive;
+}
+int BirdList::GetNumAliveDuck() {
+	return num_duck_alive;
+}
+bool BirdList::IsFalconAlive() {
+	return is_falcon_alive;
+}
+
 // for test
 void BirdList::showList() {
 	BirdNode* current = head;
@@ -217,5 +242,12 @@ void BirdList::showList() {
 		std::cout << "name:" << current->GetBird()->GetPlayerName()
 			<< " code:" << static_cast<int>(current->GetBird()->GetRoleCode()) << std::endl;
 		current = current->GetNext();
+	}
+}
+
+void BirdList::DeleteDeadBird() {
+	BirdNode* current = head;
+	while (current != nullptr) {
+
 	}
 }

@@ -12,7 +12,9 @@ private:
 	int num_birds_alive;
 	int num_goose_alive;
 	int num_duck_alive;
+	bool is_falcon_alive;
 	int absentation_vote;
+	bool isDodoWin;
 public:
 	BirdList();
 	~BirdList();
@@ -34,6 +36,14 @@ public:
 	void ResetAbsentationVote();
 	void DoAbsentationVote();
 	bool isEmpty();
+
+	int GetNumAliveBird();
+	int GetNumAliveGoose();
+	int GetNumAliveDuck();
+	bool IsFalconAlive();
+	bool GetIsDodoWin();
+	void ResetIsDodoWin();
+	void DeleteDeadBird();
 
 	void showList();
 };

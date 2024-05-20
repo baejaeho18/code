@@ -42,6 +42,8 @@ void GGD::GameStart() {
 					RoundProgress();
 					round++;
 				}
+				vote_ordered_bird_list->DeleteDeadBird();
+				role_ordered_bird_list->DeleteDeadBird();
 			}
 			break;
 		default:
@@ -106,7 +108,21 @@ bool GGD::IsGameOver() {
 	// 플레이어가 한명도 없거나
 	if (vote_ordered_bird_list->isEmpty())
 		return true;
+
 	// 승리조건이 만족되어 있을 경우
+	if (vote_ordered_bird_list->GetIsDodoWin())
+		winner = Winner::wDodo;
+	else if (vote_ordered_bird_list->IsFalconAlive() && vote_ordered_bird_list->GetNumAliveBird() <= 2)
+		winner = Winner::wFalcon;
+	else if (vote_ordered_bird_list->GetNumAliveDuck() > 0 &&
+		vote_ordered_bird_list->GetNumAliveDuck() >= vote_ordered_bird_list->GetNumAliveBird() - vote_ordered_bird_list->GetNumAliveDuck())
+		winner = Winner::wDuck;
+	else if (vote_ordered_bird_list->GetNumAliveGoose() > 0 &&
+		vote_ordered_bird_list->GetNumAliveDuck() <= 0 && !vote_ordered_bird_list->IsFalconAlive())
+		winner = Winner::wGoose;
+	else
+		winner == Winner::None;
+
 	if (winner != Winner::None)
 		return true;
 	return false;
