@@ -101,7 +101,7 @@ void GGD::SetSlayerLimit() {
 
 bool GGD::IsGameOver() {
 	// 플레이어가 한명도 없거나
-	std::cout << vote_ordered_bird_list->GetNumAliveBird() << std::endl;
+	//std::cout << vote_ordered_bird_list->GetNumAliveBird() << std::endl;
 	if (vote_ordered_bird_list->isEmpty())
 		return true;
 
@@ -118,9 +118,10 @@ bool GGD::IsGameOver() {
 		winner = Winner::wGoose;
 	else
 		winner = Winner::None;
+
+	//std::cout << (int)winner << std::endl;
 	if (winner != Winner::None)
 		return true;
-	std::cout << (int)winner << std::endl;
 	return false;
 }
 
@@ -136,7 +137,7 @@ void GGD::RoundProgress() {
 	// 투표
 	vote_ordered_bird_list->DoVotes();
 	role_ordered_bird_list->Kills(vote_ordered_bird_list);
-
+	//std::cout << "Goes well" << std::endl;
 	round++;
 	//vote_ordered_bird_list->ResetIsDodoWin();
 	//vote_ordered_bird_list->DeleteDeadBird();

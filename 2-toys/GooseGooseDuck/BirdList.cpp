@@ -110,7 +110,7 @@ void BirdList::Kill(const std::string& name) {
 		if (current->GetBird()->GetPlayerName() == name) {
 			current->GetBird()->SetDead();
 			update_deadness(current->GetBird()->GetRoleCode());
-			num_dead++;
+			//num_dead++;
 			return;
 		}
 		current = current->GetNext();
@@ -119,15 +119,15 @@ void BirdList::Kill(const std::string& name) {
 
 // 한 list에서 죽은 bird들을 다른 list에서도 죽은 것으로 처리	// vote에서도 increasNumDead() 호출해야 함
 void BirdList::Kills(BirdList* bird_list) {
-	if (num_dead <= 0)
-		return;
+	//if (num_dead <= 0)
+		//return;
 	BirdNode* current = bird_list->GetHead();
-	while (current != nullptr || 0 < num_dead) {
+	while (current != nullptr /*|| 0 <= num_dead*/) {
 		Bird* current_bird = current->GetBird();
 		if (current_bird->GetIsDead()) {
 			this->Kill(current_bird->GetPlayerName());
 			update_deadness(current_bird->GetRoleCode());
-			num_dead--;
+			//num_dead--;
 		}
 		current = current->GetNext();
 	}
@@ -184,10 +184,10 @@ void BirdList::DoVotes() {
 			}
 		current = current->GetNext();
 	}
-	std::cout << max_voted << sec_max_voted << std::endl;
+	//std::cout << max_voted << sec_max_voted << std::endl;
 	if (max_voted != sec_max_voted && max_voted_bird != nullptr) {
 		max_voted_bird->SetDead();
-		num_dead++;
+		//num_dead++;
 		update_deadness(max_voted_bird->GetRoleCode());
 		if (max_voted_bird->GetRoleCode() == BirdRoleCode::kDodoBird)
 			isDodoWin = true;
