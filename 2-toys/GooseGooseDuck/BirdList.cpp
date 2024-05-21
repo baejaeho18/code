@@ -110,7 +110,7 @@ void BirdList::Kill(const std::string& name) {
 		if (current->GetBird()->GetPlayerName() == name) {
 			current->GetBird()->SetDead();
 			update_deadness(current->GetBird()->GetRoleCode());
-			//num_dead++;
+			num_dead++;
 			return;
 		}
 		current = current->GetNext();
@@ -157,6 +157,7 @@ void BirdList::ResetKilled() {
 		//}
 		current = current->GetNext();
 	}
+	num_dead = 0;
 }
 
 bool BirdList::isEmpty() {

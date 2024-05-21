@@ -23,7 +23,7 @@ void AssassinDuck::Skill(BirdList* bird_list) {
 		std::cin >> target_role;
 		if (bird_list->IsRoleCorrect(target_name, static_cast<BirdRoleCode>(target_role))) {
 			bird_list->Kill(target_name);
-			std::cout << "전체 메시지: " << target_name << "이(가) 무참히 살해당하였습니다.." << std::endl;
+			std::cout << "전체 메시지: " << target_name << "이(가) 무참히 살해당하였습니다..!" << std::endl;
 			count_assassin++;
 			killed = true;
 		}

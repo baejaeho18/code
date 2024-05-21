@@ -14,12 +14,25 @@ void MorticianGoose::Skill(BirdList* bird_list) {
 	std::cin >> choice;
 	if (choice == 'Y' && bird_list->GetNumDead() != 0) {
 		std::string target_name;
-		std::cout << "조사하고 싶은 플레이어의 이름을 입력하세요: ";
+		std::string target_role;
+		std::cout << "염습하고 싶은 플레이어의 이름을 입력하세요: ";
 		std::cin >> target_name;
-		if (bird_list->GetBirdNodeAsName(target_name)->GetBird()->DidKill())
-			std::cout << target_name << "은(는) 이번 라운드에 누군가를 무참히 살해하였습니다..!" << std::endl;
-		else
-			std::cout << target_name << "은(는) 이번 라운드에 아무도 해치지 않았습니다." << std::endl;
+		BirdRoleCode code = bird_list->GetBirdNodeAsName(target_name)->GetBird()->GetRoleCode();
+		if (code == BirdRoleCode::kFalcon)
+			target_role = "송골매";
+		else if (code == BirdRoleCode::kAssassinDuck)
+			target_role = "암살자 오리";
+		else if (code == BirdRoleCode::kDuck)
+			target_role = "오리";
+		else if (code == BirdRoleCode::kDetectiveGoose)
+			target_role = "탐정 거위";
+		else if (code == BirdRoleCode::kMorticianGoose)
+			target_role = "장위사 거위";
+		else if (code == BirdRoleCode::kGoose)
+			target_role = "거위";
+		else if (code == BirdRoleCode::kDodoBird)
+			target_role = "도도새";
+		std::cout << target_name << "의 역할은 " << target_role << "입니다." << std::endl;
 	}
 	else if (bird_list->GetNumDead() == 0) {
 		std::cout << "염습 가능 대상이 없습니다." << std::endl;
