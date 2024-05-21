@@ -88,8 +88,8 @@ void GGD::AddPlayer() {
 		role_ordered_bird_list->AddBirdNodeAsRoleOrder(new BirdNode(temp));
 	}
 
-	vote_ordered_bird_list->showList();
-	role_ordered_bird_list->showList();
+	//vote_ordered_bird_list->showList();
+	//role_ordered_bird_list->showList();
 }
 
 void GGD::SetSlayerLimit() {
@@ -118,7 +118,7 @@ bool GGD::IsGameOver() {
 		winner = Winner::wGoose;
 	else
 		winner = Winner::None;
-	std::cout << vote_ordered_bird_list->GetNumAliveGoose() << vote_ordered_bird_list->GetNumAliveDuck() << vote_ordered_bird_list->IsFalconAlive() << std::endl;
+	//std::cout << vote_ordered_bird_list->GetNumAliveGoose() << vote_ordered_bird_list->GetNumAliveDuck() << vote_ordered_bird_list->IsFalconAlive() << std::endl;
 	//std::cout << (int)winner << std::endl;
 	if (winner != Winner::None)
 		return true;
