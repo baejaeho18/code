@@ -56,6 +56,16 @@ void BirdList::AddBirdNodeAsVoteOrder(BirdNode* node) {
 		tail->SetNext(node);
 		tail = node;
 	}
+
+	if (node->GetBird()->GetRoleCode() == BirdRoleCode::kAssassinDuck || node->GetBird()->GetRoleCode() == BirdRoleCode::kDuck)
+		num_duck_alive++;
+	if (node->GetBird()->GetRoleCode() == BirdRoleCode::kDetectiveGoose ||
+		node->GetBird()->GetRoleCode() == BirdRoleCode::kMorticianGoose ||
+		node->GetBird()->GetRoleCode() == BirdRoleCode::kGoose)
+		num_goose_alive++;
+	if (node->GetBird()->GetRoleCode() == BirdRoleCode::kFalcon)
+		is_falcon_alive = true;
+	num_birds_alive++;
 }
 
 void BirdList::AddBirdNodeAsRoleOrder(BirdNode* node) {
@@ -83,16 +93,6 @@ void BirdList::AddBirdNodeAsRoleOrder(BirdNode* node) {
 			tail = node;
 		}
 	}
-
-	if (node->GetBird()->GetRoleCode() == BirdRoleCode::kAssassinDuck || node->GetBird()->GetRoleCode() == BirdRoleCode::kDuck)
-		num_duck_alive++;
-	if (node->GetBird()->GetRoleCode() == BirdRoleCode::kDetectiveGoose ||
-		node->GetBird()->GetRoleCode() == BirdRoleCode::kMorticianGoose ||
-		node->GetBird()->GetRoleCode() == BirdRoleCode::kGoose)
-		num_goose_alive++;
-	if (node->GetBird()->GetRoleCode() == BirdRoleCode::kFalcon)
-		is_falcon_alive = true;
-	num_birds_alive++;
 }
 
 void BirdList::UseSkills() {
@@ -110,6 +110,7 @@ void BirdList::Kill(const std::string& name) {
 		if (current->GetBird()->GetPlayerName() == name) {
 			current->GetBird()->SetDead();
 			update_deadness(current->GetBird()->GetRoleCode());
+			num_dead++;
 			return;
 		}
 		current = current->GetNext();
@@ -125,6 +126,7 @@ void BirdList::Kills(BirdList* bird_list) {
 		Bird* current_bird = current->GetBird();
 		if (current_bird->GetIsDead()) {
 			this->Kill(current_bird->GetPlayerName());
+			update_deadness(current_bird->GetRoleCode());
 			num_dead--;
 		}
 		current = current->GetNext();
@@ -170,8 +172,8 @@ void BirdList::DoVotes() {
 	}
 	// Who will be out?
 	current = head;
-	int max_voted = 0;
-	int sec_max_voted = 0;
+	int max_voted = absentation_vote;
+	int sec_max_voted = max_voted;
 	Bird* max_voted_bird = nullptr;
 	while (current != nullptr) {
 		if (!current->GetBird()->GetIsDead())
@@ -182,16 +184,14 @@ void BirdList::DoVotes() {
 			}
 		current = current->GetNext();
 	}
-	if (max_voted <= absentation_vote) {
-		sec_max_voted = max_voted;
-		max_voted = absentation_vote;
-	}
+	std::cout << max_voted << sec_max_voted << std::endl;
 	if (max_voted != sec_max_voted && max_voted_bird != nullptr) {
 		max_voted_bird->SetDead();
+		num_dead++;
 		update_deadness(max_voted_bird->GetRoleCode());
 		if (max_voted_bird->GetRoleCode() == BirdRoleCode::kDodoBird)
 			isDodoWin = true;
-		std::cout << "전체 메시지: [" << max_voted_bird->GetPlayerName() << "[은(는) 더 좋은 곳을 갔습니다." << std::endl;
+		std::cout << "전체 메시지: [" << max_voted_bird->GetPlayerName() << "]은(는) 더 좋은 곳을 갔습니다." << std::endl;
 		if (max_voted_bird->GetRoleCode() == BirdRoleCode::kAssassinDuck ||
 			max_voted_bird->GetRoleCode() == BirdRoleCode::kDuck)
 			std::cout << "전체 메시지: 만세 [" << max_voted_bird->GetPlayerName() << "]은(는) 오리입니다!!" << std::endl;
@@ -234,7 +234,6 @@ bool BirdList::IsFalconAlive() {
 }
 
 void BirdList::update_deadness(BirdRoleCode code) {
-	num_dead++;
 	num_birds_alive--;
 	if (code == BirdRoleCode::kAssassinDuck || code == BirdRoleCode::kDuck)
 		num_duck_alive--;

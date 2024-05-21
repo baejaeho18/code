@@ -38,13 +38,7 @@ void GGD::GameStart() {
 			}
 			else {
 				std::cout << "게임 시작!!" << std::endl;
-				while (!IsGameOver()) {
-					RoundProgress();
-					round++;
-				}
-				vote_ordered_bird_list->ResetIsDodoWin();
-				vote_ordered_bird_list->DeleteDeadBird();
-				role_ordered_bird_list->DeleteDeadBird();
+				return;
 			}
 			break;
 		default:
@@ -107,6 +101,7 @@ void GGD::SetSlayerLimit() {
 
 bool GGD::IsGameOver() {
 	// 플레이어가 한명도 없거나
+	std::cout << vote_ordered_bird_list->GetNumAliveBird() << std::endl;
 	if (vote_ordered_bird_list->isEmpty())
 		return true;
 
@@ -141,6 +136,11 @@ void GGD::RoundProgress() {
 	// 투표
 	vote_ordered_bird_list->DoVotes();
 	role_ordered_bird_list->Kills(vote_ordered_bird_list);
+
+	round++;
+	//vote_ordered_bird_list->ResetIsDodoWin();
+	//vote_ordered_bird_list->DeleteDeadBird();
+	//role_ordered_bird_list->DeleteDeadBird();
 }
 
 void GGD::PrintGameResult() {

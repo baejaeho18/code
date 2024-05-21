@@ -8,6 +8,7 @@ int main() {
 	while (!game.IsGameOver()) {
 		game.RoundProgress();
 	}
+	std::cout << game.IsGameOver();
 	game.PrintGameResult();
 
 	return 0;
