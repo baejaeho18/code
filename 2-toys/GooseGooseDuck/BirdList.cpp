@@ -126,7 +126,7 @@ void BirdList::Kills(BirdList* bird_list) {
 		Bird* current_bird = current->GetBird();
 		if (current_bird->GetIsDead()) {
 			this->Kill(current_bird->GetPlayerName());
-			update_deadness(current_bird->GetRoleCode());
+			//update_deadness(current_bird->GetRoleCode());
 			//num_dead--;
 		}
 		current = current->GetNext();
