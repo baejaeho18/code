@@ -4,7 +4,6 @@
 
 #include <vector>
 
-
 template <typename T>
 struct Node {
     T data;
@@ -17,47 +16,157 @@ template <typename T>
 class MultiHeadList {
 private:
     vector<Node<T>*> headList;
+
 public :
     class Iterator {
     public:
         Node<T>* curr;
         Iterator(Node<T>* node) : curr(node) {}
-        T& operator*();
-        Iterator& operator++();
-        Iterator& operator--();
-        Iterator& operator+(int);
-        Iterator& operator-(int);
-        bool operator!=(const Iterator& other) const;
-        bool operator==(const Iterator& other) const;
+        T& operator*() { return curr->data; };
+        Iterator& operator++() { if (curr) curr = curr->next; return *this; };
+        Iterator& operator--() { if (curr) curr = curr->prev; return *this; };
+        Iterator& operator++(int) { Iterator tmp = *this; ++(*this); return tmp; };
+        Iterator& operator--(int) { Iterator tmp = *this; --(*this); return tmp; };
+        Iterator& operator+(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->next; return *this; };
+        Iterator& operator-(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->prev; return *this; };
+        bool operator!=(const Iterator& other) const {return curr != other.curr; };
+        bool operator==(const Iterator& other) const { return curr == other.curr; };
     };
     class ReverseIterator{
     public:
         Node<T>* curr;
         ReverseIterator(Node<T>* node) : curr(node) {}
-        T& operator*();
-        ReverseIterator& operator++();
-        ReverseIterator& operator--();
-        ReverseIterator& operator+(int);
-        ReverseIterator& operator-(int);
-        bool operator!=(const ReverseIterator& other) const;
-        bool operator==(const ReverseIterator& other) const;
+        T& operator*() { return curr->data; };
+        ReverseIterator& operator++() { if (curr) curr = curr->prev; return *this; };
+        ReverseIterator& operator--() { if (curr) curr = curr->next; return *this; };
+        ReverseIterator& operator++(int) { Iterator tmp = *this; ++(*this); return tmp; };
+        ReverseIterator& operator--(int) { Iterator tmp = *this; --(*this); return tmp; };
+        ReverseIterator& operator+(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->next; return *this; };
+        ReverseIterator& operator-(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->prev; return *this; };
+        bool operator!=(const ReverseIterator& other) const { return curr != other.curr; };
+        bool operator==(const ReverseIterator& other) const { return curr == other.curr; };
     };
 
 public:
-    int headSize() {}
-    void push_back(const T& data, int headIdx=-1) {}
-    void push_front(const T& data, int headIdx=-1) {}
-    void insert(Iterator pos, const T& data) {}
-    void pop_back(int headIdx) {}
-    void pop_front(int headIdx) {}
-    void merge(int frontHeadIdx, int backHeadIdx) {}
-    bool erase(const T& data, int targetHeadIdx) {}
-    bool erase(Iterator pos) {}
+    int headSize() { return headList.size(); }
+    void push_back(const T& data, int headIdx=-1) {
+        if (headIdx < 0 || headIdx >= headList.size()) {
+            Node<T>* newNode = new Node<T>(data);
+            headList.push_back(newNode);
+        }
+        else {
+            Node<T>* tail = headList[headIdx];
+            while (tail->next)
+                tail = tail->next;
+            Node<T>* newNode = new Node<T>(data);
+            tail->next = newNode;
+            newNode->prev = tail;
+        }
+    }
+    void push_front(const T& data, int headIdx = -1) {
+        if (headIdx < 0 || headIdx >= headList.size()) {
+            Node<T>* newNode = new Node<T>(data);
+            headList.push_back(newNode);
+        }
+        else {
+            Node<T>* head = headList[headIdx];
+            Node<T>* newNode = new Node<T>(data);
+            newNode->next = head;
+            head->prev = newNode;
+            headList[headIdx] = newNode;
+        }
+    }
+    void insert(Iterator pos, const T& data) {
+        if (pos.curr) {
+            Node<T>* newNode = new Node<T>(data);
+            newNode->prev = pos.curr->prev;
+            newNode->next = pos.curr;
+            if (pos.curr->prev)
+                pos.curr->prev->next = newNode;
+            pos.curr->prev = newNode;
+        }
+    }
+    void pop_back(int headIdx) {
+        if (headIdx < 0 || headIdx >= headList.size())
+            return;
+        Node<T>* tail = headList[headIdx];
+        if (!tail)
+            return;
+        while (tail->next)
+            tail = tail->next;
+        if (tail->prev)
+            tail->prev->next = nullptr;
+        else
+            headList[headIdx] = nullptr;
+        delete tail;
+    }
+    void pop_front(int headIdx) {
+        if (headIdx < 0 || headIdx >= headList.size())
+            return;
+        Node<T>* head = headList[headIdx];
+        if (!head)
+            return;
+        headList[headIdx] = head->next;
+        if (head->next)
+            head->next->prev = nullptr;
+        delete head;
+    }
+    void merge(int frontHeadIdx, int backHeadIdx) {
+        if (frontHeadIdx < 0 || frontHeadIdx >= headList.size() || backHeadIdx < 0 || backHeadIdx >= headList.size())
+            return;
+        Node<T>* frontTail = headList[frontHeadIdx];
+        while (frontTail->next)
+            frontTail = frontTail->next;
+        frontTail->next = headList[backHeadIdx];
+        if (headList[backHeadIdx])
+            headList[backHeadIdx]->prev = frontTail;
+        headList.erase(headList.begin() + backHeadIdx);
+    }
+    bool erase(const T& data, int targetHeadIdx) {
+        if (targetHeadIdx < 0 || targetHeadIdx >= headList.size())
+            return false;
+        Node<T>* current = headList[targetHeadIdx];
+        while (current && current->data != data)
+            current = current->next;
+        if (current) {
+            if (current->prev)
+                current->prev->next = current->next;
+            if (current->next)
+                current->next->prev = current->prev;
+            if (current == headList[targetHeadIdx])
+                headList[targetHeadIdx] = current->next;
+            delete current;
+            return true;
+        }
+        return false;
+    }
+    bool erase(Iterator pos) {
+        if (pos.curr) {
+            if (pos.curr->prev)
+                pos.curr->prev->next = pos.curr->next;
+            if (pos.curr->next)
+                pos.curr->next->prev = pos.curr->prev;
+            delete pos.curr;
+            return true;
+        }
+        return false;
+    }
 
-    Iterator begin(int headIdx) {}
-    Iterator end() {}
-    ReverseIterator rbegin(int headIdx) {}
-    ReverseIterator rend() {}
+    Iterator begin(int headIdx) {
+        if (headIdx < 0 || headIdx >= headList.size())
+            return Iterator(nullptr);
+        return Iterator(headList[headIdx]);
+    }
+    Iterator end() { return Iterator(nullptr); }
+    ReverseIterator rbegin(int headIdx) {
+        if (headIdx < 0 || headIdx >= headList.size())
+            return ReverseIterator(nullptr);
+        Node<T>* tail = headList[headIdx];
+        while (tail && tail->next)
+            tail = tail->next;
+        return ReverseIterator(tail);
+    }
+    ReverseIterator rend() { return ReverseIterator(nullptr); }
 };
 
 #endif
