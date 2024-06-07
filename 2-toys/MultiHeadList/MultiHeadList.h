@@ -24,7 +24,7 @@ public :
 public:
     int headSize() { return headList.size(); }
     void push_back(const T& data, int headIdx=-1) {
-        if (headIdx < 0 || headIdx >= headList.size()) {
+        if (headIdx < 0 || headList.size() <= headIdx) {
             Node<T>* newNode = new Node<T>(data);
             headList.push_back(newNode);
         }
@@ -38,7 +38,7 @@ public:
         }
     }
     void push_front(const T& data, int headIdx = -1) {
-        if (headIdx < 0 || headIdx >= headList.size()) {
+        if (headIdx < 0 || headList.size() <= headIdx) {
             Node<T>* newNode = new Node<T>(data);
             headList.push_back(newNode);
         }
@@ -61,32 +61,38 @@ public:
         }
     }
     void pop_back(int headIdx) {
-        if (headIdx < 0 || headIdx >= headList.size())
+        if (headIdx < 0 || headList.size() <= headIdx)
             return;
         Node<T>* tail = headList[headIdx];
-        if (!tail)
-            return;
-        while (tail->next)
-            tail = tail->next;
+        if (!tail) return;
+        while (tail->next) tail = tail->next;
         if (tail->prev)
             tail->prev->next = nullptr;
         else
             headList[headIdx] = nullptr;
+
+        if (headList[headIdx] == nullptr)
+            headList.erase(headList.begin() + headIdx);
         delete tail;
     }
     void pop_front(int headIdx) {
-        if (headIdx < 0 || headIdx >= headList.size())
+        if (headIdx < 0 || headList.size() <= headIdx)
             return;
         Node<T>* head = headList[headIdx];
-        if (!head)
-            return;
+        if (!head) return;
         headList[headIdx] = head->next;
         if (head->next)
             head->next->prev = nullptr;
+
+        if (headList[headIdx] == nullptr) {
+            headList.erase(headList.begin() + headIdx);
+        }
+
         delete head;
     }
     void merge(int frontHeadIdx, int backHeadIdx) {
-        if (frontHeadIdx < 0 || frontHeadIdx >= headList.size() || backHeadIdx < 0 || backHeadIdx >= headList.size())
+        if (frontHeadIdx < 0 || headList.size() <= frontHeadIdx
+            || backHeadIdx < 0 || headList.size() <= backHeadIdx)
             return;
         Node<T>* frontTail = headList[frontHeadIdx];
         while (frontTail->next)
@@ -97,7 +103,7 @@ public:
         headList.erase(headList.begin() + backHeadIdx);
     }
     bool erase(const T& data, int targetHeadIdx) {
-        if (targetHeadIdx < 0 || targetHeadIdx >= headList.size())
+        if (targetHeadIdx < 0 ||  headList.size() <= targetHeadIdx)
             return false;
         Node<T>* current = headList[targetHeadIdx];
         while (current && current->data != data)
