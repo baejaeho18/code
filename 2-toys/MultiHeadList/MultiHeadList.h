@@ -15,37 +15,11 @@ struct Node {
 template <typename T>
 class MultiHeadList {
 private:
-    vector<Node<T>*> headList;
-
+    std::vector<Node<T>*> headList;
+    
 public :
-    class Iterator {
-    public:
-        Node<T>* curr;
-        Iterator(Node<T>* node) : curr(node) {}
-        T& operator*() { return curr->data; };
-        Iterator& operator++() { if (curr) curr = curr->next; return *this; };
-        Iterator& operator--() { if (curr) curr = curr->prev; return *this; };
-        Iterator& operator++(int) { Iterator tmp = *this; ++(*this); return tmp; };
-        Iterator& operator--(int) { Iterator tmp = *this; --(*this); return tmp; };
-        Iterator& operator+(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->next; return *this; };
-        Iterator& operator-(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->prev; return *this; };
-        bool operator!=(const Iterator& other) const {return curr != other.curr; };
-        bool operator==(const Iterator& other) const { return curr == other.curr; };
-    };
-    class ReverseIterator{
-    public:
-        Node<T>* curr;
-        ReverseIterator(Node<T>* node) : curr(node) {}
-        T& operator*() { return curr->data; };
-        ReverseIterator& operator++() { if (curr) curr = curr->prev; return *this; };
-        ReverseIterator& operator--() { if (curr) curr = curr->next; return *this; };
-        ReverseIterator& operator++(int) { Iterator tmp = *this; ++(*this); return tmp; };
-        ReverseIterator& operator--(int) { Iterator tmp = *this; --(*this); return tmp; };
-        ReverseIterator& operator+(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->next; return *this; };
-        ReverseIterator& operator-(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->prev; return *this; };
-        bool operator!=(const ReverseIterator& other) const { return curr != other.curr; };
-        bool operator==(const ReverseIterator& other) const { return curr == other.curr; };
-    };
+    class Iterator;
+    class ReverseIterator;
 
 public:
     int headSize() { return headList.size(); }
@@ -167,6 +141,38 @@ public:
         return ReverseIterator(tail);
     }
     ReverseIterator rend() { return ReverseIterator(nullptr); }
+};
+
+template <typename T>
+class MultiHeadList<T>::Iterator {
+public:
+    Node<T>* curr;
+    Iterator(Node<T>* node) : curr(node) {}
+    T& operator*() { return curr->data; };
+    Iterator& operator++() { if (curr) curr = curr->next; return *this; };
+    Iterator& operator--() { if (curr) curr = curr->prev; return *this; };
+    Iterator& operator++(int) { Iterator tmp = *this; ++(*this); return tmp; };
+    Iterator& operator--(int) { Iterator tmp = *this; --(*this); return tmp; };
+    Iterator& operator+(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->next; return *this; };
+    Iterator& operator-(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->prev; return *this; };
+    bool operator!=(const Iterator& other) const { return curr != other.curr; };
+    bool operator==(const Iterator& other) const { return curr == other.curr; };
+};
+
+template <typename T>
+class MultiHeadList<T>::ReverseIterator {
+public:
+    Node<T>* curr;
+    ReverseIterator(Node<T>* node) : curr(node) {}
+    T& operator*() { return curr->data; };
+    ReverseIterator& operator++() { if (curr) curr = curr->prev; return *this; };
+    ReverseIterator& operator--() { if (curr) curr = curr->next; return *this; };
+    ReverseIterator& operator++(int) { Iterator tmp = *this; ++(*this); return tmp; };
+    ReverseIterator& operator--(int) { Iterator tmp = *this; --(*this); return tmp; };
+    ReverseIterator& operator+(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->next; return *this; };
+    ReverseIterator& operator-(int n) { for (int i = 0; i < n && curr; ++i) curr = curr->prev; return *this; };
+    bool operator!=(const ReverseIterator& other) const { return curr != other.curr; };
+    bool operator==(const ReverseIterator& other) const { return curr == other.curr; };
 };
 
 #endif
