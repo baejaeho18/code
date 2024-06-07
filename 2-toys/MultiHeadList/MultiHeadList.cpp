@@ -14,23 +14,25 @@ typename MultiHeadList<T>::Iterator& MultiHeadList<T>::Iterator::operator++() {
 }
 
 template <typename T>
-typename MultiHeadList<T>::Iterator MultiHeadList<T>::Iterator::operator++(int) {
-    Iterator tmp = *this;
-    ++(*this);
-    return tmp;
-}
-
-template <typename T>
 typename MultiHeadList<T>::Iterator& MultiHeadList<T>::Iterator::operator--() {
     if (curr) curr = curr->prev;
     return *this;
 }
 
 template <typename T>
-typename MultiHeadList<T>::Iterator MultiHeadList<T>::Iterator::operator--(int) {
-    Iterator tmp = *this;
-    --(*this);
-    return tmp;
+typename MultiHeadList<T>::Iterator& MultiHeadList<T>::Iterator::operator+(int n) {
+    for (int i = 0; i < n && curr; ++i) {
+        curr = curr->next;
+    }
+    return *this;
+}
+
+template <typename T>
+typename MultiHeadList<T>::Iterator& MultiHeadList<T>::Iterator::operator-(int n) {
+    for (int i = 0; i < n && curr; ++i) {
+        curr = curr->prev;
+    }
+    return *this;
 }
 
 template <typename T>
@@ -56,12 +58,6 @@ typename MultiHeadList<T>::ReverseIterator& MultiHeadList<T>::ReverseIterator::o
     return *this;
 }
 
-template <typename T>
-typename MultiHeadList<T>::ReverseIterator MultiHeadList<T>::ReverseIterator::operator++(int) {
-    ReverseIterator tmp = *this;
-    ++(*this);
-    return tmp;
-}
 
 template <typename T>
 typename MultiHeadList<T>::ReverseIterator& MultiHeadList<T>::ReverseIterator::operator--() {
@@ -70,10 +66,19 @@ typename MultiHeadList<T>::ReverseIterator& MultiHeadList<T>::ReverseIterator::o
 }
 
 template <typename T>
-typename MultiHeadList<T>::ReverseIterator MultiHeadList<T>::ReverseIterator::operator--(int) {
-    ReverseIterator tmp = *this;
-    --(*this);
-    return tmp;
+typename MultiHeadList<T>::ReverseIterator& MultiHeadList<T>::ReverseIterator::operator+(int n) {
+    for (int i = 0; i < n && curr; ++i) {
+        curr = curr->prev;
+    }
+    return *this;
+}
+
+template <typename T>
+typename MultiHeadList<T>::ReverseIterator& MultiHeadList<T>::ReverseIterator::operator-(int n) {
+    for (int i = 0; i < n && curr; ++i) {
+        curr = curr->next;
+    }
+    return *this;
 }
 
 template <typename T>

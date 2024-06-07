@@ -24,9 +24,9 @@ public :
         Iterator(Node<T>* node) : curr(node) {}
         T& operator*();
         Iterator& operator++();
-        Iterator operator++(int);
         Iterator& operator--();
-        Iterator operator--(int);
+        Iterator& operator+(int);
+        Iterator& operator-(int);
         bool operator!=(const Iterator& other) const;
         bool operator==(const Iterator& other) const;
     };
@@ -36,9 +36,9 @@ public :
         ReverseIterator(Node<T>* node) : curr(node) {}
         T& operator*();
         ReverseIterator& operator++();
-        ReverseIterator operator++(int);
         ReverseIterator& operator--();
-        ReverseIterator operator--(int);
+        ReverseIterator& operator+(int);
+        ReverseIterator& operator-(int);
         bool operator!=(const ReverseIterator& other) const;
         bool operator==(const ReverseIterator& other) const;
     };
