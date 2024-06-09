@@ -10,20 +10,37 @@ private :
 
 public :
 	void put(const pair<string, string>& argument) {
+		int firstHeadIdx = -1, secondHeadIdx = -1;
+		bool firstFound = false, secondFound = false;
+
 		for (int i = 0; i < syl.headSize(); ++i) {
 			auto it = syl.begin(i);
 			for (auto it = syl.begin(i); it != syl.end(); it++) {
 				if (it.curr->data.second == argument.first) {
-					syl.push_back(argument, i);
-					return;
+					firstHeadIdx = i;
+					firstFound = true;
 				}
 				if (it.curr->data.first == argument.second) {
-					syl.insert(it, argument);
-					return;
+					secondHeadIdx = i;
+					secondFound = true;
 				}
+				if (firstFound && secondFound)
+					break;
 			}
+			if (firstFound && secondFound)
+				break;
 		}
-		syl.push_back(argument);
+		
+		if (firstFound && secondFound) {
+			syl.push_back(argument, firstHeadIdx);
+			syl.merge(firstHeadIdx, secondHeadIdx);
+		}
+		else if (firstFound)
+			syl.push_back(argument, firstHeadIdx);
+		else if (secondFound)
+			syl.insert(syl.begin(secondHeadIdx), argument);
+		else
+			syl.push_back(argument);
 	}
 
 	void qna(const string& q) {
