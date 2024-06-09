@@ -119,18 +119,15 @@ public:
         //    return erase(Iterator(current));
         if (current) {
             if (current->prev)
-                current->prev->next = current->next;
-            if (current->next)
-                current->next->prev = current->prev;
-            if (current == headList[targetHeadIdx]) {
-                headList[targetHeadIdx] = current->next;
-                if (current->next == nullptr) {
-                    headList.erase(headList.begin() + targetHeadIdx);
-                }
-            }
-            else if (current->next) {
+                current->prev->next = nullptr;
+            if (current->next) {
                 headList.push_back(current->next);
                 current->next->prev = nullptr;
+            }
+            if (current == headList[targetHeadIdx]) {
+                headList[targetHeadIdx] = current->next;
+                if (current->next == nullptr)
+                    headList.erase(headList.begin() + targetHeadIdx);
             }
         }
         return false;
@@ -138,22 +135,19 @@ public:
     bool erase(Iterator pos) {
         if (pos.curr) {
             if (pos.curr->prev)
-                pos.curr->prev->next = pos.curr->next;
-            if (pos.curr->next)
-                pos.curr->next->prev = pos.curr->prev;
+                pos.curr->prev->next = nullptr;
+            if (pos.curr->next) {
+                pos.curr->next->prev = nullptr;
+                headList.push_back(pos.curr->next);
+            }
 
-            int i;
-            for (i = 0; i < headList.size(); i++) {
+            for (int i = 0; i < headList.size(); i++) {
                 if (headList[i] == pos.curr) {
                     headList[i] = pos.curr->next;
-                    if (pos.curr->next == nullptr) {
+                    if (pos.curr->next == nullptr)
                         headList.erase(headList.begin() + i);
-                    }
+                    break;
                 }
-            }
-            if (pos.curr->next && i == headList.size()) {
-                headList.push_back(pos.curr->next); // new head
-                pos.curr->next->prev = nullptr;
             }
 
             delete pos.curr;
