@@ -58,7 +58,7 @@ public:
             if (pos.curr->prev)
                 pos.curr->prev->next = newNode;
             else {
-                for (int i = 0; i < headList.size(); ++i) {
+                for (int i = 0; i < headList.size(); i++) {
                     if (headList[i] == pos.curr) {
                         headList[i] = newNode;
                         break;
@@ -95,7 +95,6 @@ public:
         if (headList[headIdx] == nullptr) {
             headList.erase(headList.begin() + headIdx);
         }
-
         delete head;
     }
     void merge(int frontHeadIdx, int backHeadIdx) {
@@ -119,6 +118,10 @@ public:
         //if (current)
         //    return erase(Iterator(current));
         if (current) {
+            if (current->prev)
+                current->prev->next = current->next;
+            if (current->next)
+                current->next->prev = current->prev;
             if (current == headList[targetHeadIdx]) {
                 headList[targetHeadIdx] = current->next;
                 if (current->next == nullptr) {
@@ -139,18 +142,16 @@ public:
             if (pos.curr->next)
                 pos.curr->next->prev = pos.curr->prev;
 
-            int headIdx;
-            for (int i = 0; i < headList.size(); ++i)
-                if (headList[i] == pos.curr)
-                    headIdx = i;
-
-            if (pos.curr == headList[headIdx]) {
-                headList[headIdx] = pos.curr->next;
-                if (pos.curr->next == nullptr) {
-                    headList.erase(headList.begin() + headIdx);
+            int i;
+            for (i = 0; i < headList.size(); i++) {
+                if (headList[i] == pos.curr) {
+                    headList[i] = pos.curr->next;
+                    if (pos.curr->next == nullptr) {
+                        headList.erase(headList.begin() + i);
+                    }
                 }
             }
-            else if (pos.curr->next) {
+            if (pos.curr->next && i == headList.size()) {
                 headList.push_back(pos.curr->next); // new head
                 pos.curr->next->prev = nullptr;
             }
