@@ -57,6 +57,14 @@ public:
             newNode->next = pos.curr;
             if (pos.curr->prev)
                 pos.curr->prev->next = newNode;
+            else {
+                for (int i = 0; i < headList.size(); ++i) {
+                    if (headList[i] == pos.curr) {
+                        headList[i] = newNode;
+                        break;
+                    }
+                }
+            }
             pos.curr->prev = newNode;
         }
     }
@@ -108,16 +116,19 @@ public:
         Node<T>* current = headList[targetHeadIdx];
         while (current && current->data != data)
             current = current->next;
-        if (current) {
-            if (current->prev)
-                current->prev->next = current->next;
-            if (current->next)
-                current->next->prev = current->prev;
-            if (current == headList[targetHeadIdx])
-                headList[targetHeadIdx] = current->next;
-            delete current;
-            return true;
+        //if (current)
+        //    return erase(Iterator(current));
+        if (current == headList[targetHeadIdx]) {
+            headList[targetHeadIdx] = current->next;
+            if (current->next == nullptr) {
+                headList.erase(headList.begin() + targetHeadIdx);
+            }
         }
+        else if (current->next) {
+            headList.push_back(current->next);
+            current->next->prev = nullptr;
+        }
+
         return false;
     }
     bool erase(Iterator pos) {
@@ -126,6 +137,23 @@ public:
                 pos.curr->prev->next = pos.curr->next;
             if (pos.curr->next)
                 pos.curr->next->prev = pos.curr->prev;
+
+            int headIdx;
+            for (int i = 0; i < headList.size(); ++i)
+                if (headList[i] == pos.curr)
+                    headIdx = i;
+
+            if (pos.curr == headList[headIdx]) {
+                headList[headIdx] = pos.curr->next;
+                if (pos.curr->next == nullptr) {
+                    headList.erase(headList.begin() + headIdx);
+                }
+            }
+            else if (pos.curr->next) {
+                headList.push_back(pos.curr->next); // new head
+                pos.curr->next->prev = nullptr;
+            }
+
             delete pos.curr;
             return true;
         }
