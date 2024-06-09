@@ -12,7 +12,7 @@ public :
 	void put(const pair<string, string>& argument) {
 		for (int i = 0; i < syl.headSize(); ++i) {
 			auto it = syl.begin(i);
-			while (it != syl.end()) {
+			for (auto it = syl.begin(i); it != syl.end(); it++) {
 				if (it.curr->data.second == argument.first) {
 					syl.push_back(argument, i);
 					return;
@@ -21,7 +21,6 @@ public :
 					syl.insert(it, argument);
 					return;
 				}
-				++it;
 			}
 		}
 		syl.push_back(argument);
