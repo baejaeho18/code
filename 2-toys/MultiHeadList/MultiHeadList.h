@@ -118,17 +118,18 @@ public:
             current = current->next;
         //if (current)
         //    return erase(Iterator(current));
-        if (current == headList[targetHeadIdx]) {
-            headList[targetHeadIdx] = current->next;
-            if (current->next == nullptr) {
-                headList.erase(headList.begin() + targetHeadIdx);
+        if (current) {
+            if (current == headList[targetHeadIdx]) {
+                headList[targetHeadIdx] = current->next;
+                if (current->next == nullptr) {
+                    headList.erase(headList.begin() + targetHeadIdx);
+                }
+            }
+            else if (current->next) {
+                headList.push_back(current->next);
+                current->next->prev = nullptr;
             }
         }
-        else if (current->next) {
-            headList.push_back(current->next);
-            current->next->prev = nullptr;
-        }
-
         return false;
     }
     bool erase(Iterator pos) {
