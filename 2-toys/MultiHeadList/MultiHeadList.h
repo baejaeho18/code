@@ -121,14 +121,11 @@ public:
             if (current->prev)
                 current->prev->next = nullptr;
             if (current->next) {
-                headList.push_back(current->next);
                 current->next->prev = nullptr;
+                headList.push_back(current->next);
             }
-            if (current == headList[targetHeadIdx]) {
-                headList[targetHeadIdx] = current->next;
-                if (current->next == nullptr)
-                    headList.erase(headList.begin() + targetHeadIdx);
-            }
+            if (current == headList[targetHeadIdx])
+                headList.erase(headList.begin() + targetHeadIdx);
         }
         return false;
     }
@@ -140,16 +137,12 @@ public:
                 pos.curr->next->prev = nullptr;
                 headList.push_back(pos.curr->next);
             }
-
             for (int i = 0; i < headList.size(); i++) {
                 if (headList[i] == pos.curr) {
-                    headList[i] = pos.curr->next;
-                    if (pos.curr->next == nullptr)
-                        headList.erase(headList.begin() + i);
+                    headList.erase(headList.begin() + i);
                     break;
                 }
             }
-
             delete pos.curr;
             return true;
         }
