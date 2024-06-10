@@ -4,7 +4,7 @@ import win32com.client
 
 title = "ADGRAPH: A Graph-Based Approach to Ad and Tracker Blocking"
 sections = ["Abstract —", "I. I NTRODUCTION", "II. B ACKGROUND AND RELATED WORK", "III. A DGRAPH DESIGN", "IV. A DGRAPH EVALUATION", "V. D ISCUSSIONS", "VI. C ONCLUSION", "ACKNOWLEDGMENT", "REFERENCES"]
-subsections = ["A.Problem Difficulty", "B. Existing Blocking Techniques", "C. JavaScript Attribution",
+subsections = ["A. Problem Difficulty", "B. Existing Blocking Techniques", "C. JavaScript Attribution",
               "A. Graph Representation", "B. Graph Construction", "C. Feature Extraction", "D. Classification", 
               "A. Accuracy", "B. Disagreements Between ADGRAPH and Filter Lists", "C. Site Breakage", "D. Feature Analysis", "E. Tradeoffs in Browser Instrumentation", "F. Performance", 
               "A. Offline Application of ADGRAPH", "B. ADGRAPH Limitations And Future Improvements"
@@ -53,17 +53,6 @@ def add_topic(parent, title, position=None):
         print(f"Error adding topic: {title}")
         print(e)
 
-def add_subsection(current_topic, subsects, paragraph):
-    for subsect in subsects:
-        if subsect in paragraph:
-            current_subsection_topic = add_topic(current_topic, subsect)
-        elif current_subsection_topic:
-            paragraph = paragraph.split(subsect)[1]
-            current_paragprah_topic = add_topic(current_subsection_topic, paragraph.split(".")[0])
-            current_pragraph_sentences = paragraph.split(".")[0:]
-            for sentence in current_pragraph_sentences:
-                add_topic(current_paragprah_topic, sentence)
-
 def process_text_to_mindmap(text):
     mindmanager = win32com.client.Dispatch("MindManager.Application")
     document = mindmanager.Documents.Add()
@@ -82,7 +71,7 @@ def process_text_to_mindmap(text):
             root_topic.Text = title
 
         # Process sections
-        for sec_idx, section in enumerate(sections):
+        for section in sections:
             if section in paragraph:
                 current_section_topic = add_topic(root_topic, section)
                 current_subsection_topic = None
@@ -107,18 +96,18 @@ def process_text_to_mindmap(text):
 
         # Process paragraph
         if current_subsubsection_topic:
-            current_paragprah_topic = add_topic(current_subsubsection_topic, paragraph.split(".")[0])
+            current_paragprah_topic = add_topic(current_subsubsection_topic, paragraph.split(". ")[0])
         elif current_subsection_topic:
-            current_paragprah_topic = add_topic(current_subsection_topic, paragraph.split(".")[0])
+            current_paragprah_topic = add_topic(current_subsection_topic, paragraph.split(". ")[0])
         elif current_section_topic:
-            if current_section_topic == "REFERENCE":
+            if current_section_topic.Text == "REFERENCE":
                 add_topic(current_section_topic, paragraph.split("\n"))
                 continue
-            current_paragprah_topic = add_topic(current_section_topic, paragraph.split(".")[0])
+            current_paragprah_topic = add_topic(current_section_topic, paragraph.split(". ")[0])
         else:
-            current_paragprah_topic = add_topic(root_topic, paragraph.split(".")[0])
+            current_paragprah_topic = add_topic(root_topic, paragraph.split(". ")[0])
 
-        current_pragraph_sentences = paragraph.split(".")[1:]
+        current_pragraph_sentences = paragraph.split(". ")[1:]
         for sentence in current_pragraph_sentences:
             add_topic(current_paragprah_topic, sentence)
     
