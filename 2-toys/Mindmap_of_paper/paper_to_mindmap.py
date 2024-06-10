@@ -101,7 +101,7 @@ def process_text_to_mindmap(text):
             current_paragprah_topic = add_topic(current_subsection_topic, paragraph.split(". ")[0])
         elif current_section_topic:
             if current_section_topic.Text == "REFERENCE":
-                add_topic(current_section_topic, paragraph.split("\n"))
+                add_topic(current_section_topic, paragraph.split("["))
                 continue
             current_paragprah_topic = add_topic(current_section_topic, paragraph.split(". ")[0])
         else:
