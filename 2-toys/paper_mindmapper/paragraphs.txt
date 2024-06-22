@@ -1,0 +1,3204 @@
+This paper is included in the Proceedings of the 31st USENIX Security Symposium
+
+August 10–12, 2022 • Boston, MA, USA 978-1-939133-31-1 Open access to the Proceedings of the 31st USENIX Security Symposium is sponsored by USENIX.WebGraph: Capturing Advertising and Tracking Information Flows for Robust Blocking Sandra Siby, EPFL; Umar Iqbal, University of Iowa; Steven Englehardt, DuckDuckGo; Zubair Shafiq, UC Davis; Carmela Troncoso, EPFL https://www.usenix.org/conference/usenixsecurity22/presentation/sibyWEBGRAPH : Capturing Advertising and Tracking Information Flows for Robust Blocking Sandra Siby∗Umar Iqbal†Steven Englehardt‡Zubair Shaﬁq¶Carmela Troncoso∗ ∗EPFL†University of Iowa‡DuckDuckGo¶UC Davis Abstract Users rely on ad and tracker blocking tools to protect their privacy
+
+Unfortunately, existing ad and tracker blocking tools are susceptible to mutable advertising and tracking content
+
+In this paper, we ﬁrst demonstrate that a state-of-the-art ad and tracker blocker, ADGRAPH , is susceptible to such adver- sarial evasion techniques that are currently deployed on the web
+
+Second, we introduce WEBGRAPH , the ﬁrst ML-based ad and tracker blocker that detects ads and trackers based on their action rather than their content
+
+By featurizing the actions that are fundamental to advertising and tracking information ﬂows – e.g., storing an identiﬁer in the browser or sharing an identiﬁer with another tracker – WEBGRAPH performs nearly as well as prior approaches, but is signiﬁcantly more robust to adversarial evasions
+
+In particular, we show that WEBGRAPH achieves comparable accuracy to ADGRAPH , while signiﬁcantly de- creasing the success rate of an adversary from near-perfect for ADGRAPH to around 8% for WEBGRAPH
+
+Finally, we show thatWEBGRAPH remains robust to sophisticated adversaries that use adversarial evasion techniques beyond those currently deployed on the web
+
+1 Introduction Users rely on privacy-enhancing blocking tools to protect themselves from online advertising and tracking
+
+Many of these tools—including uBlock Origin [ 8], Ghostery [ 6], Fire- fox [ 47,48], Edge [ 49], and Brave [ 16]—rely on manually curated ﬁlter lists [ 3,4,5] to block advertising and tracking
+
+The research community is developing machine learning (ML) approaches to automate the detection of advertising and track- ing and make ﬁlter lists more comprehensive
+
+The ﬁrst gen- eration of ML-based blocking approaches analyze network requests [ 13,33,53] or JavaScript code [ 37,42,64] to learn distinctive behaviors of advertising and tracking
+
+However, these approaches are highly susceptible to adversarial evasion techniques that are already found in the wild, including URL ‡The majority of this work was completed while Steven was at Mozilla.and code obfuscation [ 55,58]
+
+The next generation of ML- based blocking approaches leverage cross-layer graph infor- mation from multiple layers of the web stack [ 40,54]
+
+These approaches claim better robustness to evasion than single-layer approaches, due to their use of structural features (the hierar- chy of resource inclusions) in addition to traditional content features (the resource’s network location or response content)
+
+In this paper, we show that state-of-the-art ad and tracker blocking approaches, such as ADGRAPH [40], are susceptible to adversarial evasions due to their disproportionate reliance on easy-to-manipulate content features
+
+We show that a third-party adversary can achieve 8% evasion success by manipulating URLs of its resources
+
+Worse yet, an adversary can achieve near-perfect evasion—as high as a 96% success rate—if they collude with the ﬁrst party, e.g, by using the CNAME cloaking technique already deployed by some trackers [26, 28]
+
+We introduce WEBGRAPH , the ﬁrst ML-based ad and tracker blocking approach that does not rely on content features
+
+WEBGRAPH improves the cross-layer graph representation by capturing a fundamental property of advertising and tracking services (ATS): the ﬂow of information from one entity to the browser’s storage, the network, and other entities loaded on a page
+
+The intuition behind WEBGRAPH is to focus on the actions of the advertising and tracking services, rather than the contents of their resources
+
+We posit that actions are harder to obfuscate
+
+Advertising and tracking scripts need to store identiﬁers for users, and those identiﬁers must be shared with any other entity with which they wish to share data (e.g., via cookie syncing [ 51])
+
+Thus, we build a graph representation of the page load by monitoring network requests, JavaScript exe- cution, HTML element creations, and browser storage access
+
+From this graph we extract ﬂow features, which explicitly cap- ture distinctive information ﬂows in advertising and tracking
+
+Our evaluation shows that WEBGRAPH ’s graph representation and ﬂow features can supplant content features, with compara- ble accuracy
+
+While high accuracy is necessary for deployment, it is not sufﬁcient
+
+We have repeatedly seen that advertisers and track- ers will attempt to circumvent detection and evade blocking USENIX Association 31st USENIX Security Symposium    2875[26,44,55,58]
+
+Therefore, in order for an advertising and tracking classiﬁer to be useful in practice, it must be robust to adversarial manipulation
+
+We show that WEBGRAPH rep- resents a signiﬁcant step forward in robustness to adversarial evasion as compared to prior approaches
+
+In particular, we ﬁnd thatWEBGRAPH is robust to the types of URL, CNAME, and content manipulation evasion techniques that are currently de- ployed on the web
+
+We also know that advertisers and trackers will attempt to deploy more sophisticated evasion techniques tailored to our proposed approach
+
+To understand how robust WEBGRAPH would be in the face of these new evasion tech- niques, we propose a novel realistic graph manipulation eva- sion technique
+
+We show that this attack achieves only limited evasion success against WEBGRAPH , while incurring a non- trivial usability loss in terms of mistakenly blocking its own advertising/tracking resources or other benign resources on the web page
+
+Overall, our ﬁndings suggest that the community should migrate away from unreliable content features for advertising and tracking blocking
+
+We show that information ﬂow features built upon the actions of advertisers and trackers provide a promising path forward
+
+In summary, our contributions are as follows: •We show that existing ML-based ad and tracker blocking approaches are susceptible to evasion due to their reliance on content features
+
+As a representative example, we show how an adversary can achieve near-perfect evasion of ADGRAPH using techniques already in use on the web today
+
+•We introduce WEBGRAPH , the ﬁrst ML-based ad and tracker blocking approach that does not rely on content fea- tures and captures fundamentally distinctive information ﬂows in advertising and tracking
+
+•Our in-depth evaluation shows that WEBGRAPH achieves comparable accuracy to prior approaches and achieves sig- niﬁcantly better robustness to adversarial manipulation of content features
+
+•We propose a novel graph manipulation evasion technique, and show that WEBGRAPH (and the information ﬂow fea- tures it relies on) remains robust under this attack
+
+Paper organization: The rest of this paper is organized as follows: Section 2 provides an overview of the recent advances in ML-based ad and tracker blocking
+
+Section 3 evaluates ro- bustness of existing graph-based approaches, using ADGRAPH as a representative example
+
+Section 4 describes the design and evaluation of WEBGRAPH
+
+Section 5 further evaluates WEBGRAPH ’s robustness to adversarial attacks
+
+We discuss limitations of our work in Section 6 and conclude in Section 7
+
+2 Background & Related Work Online behavioral advertising enables ad targeting based on users’ interests and behaviors
+
+To target ads, online advertisingrelies on the intertwined tracking ecosystem that uses cook- ies for cross-site tracking
+
+For instance, the real-time bidding (RTB) protocol that powers programmatic online advertising has built-in mechanisms for advertisers and trackers to share information [ 24,32,51]
+
+Thus, almost always, ads and trackers go together, with intertwined execution ﬂows and resource de- pendencies
+
+Below, we revisit prior literature on ad and tracker blocking, and analyze its limitations
+
+Popular ad and tracker blocking tools such as Adblock Plus [1] rely on ﬁlter lists [ 4,5]
+
+These ﬁlter lists are manually curated based on user feedback
+
+Prior work has shown that manually curated ﬁlter lists suffer from scalability androbust- ness issues
+
+First, ﬁlter lists have trouble keeping up with the ever expanding advertising and tracking ecosystem
+
+Filter lists have grown to include tens of thousands of rules that are often not updated in a timely fashion
+
+For instance, ﬁlter lists may take as long as 3 months to add rules for newly discovered ads and trackers [ 39]
+
+Once a ﬁlter rule is added to block an adver- tising and tracking service, it is rarely removed, even if it is no longer needed
+
+In fact, prior work showed that almost 90% of the rules in ﬁlter lists are rarely or never used [ 58]
+
+Second, ﬁlter lists are not robust to evasion attempts by advertisers and trackers
+
+Filter lists are brittle in the face of domain rotation [21,65] and manipulation of page structure [ 15,56,63]
+
+For instance, prior work showed that ﬁlter lists are susceptible to evasion attacks such as randomization of URL path, hostname, or element attributes and IDs [10, 44, 61]
+
+Addressing scalability
+
+To address the scalability issues that arise due to manual curation of ﬁlter lists, researchers have proposed to use machine learning (ML) for automated ad and tracker blocking
+
+Prior ML-based approaches mainly detect ads and trackers at the network and JavaScript layers of the web stack
+
+These approaches detect ads and trackers by featurizing network requests [13, 33, 53] or JavaScript code [37, 42, 64]
+
+Network layer approaches rely on content in URLs, HTTP headers, and request and response payloads (e.g., keywords, query strings, payload size) to extract features and train ML models to detect ads and trackers [ 13,33]
+
+While trying to mimic ﬁlter lists by detecting ad and tracker URLs, these ap- proaches end up replicating some characteristics of ﬁlter lists and thus also naturally inherit their shortcomings
+
+For example, presence of a certain keyword in the request URL could be a distinguishing feature
+
+However, as discussed earlier, such keyword based features are brittle in the face of trivial evasions such as domain rotation [10, 61]
+
+JavaScript layer approaches rely on static or dynamic anal- ysis to extract features and train ML models to detect ads and trackers
+
+Examples of features are n-grams of code state- ments obtained via static analysis [ 37] or JavaScript API invo- cations captured via dynamic analysis [ 64]
+
+These approaches are susceptible to JavaScript obfuscation [ 25,31,34]
+
+These approaches are also susceptible to evasion such as script amal- gamation or dispersion
+
+They implicitly assume that tracking code is bundled in a single script or that tracking scripts only 2876    31st USENIX Security Symposium USENIX Associationcontain tracking code
+
+However, in practice, tracking code could be distributed across several chunks and packaged with functional code [11, 40]
+
+Addressing robustness
+
+While network and JavaScript layer approaches consider information at each layer in isolation, ads and trackers rely on all three layers (i.e
+
+network, JavaScript, and HTML) of the web stack for their execution
+
+Therefore, focusing on only one layer lacks robustness against the afore- mentioned evasion attempts
+
+To address this limitation, graph- based approaches aim to capture the interactions among and across layers of the web stack
+
+Graph-based approaches extract features from the cross- layer graph representation to train ML models to detect ads and trackers [ 40,54]
+
+These approaches leverage rich cross- layer context and thus claim to be robust to evasion attempts
+
+ADGRAPH was the ﬁrst graph-based approach to ad and tracker classiﬁcation [ 40]
+
+It extracts structural features from the graph such as node connectivity and ancestry information as well as content features such as URL length and presence/absence of certain keywords
+
+Sjösten et al
+
+[ 54] introduced PageGraph, which extends ADGRAPH ’s graph representation by improv- ing event attribution and capturing more behaviors
+
+In addi- tion to content and structural features, they also added percep- tual features to train the classiﬁer
+
+Since perceptual features attempt to use the rendered resource content, they are also considered content features
+
+Chen et al
+
+[ 19] proposed an ap- proach, using PageGraph, to detect trackers based on their exe- cution signatures
+
+In contrast to ML-based approaches, their signature-based approach would only be able to detect trackers that strictly match the signatures of tracking scripts, but miss trackers with even slight deviations in their behavior, such as changes in the execution order
+
+Kargaran et al
+
+[ 43] followed a different approach
+
+Instead of building a graph representa- tion per website, they combined graph representations across multiple websites to model relations between third parties on those sites
+
+Just like ADGRAPH , they also extract structural and content features from the graph to train the classiﬁer
+
+These graph-based systems use a combination of content and structural features for classiﬁcation, which they claim in- creases the robustness to evasion attacks
+
+While this combina- tion should intuitively improve classiﬁer robustness, we posit that it would be less robust than expected if the classiﬁer relies heavily on content features
+
+This is because content features pertain to a single node on the graph and are easy to manipu- late for an adversary, e.g., using adversarial attacks on textual [66] and perceptual [ 60] content features, without causing un- desired changes in other nodes
+
+It is noteworthy that Zhu et al
+
+[66], also manipulate structural features, however their ma- nipulations are only limited to graph size
+
+Further, they do not evaluate the impact of their mutations on overall graph
+
+In the next section, we analyze the robustness of graph-based ad and tracker detection systems
+
+We focus on ADGRAPH as it is representative of other graph-based systems that use similar structural and content features.3 A DGRAPH Robustness In this section, we analyze ADGRAPH ’s robustness by evaluat- ing its accuracy in the face of adversarial content manipulation
+
+ADGRAPH is a graph-based machine learning approach that detects ads and trackers based on their structural and content properties
+
+ADGRAPH instruments the Chromium web browser to capture detailed execution of ads and trackers across the HTML, JavaScript, and the network layer, and models the in- teraction among these layers in the form of a graph
+
+Using this graph, ADGRAPH extracts two categories of features: content (information related to individual nodes in the graph, such as URL length and presence of ad/tracking keywords in the URL) andstructure (information about relationships between nodes, such as connectivity and ancestry information)
+
+It uses the ex- tracted features to train a machine learning classiﬁer to detect advertising and tracking resources
+
+The full list of ADGRAPH features are described in Table 4
+
+Since ADGRAPH relies on content properties, in addition to structural properties, it is subject to same evasion attacks that succeed against the ﬁlter lists-based ad and tracker detection approaches [10, 61]
+
+3.1 Threat Model & Attack Our threat model assumes an adversarial third-party adver- tiser or tracker embedded on a site, who aims to change the classiﬁcation of its resources from advertising and tracking ser- vices (ATS) to benign resources (Non-ATS) in order to evade detection by ad and tracker blocking tools
+
+We assume that the adversarial third party has limited coop- eration with the ﬁrst-party publisher
+
+We do not assume full cooperation because the parties are mutually distrusting
+
+The third-party adversary generally does not trust the ﬁrst-party publisher to serve its advertising and tracking resources via a reverse proxy [ 2,41]
+
+Likewise, the ﬁrst-party publisher does not trust the third-party adversary to host functional resources via the adversary-controlled CDN [ 14]
+
+Given existing prac- tices, we assume that the adversary can serve its advertising and tracking resources from a ﬁrst-party subdomain but not arbitrarily within the ﬁrst-party domain space
+
+For example, the adversary can masquerade its resources through CNAME cloaking [ 23], which only requires a minor change in DNS records by the ﬁrst party
+
+Recent measurement studies have reported an increase in the prevalence of CNAME cloaking over the last few years
+
+Dao et al
+
+[ 26] showed that the usage of CNAME cloaking-based tracking has steadily increased between 2016 and 2020, with 1,762 of Alexa’s top-300K web- sites employing at least one CNAME-based tracker as of Jan- uary 2020
+
+Dimova et al
+
+[ 28] also showed that the usage of CNAME cloaking has increased by 22% from 2018 to 2020, with 9.98% of Tranco’s top-10K websites now employing at least one CNAME-based tracker as of October 2020
+
+USENIX Association 31st USENIX Security Symposium    2877Figure 1: Classiﬁcation switch success rate distribution by web page (over 10 folds) when the adversary does notcollude with the ﬁrst party
+
+The average success rate per web page is 15.92 ±0.03 %
+
+We assume that the adversary is able to manipulate their own URLs by altering the domain name or query string
+
+The adver- sary can only manipulate URLs that are under their control, and only attempts to manipulate URLs that were initially correctly classiﬁed as ATS (ad and tracker URLs initially classiﬁed as Non-ATS already beneﬁt the adversary)
+
+The adversary cannot manipulate the data used to train the classiﬁer
+
+Therefore, we only implement mutations during inference
+
+We implement two types of URL manipulations
+
+For domain names, we allow the adversary to randomly change the URL’s domain, subdomain, or both
+
+In practice, adversaries can rely on automated techniques to generate random domains and sub- domains
+
+For example, they can use malware-inspired domain generation algorithms (DGA) techniques to generate a large number of domains [ 22,52]
+
+For query strings, we randomly change the number of parameters, the parameter names, the parameter values in the URL, or a combination of the three
+
+3.2 Results Experimental setup
+
+We extend OpenWPM [ 30] to automati- cally crawl websites with Firefox and build ADGRAPH ’s rep- resentation
+
+We crawl 10K sites sampled from the Alexa’s top-100K list, the top 1K sites and a random sample of 9K sites ranked between 1K-100K, and store their graph repre- sentations
+
+Next, we implement a decision tree classiﬁer that closely follows ADGRAPH ’s design [ 40], and extract features from the graphs for training and testing
+
+For ground truth, we use the same set of ﬁlter lists for data labeling that were used byADGRAPH [40]
+
+A URL is labeled as ATS if it is present in one or more of the ﬁlter lists, and Non-ATS otherwise
+
+We use 10-fold cross validation to obtain our results, where the folds are selected such that every fold uses a different set of web pages in the test set
+
+Our classiﬁer obtains comparable performance to the original results reported by [ 40]: 92.33% accuracy, 88.91% precision, and 92.14% recall
+
+The minor differences are likely due to differences in crawled sites, up- dated ﬁlter lists, and a few subtle changes in our adaptation ofADGRAPH from online to ofﬂine
+
+In ADGRAPH ’s online Figure 2: Classiﬁcation switch success rate distribution by web page (over 10 folds) when the adversary colludes with the ﬁrst party
+
+The average success rate per web page is 93.01 ±0.01 %
+
+implementation, features are extracted from each node in the graph as they are created
+
+Our ofﬂine adaptation, instead, ex- tracts features after page load completion
+
+There are also some minor differences due to JavaScript attribution, caused by the differences in instrumentation between Chromium-based AD- GRAPH and Firefox-based OpenWPM.1 Adversarial success rate without collusion
+
+In our ﬁrst ex- periment, we assume that the adversary does not collude with the ﬁrst party
+
+The adversary can randomize their domain and subdomain, but cannot masquerade as the ﬁrst party
+
+Our con- tent mutation procedure results in the mutation of 41.48 ±1.47 % of all the test data URLs (averaged over 10 folds)
+
+The ad- versary’s success rate in evading the classiﬁer is 8.72 ±0.42 % (over 10 folds)
+
+While this may seem like a low percentage, we note that every successful mutation is a win for the adversary since it means that one more of their ads or trackers is now unblocked
+
+Over all 10 folds, the adversary mutated 691,602 URLs, out of which 60,270 had their classiﬁcations switched
+
+We also observe that the evasion success rate varies across sites, as shown in Figure 1
+
+For ≈1% of the web pages in the test set (90 pages), the adversary achieves a perfect success rate, meaning that all third-party ads and trackers on the web page are now classiﬁed as benign content
+
+It is noteworthy that 21.62% of the unblocked URLs belong to popular ad exchanges, which are responsible for further diffusion of user information due to the broadcast nature of real-time bidding (RTB) [ 12]
+
+These unblocked ad exchanges can amplify the privacy harm because they often share information about page visits with multiple advertisers and trackers
+
+Adversarial success rate with collusion
+
+In our second ex- periment, we assume that the adversary colludes with the ﬁrst party
+
+The adversary can perform domain mutation such that their URL is a subdomain of the ﬁrst party
+
+The adversary’s success rate increases to 96.62 ±0.37 % (over 10 folds)
+
+This 1Due to these differences, our features are not exactly identical to the online implementation of ADGRAPH
+
+For example, in ADGRAPH , a node can have a maximum of two parents, which need not be the case for our system
+
+Therefore, we do not use ADGRAPH features speciﬁc to these two parents
+
+The full feature list, showing these differences is provided in Appendix A
+
+2878    31st USENIX Security Symposium USENIX AssociationFeature Category Information Gain (%) URL length Content 14.87 ±0.36 URL domain is a subdomain of the ﬁrst party Content 11.06 ±1.24 URL is a third party Content 10.67 ±1.32 Degree of a node Structure 7.56 ±0.63 Number of edges divided by number of nodes Structure 7.48 ±0.41 Table 1: Top 5 most important features for ADGRAPH ’s classiﬁcation, their category, and information gain values (averaged over 10 folds)
+
+means that being able to use a ﬁrst-party subdomain provides almost perfect evasion capabilities
+
+Figure 2 shows the evasion success rate variation across sites
+
+For ≈50% of the web pages in the test set, the adversary achieves a perfect success rate
+
+We also see a higher proportion (32.25%) of the unblocked URLs belonging to popular ad exchanges, as compared to the previous experiment
+
+To better understand why such URL manipulation is able to evade detection by ADGRAPH , we analyze feature importance using information gain (see Table 1)
+
+We see that content features are essential to the ADGRAPH classiﬁer: not only are the top-3 most important features content features, their relative importance scores are also high compared to the other features
+
+Two of the top-3 features depend on whether a URL is third-party, which explains why we obtain high success rates when the adversary has the capability to masquerade as the ﬁrst party
+
+These two features do not have an effect in the case where the adversary does not collude with the ﬁrst party, since the adversary cannot change the fact that they are third party
+
+However, the adversary’s manipulations still inﬂuence the third top feature, length of the URL
+
+Hence, we observe lower but non-trivial success rates even without collusion
+
+These results show that graph-based ML classiﬁers such asADGRAPH over-rely on content features that makes them vulnerable
+
+Next, we propose an approach to improve the ro- bustness of graph-based ad and tracker blocking tools
+
+4 W EBGRAPH Online advertising and tracking fundamentally relies on in- formation sharing
+
+Trackers need to share information with each other to improve their coverage of users’ browsing his- tory [ 30,51]
+
+Trackers also need to share information with each other as part of built-in dependencies in programmatic advertising protocols [ 9,24,32,50,51]
+
+We contend that lever- aging such fundamental information sharing patterns can help build accurate and robust classiﬁers for ad and tracker blocking
+
+We introduce WEBGRAPH , a classiﬁer that explicitly captures these information sharing patterns as part of its cross-layer graph representation of the execution of a web page
+
+To illustrate the information sharing patterns that we want to capture in WEBGRAPH , let us revisit how information shar- ing between different origins is mediated by the browser
+
+We deliberately use a loose deﬁnition of origin
+
+An origin can be, depending on the speciﬁc use case, a site, a domain, or an entity, among others
+
+At a high-level, the web browser iso-lates different origins, based on various policies, so that their data is not leaked to each other
+
+Figure 3(a) illustrates how the browser limits information sharing between different origins: example.com ,tracker1.com , and tracker2.com each have access to their isolated local storage (e.g., cookies, IndexedDB) that may be used to store user identiﬁers
+
+The browser isolates information ﬂows between the local storage and remote servers of different origins: tracker1.com andtracker2.com can- not generally access each others’ cookies
+
+Trackers typically circumvent these limitations in the browser in two main ways
+
+First, Figure 3(b) illustrates how a tracker may share its identiﬁer with another tracker through cookie syncing
+
+This can be implemented in several ways
+
+For example, let’s say example.com loads a JavaScript from Tracker 1 that ﬁrst uses document.cookie to retrieve Tracker 1’s identiﬁer cookie from its cookie storage and then initiates a GET request to Tracker 2
+
+The script includes Tracker 1’s identiﬁer cookie in the request URL as a query string parameter
+
+Note that the request automatically includes Tracker 2’s identiﬁer cookie in the Cookie header
+
+Therefore, when Tracker 2’s remote server receives the request, it would be able to sync Tracker 1’s identiﬁer with its own identiﬁer
+
+As another example, let’s say example.com ﬁrst loads an in- visible pixel from Tracker 1, which responds back with a 3XX redirect status code along with the URL in the Location header that points to Tracker 2 and includes Tracker 1’s identiﬁer cookie
+
+Upon receiving the response, the browser issues a GET request to Tracker 2 and includes Tracker 1’s identiﬁer cookie in the request URL and Tracker 2’s identiﬁer cookie in the Cookie header
+
+Again, Tracker 2’s remote server is able to sync Tracker 1’s identiﬁer with its own identiﬁer
+
+Second, Figure 3(c) illustrates how a tracker may share its identiﬁer with another tracker through various web APIs in several ways
+
+For example, let’s say example.com loads scripts from Tracker 1 and Tracker 2 which then share their identiﬁers by reading/writing to the global variables of the window object
+
+The script from Tracker 1 may assign its iden- tiﬁer to a new global variable foo that is then read by the script from Tracker 2
+
+Therefore, Tracker 1 and Tracker 2’s scripts would be able to sync identiﬁers with each other and also send them to their respective remote servers
+
+As an- other example, let’s say example.com loads iframes from Tracker 1 and Tracker 2 which then share their identiﬁers us- ingpostMessage
+
+While these iframes have different origins, Tracker 1’s iframe can use window.parent property to get a reference to the parent window and then use window.frames to get a reference to Tracker 2’s iframe
+
+Tracker 1’s iframe can then use this reference to call window.postMessage and send its identiﬁer to Tracker 2’s iframe, which can use window.addEventListener to receive the identiﬁer
+
+Tracker 2’s iframe can then send the shared identiﬁer with its remote server to sync them
+
+Trackers use a wide variety of information sharing patterns, beyond the two aforementioned mechanisms
+
+A sound and USENIX Association 31st USENIX Security Symposium    2879(a) (b) (c) Figure 3: Origin isolation vs
+
+sharing
+
+Circles represent information about a user gathered by a particular domain ( example.com ,; tracker1.com ,; and tracker2.com ,)
+
+The box represents the browser which acts as channel between the local storage on the user’s device and the remote server of each domain
+
+3(a) Illustrates origin isolation in the browser: every domain can only access information in their own storage
+
+3(b) and 3(c) illustrate two information sharing patterns that trackers use to circumvent origin isolation: (b) cookie syncing, where users’ identiﬁers are sent to more than one domain; and (c) sharing identiﬁers using web APIs
+
+precise examination of all patterns warrants full-blown infor- mation ﬂow tracking that adds signiﬁcant implementation com- plexity and runtime overhead [ 18,20,35]
+
+As we discuss next, WEBGRAPH approximately captures these information sharing patterns by including additional nodes and edges in its graph representation that correspond to elements and actions associ- ated with these information sharing patterns
+
+(See Section 6 for a discussion of WEBGRAPH ’s completeness.) It then extracts new features on this enriched graph representation to train a classiﬁer for detecting ads and trackers
+
+4.1 Design & Implementation 4.1.1 Graph Construction WEBGRAPH captures the ﬂow of information among and across the HTML, network, JavaScript, and storage layers of the web stack
+
+At the HTML layer, WEBGRAPH captures cre- ation and modiﬁcation of all HTML elements that are initiated with scripts, e.g., iframe
+
+At the JavaScript layer, WEBGRAPH captures the scripts’ interaction with other layer, e.g., initiation of a network request
+
+At the network layer, WEBGRAPH cap- tures all outgoing network requests and their responses
+
+At the storage layer, WEBGRAPH captures read/write in cookies and local storage through scripts and network requests, and also value exchanges between network requests
+
+OpenWPM Instrumentation
+
+We extend OpenWPM [ 30] to capture the execution and interaction of HTML, network, JavaScript, and storage layers
+
+To capture HTML elements creation and modiﬁcations, we instrument createElement method and register a MutationObserver interface
+
+To cap- ture network requests, we parse OpenWPM’s existing instru- mentation, which uses a webRequest2listener, to capture all of the network requests, their responses, and redirects
+
+To cap- ture JavaScript interaction, we parse OpenWPM’s existing instrumentation, which relies on JavaScript’s stack trace to log JavaScript execution
+
+To capture read/write to storage, we instrument document.cookie and localStorage methods and also intercept cookie read/write HTTP headers
+
+2https://developer.mozilla.org/en-US/docs/Mozilla/Add- ons/WebExtensions/API/webRequestGraph Composition
+
+Elements at each of the layers are rep- resented with nodes and the interaction between these nodes is represented with edges
+
+Speciﬁcally, each HTML element, net- work request, script, and stored value, is represented as a node
+
+Edges to HTML nodes from script nodes represent the creation and modiﬁcation of elements
+
+Edges from HTML nodes to network nodes represent initiation of network requests to load content, such as scripts and images
+
+Edges from script nodes to network nodes represent the initiation of XMLHTTPRequest which will be parsed by the script
+
+Edges between script and storage nodes and network and storage nodes, represent the read/write of values in the storage
+
+Edges between network nodes either represent redirects or the presence of the same stored values.3 Graph Composition Example
+
+To illustrate WEBGRAPH ’s graph representation, let us consider the example web page given by Code 1
+
+The web page embeds a script from Tracker 1 and an iframe from Tracker 2
+
+The tracking iframe from Tracker 2 reads its tracking cookies and sends them to Tracker 3 via an XHR
+
+Both trackers trigger requests to share tracking identiﬁers
+
+The HTTP requests and responses that result from loads in Code 1 are listed in Listing 1
+
+Tracker 1’s script embeds an image element from Tracker 2, which causes the browser to send an HTTP request (Request 1 in Listing 1) that includes Tracker 2’s cookie
+
+Tracker 2 re- sponds to this request with a redirect to Tracker 1 that embeds the user identiﬁer Tracker 2 received via the initial request’s Cookie header (i.e., user1 )
+
+The browser makes a subsequent request (Request 2 in Listing 1) to Tracker 1
+
+Tracker 1 re- sponds with a tracking pixel image and a Set-Cookie header to set its own tracking cookie with the value userA
+
+On the backend, Tracker 1 knows that userA is known as user1 by Tracker 2
+
+Tracker 2’s embedded iframe further shares its iden- tiﬁer cookie with Tracker 3
+
+It does so by accessing its cookies locally via document.cookie and embedding them in an XHR to Tracker 3 (Request 3 in Listing 1)
+
+Differences as compared to A DGRAPH .WEBGRAPH keeps ADGRAPH ’s HTML and JavaScript layers as they are, but extends the network layer and includes a new storage layer in the graph representation
+
+WEBGRAPH also introduces infor- 3We match stored values with their base64-encoded and MD5 and SHA-1 hashed values [29, 32]
+
+2880    31st USENIX Security Symposium USENIX Association1<html> 2 <script src= ’tracker1.com /track.js ’ > 3 ..
+
+4 var image =document.createElement (’img’); 5 image.src =’tracker2.com /sync ’; 6 document.body.appendChild (image); 7 ..
+
+8 </script> 9 ..
+
+10 <iframe src= ’tracker2.com /track.html ’ > 11 <script> 12 ..
+
+13 idCookie =document.cookie; 14 var newReq = new XMLHTTPRequest (); 15 newReq.open ("GET", " tracker3.com ?user_id= " + idCookie); 16 ..
+
+17 </script> 18 </iframe > 19</html> Code 1: Web page sending requests to several trackers
+
+mation ﬂow edges, which are absent in ADGRAPH , to entwine the extended network layer and the storage layer
+
+The extension of network and the addition of storage layer allow WEBGRAPH to explicitly capture information sharing patterns used in ad- vertising and tracking
+
+--------------------------------------------------- Request 1 URL: tracker2.com /sync Cookie: user1 Response 1 Status: 302 Location: tracker1.com ? tracker2_id=user1 --------------------------------------------------- Request 2 URL: tracker1.com ? tracker2_id=user1 Response 2 Status: 200 Set-Cookie: userA Content: pixel.png --------------------------------------------------- Request 3 URL: tracker3.com ? user_id=user1 Response 3 Status: 200 Listing 1: HTTP requests and responses initiated from Code 1
+
+We illustrate the differences in Figure 4 which shows the graph representation of the web page in Code 1 and request and response sequences in Listing 1 for both ADGRAPH (Fig- ure 4(a)) and WEBGRAPH (Figure 4(b))
+
+ADGRAPH ’s rep- resentation of the example web page consists in two disjoint graphs which capture the individual actions of the two trackers: The ﬁrst row of nodes (from 10 to 15) captures Tracker 2’s tracking behavior: from the iframe loading to the initiation of an XHR request
+
+The second row of nodes (from 2 to 6) captures Tracker 1’s tracking behavior: from the script loading to the initiation of a network request for loading an image
+
+Inthis ﬁgure, it becomes clear that ADGRAPH does not capture the information sharing pattern between the nodes, because of its inability to capture the redirect (Request 2) made by the image request (network node 5) and the cookie set (storage node 5; visible only in WEBGRAPH ’s graph) by the redirect request
+
+WEBGRAPH , on the contrary, not only captures the ﬂows appearing in ADGRAPH , but also captures the redirects (dotted edge between the two network nodes labeled 5) and cookies set by requests (the second network node 5 to storage node 5)
+
+This representation further enables WEBGRAPH to link requests that share common identiﬁers (node 5 to 15)
+
+4.1.2 Features We take the ADGRAPH feature set and augment them with three categories of features
+
+These additional features come from WEBGRAPH ’s improved graph representation, i.e., exten- sion of the network layer and a new storage layer
+
+The features target storage, network, and information sharing behaviors that were absent in ADGRAPH
+
+First, we extract features that mea- sure the number of read/write cookie and localStorage accesses by a node
+
+We obtain these features from the new storage layer
+
+Second, we extract features that measure the number of re- quests and redirects to/from a node as well as the depth of a node in a redirect chain
+
+These features come from our ex- tension to the network layer
+
+Third, we extract features that measure the number of different types of information sharing edges (e.g., nodes access the same storage node or share data of a storage node) to/from a node
+
+We obtain these features using both the network and storage layers in WEBGRAPH ’s graph representation
+
+We also extract some standard graph features (e.g., in-degree, out-degree, eccentricity) for the information sharing edges
+
+We jointly refer to these three newly added categories of features as ﬂow features
+
+Table 4 in Appendix A lists the full set of features in W EBGRAPH
+
+To illustrate the potential of these features in distinguishing ATS and Non-ATS resources, let us consider three ﬂow features belonging to each of the categories described above:the number of storage elements set by a resource (Figure 5(a)), the number of requests that were redirected to a resource (Figure 6(b)), and the number of information sharing edge ancestors (Fig- ure 6(c))
+
+As explained in Section 4, ATS resources store user identiﬁers in storage elements and use redirects and sharing of identiﬁers in URLs to perform actions such as cookie syncing
+
+Therefore, we expect ATS resources to set a larger number of storage elements, be at the receiving end of redirects, and be involved in a larger number of shared information edges than Non-ATS resources
+
+We plot in Figure 5 the distributions of these features in our dataset
+
+We see that, indeed, the distri- butions are different for benign and ATS resources, with ATS presenting higher values on average for the three features under study
+
+The differences in distributions is especially apparent for Figure 6(c), which shows the number of shared informa- tion edge ancestors
+
+In our dataset, we observe 589,218 cases USENIX Association 31st USENIX Security Symposium    28812 5 6 Script nodeImage requestHTML image1 1 210 10 Script requestHTML iframeScript nodeIframe request15 XMLHTTP request(a) Graph representation of Code 1 in A DGRAPH 2 5 56 5 Script nodeImage requestCookie storage Network request setting a cookieRedirect initiation to load the imageHTML image11 15 Script node Shared cookie in request 210 10 Script requestHTML iframeIframe requestXMLHTTP request 5,13 Read Cookie storage (b) Graph representation of Code 1 in W EBGRAPH Figure 4: Graph representation of Code 1 in ADGRAPH andWEBGRAPH .represents network nodes, represents script nodes, represents HTML nodes, and represents storage nodes
+
+Node numbers correspond to the lines in Code 1
+
+In Figure 4(b), dotted (- - -) lines represent the additional edges that are captured by W EBGRAPH and missed by A DGRAPH
+
+of ATS receiving a cookie value in a request URL, as com- pared to 89,564 cases for non-ATS
+
+This sharing is detected as an information sharing edge, which in turn leads to ATS having larger values in shared information edge properties than Non-ATS
+
+In the case of redirects (Figure 6(b)), the probability that a Non-ATS resource has more than 7 redirects tends to 0, which is not the case with ATS resources
+
+The number of ATS resources with more than 7 redirects is very small in our dataset (≈0.04%)
+
+Yet, it is a top-20 feature in our classiﬁer, as observing more than 7 redirects directly identiﬁes the resource as ATS
+
+Storage element setting (Figure 5(a)) shows a similar behavior, with ATS resources sometimes having more than 54 elements set, while Non-ATS resources never have so many
+
+While individual contributions of some of these ﬂow features might be small, they provide a strong signal in distinguishing ATS when combined, as we show in the next section
+
+4.2 Evaluation To evaluate WEBGRAPH , we use the same dataset of 10K web pages and method as in Section 3.2
+
+To understand the marginal beneﬁt of WEBGRAPH over ADGRAPH , we systematically compare the performance of different feature sets and graph representations
+
+Table 2 summarizes the results
+
+Graph Feature Set Accuracy Precision Recall ADGRAPH Structural + Content 92.33 ±0.50 88.91±1.14 92.14±0.65 Structural 80.22 ±0.81 71.85±1.53 82.44±1.26 WEBGRAPH Structural+ Flow + Content 94.32 ±0.27 92.24±0.67 94.14±0.30 Structural + Flow 86.93 ±0.64 80.57±1.12 90.01±0.50 Structural 82.62 ±0.47 75.67±0.75 85.09±1.41 Table 2: Evaluation of WEBGRAPH andADGRAPH with different feature set variations
+
+We observe that ADGRAPH ’s performance drops by at least 10% when content features are removed
+
+Recall from Section 3.2 that if content features are present alongside structural fea- tures, ADGRAPH is particularly susceptible to evasion: trackers have an 8.72% evasion success rate on their own, and a 96.62% success rate if they collude with the ﬁrst party
+
+Thus, there is a trade-off in ADGRAPH between effectiveness (with content) and robustness to evasion (without content).Second, Table 2 shows that WEBGRAPH ’s performance is better than ADGRAPH
+
+When using all feature sets, WEB- GRAPH outperforms ADGRAPH by about 2-4%
+
+If, for robust- ness, we remove content features, we observe a drop in accu- racy limited to just 4-9% across all measures
+
+We conclude that WEBGRAPH ’s improved graph representation and new ﬂow features can compensate for the loss of content features to a large extent
+
+Finally, Table 2 shows that WEBGRAPH ’s improved graph representation by itself (i.e., even without the new ﬂow fea- tures) contributes to about half of the improvement over AD- GRAPH .WEBGRAPH with only structural features achieves 2-4% improvement across all measures as compared to AD- GRAPH also with only structural features
+
+We conclude that, while WEBGRAPH ’s new ﬂow features help improve its accu- racy, the improved graph representation is an important con- tributor to performance
+
+Feature Category Information gain (%) Shared information ancestors Flow 6.48 ±0.69 Number of requests sent by node Flow 5.9 ±0.69 Number of nodes in graph Structure 5.46 ±0.35 Average degree connectivity of node Structure 5.18 ±0.16 Number of edges in graph Structure 4.19 ±0.34 Table 3: Top-5 most important features for WEBGRAPH ’s classiﬁca- tion, their category, and information gain (averaged over 10 folds)
+
+To provide insights into the relative importance of ﬂow and structural features, we list top ﬁve most important features in terms of information gain in Table 3
+
+The two most important features are ﬂow features
+
+As discussed in Section 4.1.2, the top feature distribution (Figure 6(c)) is very different for ATS and non-ATS, so it’s not surprising that this feature contributes to the classiﬁcation
+
+Storage setting (Figure 5(a)) and received redirects (Figure 6(b)) contribute a smaller, but still useful, portion towards identiﬁcation; they have information gains of 1.9% (±0.37) and 2.5% (±0.47) respectively (21st and 17th most important features)
+
+Structure features, enhanced byWEBGRAPH ’s improved graph representation, also con- tribute towards the performance
+
+We further analyze which features contribute most to each prediction of WEBGRAPH using treeinterpreter [7]
+
+For≈32% of predicted ATS in 2882    31st USENIX Security Symposium USENIX Association(a) (b) (c) Figure 5: Histograms of three example ﬂow features for ATS and Non-ATS resources (normalized, y-axis in log scale)
+
+(a) Number of storage elements set by a resource; (b) Number of network redirects received by a resource, and (c) Number of shared information ancestors of a resource
+
+These features demonstrate different distributions for ATS and Non-ATS resources, and thus can help the classiﬁer to distinguish between them
+
+the dataset, the ﬂow features were the top contributors, indi- cating that they provide an important signal for the presence of trackers
+
+In contrast, for ≈47% of predicted Non-ATS in the dataset, structure features were the top contributors
+
+These results conﬁrm our earlier intuition that capturing information sharing behaviors that are unique to advertising and tracking carries signiﬁcant predictive power
+
+4.3 Efﬁciency We envision WEBGRAPH to be used for ﬁlter list curation and maintenance in an ofﬂine setting
+
+WEBGRAPH relies on large scale web crawls and notoriously expensive graph traversals for feature extraction
+
+We now measure WEBGRAPH ’s ofﬂine overhead to demonstrate its adequacy as a tool to periodically update ﬁlter lists
+
+Crawl time
+
+Our implementation of WEBGRAPH has an up- per bound of 60 seconds, enforced with a timeout, to crawl a website
+
+In the average case, crawls take only ∼26.46 seconds per-page
+
+Crawls can be parallelized over several instances to reduce the crawl time
+
+For example, it took us around 10.5 hours to crawl 10K websites, parallelized over 7 instances
+
+Without parallelization and if all websites would reach the timeout, the crawls would take ∼166 hours
+
+Processing websites
+
+On average, WEBGRAPH takes 0.72 sec- onds to build the graph, 15 seconds to extract features, and 0.25 seconds to train and test each website
+
+For our crawl of 10K websites, it took us a total of ∼44 hours to create their graphs and extract features on a single instance
+
+This time can be signiﬁcantly reduced with parallelization
+
+Update frequency
+
+These estimates suggest that for 10K web- sites containing∼1.1 million requests WEBGRAPH will re- quire, at most,∼166 (data crawling) and ∼44 (data processing) hours with a single instance
+
+However, when averaged over 7 instances, the computation time signiﬁcantly reduces to 16.83 hours (10.5 for crawling and 6.33 for processing)
+
+We antici- pate the computation time for periodic updates to reduce sig- niﬁcantly because many websites have low update frequency
+
+Monitoring the update frequency of websites will allow us to only crawl when changes are expected in websites
+
+In caseswhere we determine that the website did not change since the last crawl, we will not recompute their classiﬁcations
+
+With this update frequency, WEBGRAPH will be able to update ﬁlter lists on a daily basis, and certainly operate within the current expiry period, i.e., mandated update frequency, of popular ﬁlter lists, e.g., 4 days for Easylist [ 4]
+
+Frequent updates with WE- BGRAPH can help remove outdated rules and as well as add new rules to block newly discovered ads and trackers
+
+To evade detection by the updated rules generated by WEB- GRAPH , adversaries could change their page content (e.g., ro- tate domains) [ 44]
+
+In order to successfully evade WEBGRAPH , however, an adversary would need to change their page content at a rate faster than the rate of WEBGRAPH ’s updates (i.e, at least once a day)
+
+Such frequent changes, however, require continuous coordination and cooperation between the trackers and publishers hosting their content and are complicated to implement in practice
+
+If an adversary with sufﬁcient resources and capabilities to perform frequent page content changes, WEBGRAPH would need to operate in an online manner to be robust by directly classifying page resources at runtime
+
+This would require few changes in WEBGRAPH ’s operation
+
+Specif- ically, instead of extracting features from a complete graph representation at the end of a page load, in an online setting WEBGRAPH would need to extract features from partial graph representations build as the page is being loaded
+
+Relying on partial graph representation, will make WEBGRAPH more per- formant, but it may may degrade WEBGRAPH ’s accuracy
+
+We leave to future work to explore the tradeoffs involved in an online implementation of W EBGRAPH
+
+5 W EBGRAPH Robustness In this section, we evaluate WEBGRAPH ’s robustness against content mutation attacks (described in Section 3) and structure mutation attacks
+
+5.1 Content mutation attacks To evaluate WEBGRAPH against content mutations, we strengthen the threat model described in Section 3 to enable the adversary to also masquerade their resources as ﬁrst party, USENIX Association 31st USENIX Security Symposium    2883i.e., through ﬁrst-party subdomains
+
+Overall, our attacks in- volve random mutations to domain names, subdomains, and the query string in URLs (Section 3.2)
+
+By relying on content mutations, the adversary is able to switch 96.62% of their ATSresources to Non-ATS against AD- GRAPH
+
+Against WEBGRAPH , the adversary’s success rate plummets to just 8.34 ±0.66% (over 10 folds)
+
+For example, mylivesignature.com , a tracking domain, was able to switch all of its 560 ATSresources to Non-ATS against ADGRAPH , but none against W EBGRAPH
+
+Note that, even though WEBGRAPH does not use content features, the evasion success rate against WEBGRAPH does not drop to zero
+
+This is because some of the WEBGRAPH ’s features implicitly rely on URL properties
+
+For example, shared information edges, that consider sharing of cookie values via query strings in the URL, are affected by URLs manipulations
+
+5.2 Structure mutation attacks Next, we evaluate W EBGRAPH ’s robustness against structure mutations
+
+We assume that the adversarial third-party has un- restricted black box access to the WEBGRAPH ’s classiﬁer, i.e., the adversary can make unlimited queries and observe WEBGRAPH ’s classiﬁcation output
+
+This access enables the adversary to validate the effect of their structure mutations
+
+Attack details
+
+We assume that the adversary can mutate the structure of a web page through resource addition, re-routing, and obfuscation
+
+Moreover, we assume that the adversary also performs content mutations, to maximize its chance of success Resource addition entails addition of new resources, such as images and scripts
+
+Resource re-routing entails re-organization of existing redirect chains, i.e., dispersing a redirect chain in a sequence of XMLHttpRequest’s through one or multiple scripts
+
+Resource obfuscation entails obfuscation of cookie or query string parameter values of existing resources, i.e., encod- ing or encrypting cookie or query string parameter values in a format that is not detected by WEBGRAPH ’s implementation, before sharing them in network requests
+
+To remain stealthy, we assume that the adversary does not delete functional content from the web page that could damage usability
+
+It is important to note that even simple mutations, such as adding a single element to the web page, can signiﬁcantly change graph properties and impact several features
+
+For ex- ample, the addition of a child node causes a cascading effect
+
+It increases the number of descendants of all the parent nodes in the branch, all the way up to the root node, and also impacts their centrality
+
+Thus, the result of such simple mutations can become unpredictable and hard to control by the adversary: It can cause unintended classiﬁcation changes for nodes under and outside the control of the adversary
+
+Complex mutations, such as adding a combination of nodes at once, further compli- cate having control on the number of unintended classiﬁcation changes
+
+In our evaluation, we only consider atomic mutations, i.e., addition, re-routing, or obfuscation of individual resources.Mutation algorithm
+
+We capture the adversary’s unrestricted black box access to classiﬁer by implementing a greedy random algorithm to ﬁnd suitable mutations
+
+This kind of algorithm is extensively used in the literature due to its simplicity and practicality [ 36,62,67]
+
+The algorithm (formally described in Appendix D) iteratively mutates WEBGRAPH ’s graph rep- resentation
+
+At each step, it adds, re-routes, or obfuscates the resource that provides the best trade-off between desired (ATS toNon-ATS ) and undesired (NON-ATS toATS) classiﬁcation switches
+
+Resource addition is simulated by adding nodes to a randomly selected leaf nodes in the graph
+
+Resource re-routing is simulated by adding each request, in a redirect chain, as an individual node to one or more randomly selected scripts
+
+Resource obfuscation is simulated by replacing stored values in URLs with an encoding that is not detected by WEBGRAPH
+
+5.3 Empirical evaluation Experimental Setup
+
+To evaluate WEBGRAPH ’s robustness, we must rebuild the graph and recompute the features after each mutation
+
+To keep the evaluation time reasonable, we sample 100 web pages from our dataset, and we limit the graph growth to 20%
+
+To ensure that this sample is representative of our dataset, we divide graphs into 5 bins according to their size and sample 20 web pages from each bin
+
+To avoid exception- ally long evaluation times, we only consider web pages that have 250 or fewer nodes (80% of the dataset; see Appendix B for the full distribution).4For each web page, we designate the adversary as the third party with the highest number of resources classiﬁed as ATS
+
+It is noteworthy that the adversary with the highest number of ATSresources has an opportunity to do maximum damage
+
+In this dataset, the median evaluation time per web page was 29.08 minutes, with 39% of the pages taking more than an hour to run
+
+Even though this is a simulation, the computational cost is directly proportional to the operational cost for the adversary
+
+The adversary must consume additional CPU cycles and memory and in the case of node addition, send additional network requests, thereby increasing the cost of their attack
+
+Success metrics
+
+To measure adversary’s success, we deﬁne the following terms: ATS Web: Number of nodes classiﬁed as ATS
+
+ATS Adv: Number of adversary nodes classiﬁed as ATS
+
+Non-ATS Web: Number of nodes classiﬁed as Non-ATS
+
+Non-ATS Adv: Number of adversary nodes classiﬁed as Non-ATS
+
+desired : Number of nodes switching from ATS Advto Non-ATS Adv
+
+4The resulting reduced dataset has similar mean, stand deviation, and me- dian for the features as the full dataset
+
+2884    31st USENIX Security Symposium USENIX Associationundesired : Number of nodes switching from Non-ATS Webto ATS Adv
+
+neutral : Number of nodes switching from ATStoNon-ATS for non-adversary nodes
+
+Success rate : Desired changes from the adversary’s point of view
+
+It is calculated as desired/ATS Adv
+
+Collateral damage : Undesired changes from the adversary’s point of view
+
+It is calculated as undesired/(Non-ATS Adv+Non-ATS Web)
+
+Other changes : Non-consequential changes from the adver- sary’s point of view
+
+It is calculated as neutral/ATS Web
+
+We illustrate the node switches, with the mutation algorithm, for an example graph in Appendix E
+
+5.3.1 Adversary’s success We assume that the adversary neither colludes with other third parties nor with the ﬁrst party and can only perform mutations on the nodes and edges it controls
+
+We conduct the attack on 100 web pages
+
+We note that increasing the number of graph mutations increases the adversary’s mean success rate from 38.6±33.01 (median: 33.33) at 5% graph growth to 52.48 ± 33.4 (median: 50.00) at 20% graph growth
+
+The classiﬁcation switches lead to a decrease in the overall classiﬁcation accuracy by 1.5%, recall by 8.85%, and precision by 2.29%
+
+However, the adversary’s success comes at a cost of collat- eral damage
+
+The average collateral damage rises from 2.17 ± 11.19 to 3.88±13.55 (median: 0)
+
+In Figure 6, we illustrate the trade-off between success rate and collateral damage at 20% graph growth
+
+The x-axis represents success rate, the y-axis represents collateral damage, and circles represent a trade-off between the two
+
+The circles’ color represents ATS Advor the number of classiﬁcations the adversary has to switch for the particular web page
+
+The lighter the color, the more switches are required, i.e, the cost of success increases
+
+For the web pages in this dataset, the adversary has, on average, ATS Adv= 5.98±5.39 nodes classiﬁed as ATS
+
+For certain pages, the ATS Advcan be as high as 26
+
+Ideally, the adversary wants to be at the bottom right of the graph, where it achieves 100% success rate with zero collateral damage
+
+The adversary is able to reach its ideal target on only 13 web pages, which only required four switches
+
+The adversary is able to achieve 50% or more success on 61 of the tested web pages
+
+Together, they amount to 240 nodes switched, with 45 of these pages having non-zero collateral damage
+
+On the other hand, we have 9 web pages that had a higher collateral damage than success rate: a net negative effect of the mutation
+
+Out of these, 6 web pages had 0% success rate with non-zero collateral damage, and 3 web pages had a large collateral damage >75% (with one web page hitting 83%).Overall, even in the case of an unrealistic adversary that has the capabilities to manipulate structure features at will, and also the operational power to do so for a large number of iterations, there is no guarantee of perfect success
+
+Breakage
+
+If undesired changes affect benign resources that are essential to the correct functioning of the web page, even a small collateral damage can break the page
+
+This may have large impact on trackers
+
+If users leave the broken web pages, the adversary cannot track them or show them ads
+
+We deﬁne website breakage as degradation in usability of the website
+
+We say there is major breakage if the user is unable to complete the primary functionality of the web pages (e.g
+
+login, search or page navigation)
+
+If the user is unable to complete a secondary functionality of the web pages (e.g
+
+comment or review), we say there is minor breakage
+
+Otherwise, we consider that the web page does not have any breakage
+
+We quantify breakage on all of the 21 web pages where the adversary experiences undesired classiﬁcation switches.5 We open these web pages side by side on stock Firefox and a Firefox conﬁgured with an extension that blocks the URLs that switched classiﬁcation, and we compare them side by side to identify any visual signs of breakage
+
+We ask two reviewers to perform the analysis
+
+Our reviewers attain an agreement of 90.46% in their evaluation
+
+They ﬁnd that the undesired classiﬁcation switches cause major break- age on 3 and minor breakage on 2 web pages
+
+This breakage mostly happens when the ﬁrst-party resources are switched from Non-ATS→ATS
+
+Our approach and results are in line with other works that evaluate breakage [ 40,57], though we cannot test whether this breakage is representative of what users experience in the wild
+
+Careless adversary
+
+If the adversary is not concerned with changes to any non-adversarial nodes, their collateral damage decreases
+
+The adversary still does not want their own con- tent to be blocked, so it will optimize against their own nodes switching to ATS
+
+This change in strategy updates the collateral damage calculation to: undesired/Non-ATS Adv
+
+With our modiﬁed deﬁnition, there can be no collateral dam- age for web pages on which all of the adversary nodes are classiﬁed as ATS; we note 55 such web pages
+
+For the remain- ing 45 web pages, only 8 web pages have collateral damage, as compared to 27 web pages that had collateral damage as per our original deﬁnition
+
+Out of these 8 web pages, 4 had a higher collateral damage than success rate (net negative effect), and 6 web pages have a large collateral damage > 20% (with 2 web pages hitting 100%)
+
+Thus, even when an adversary is not concerned about collateral damage to other parties they are not signiﬁcantly more successful in subverting WEBGRAPH
+
+Surprisingly, the success rate mean growth does not change much from the previous scenario
+
+The unpredictable effect of the mutations on the graph features (see Appendix E for an 5The adversary experiences undesired classiﬁcation switches on 45 web pages
+
+However, 24 web pages no longer serve the switched ATSresources
+
+USENIX Association 31st USENIX Security Symposium    2885(a) (b) (c) Figure 6: Adversary’s success rate vs
+
+collateral damage for each web page in the test data at 20% graph growth
+
+Figure 6(a) represents all mutations, 6(b) represents only structure mutations, and 6(c) represents only resource re-routing and obfuscation mutations
+
+Colored circles represent the number of required switches
+
+example) makes it difﬁcult to pinpoint what causes this lack of change in the adversary’s success rate
+
+Collusion with the ﬁrst party
+
+So far, we have assumed that the adversary is a single third party that does not collude with other third parties or the ﬁrst party
+
+If we assume the adversary colludes with both, the adversary can add child nodes to any node in the graph
+
+This is a much stronger adversary than in Section 5.3.1, where in each iteration the adversary can only test a random subset of the options
+
+Realistically, such a powerful collusion would be difﬁcult to implement, as it would require coordination and cooperation among multiple parties to ensure that the mutation is feasible
+
+We repeat our experiment, but we now allow the adversary to consider all possible mutation options on any node, and pick the best one in each iteration
+
+These experiments take longer to run (see Appendix C), so we only analyze 100 web pages whose graphs have at most 50 nodes
+
+We see that collusion enables the adversary to have a slightly higher success rate (63 pages with success rate > 50% as compared to 60 for the non-colluding adversary) and lower collateral damage (9 pages with damage >0% compared to 18 pages for a non-colluding adversary)
+
+These results are described in detail in Appendix F)
+
+5.3.2 Impact of mutation choice Next, we study the adversary’s preference in selecting the most useful mutations
+
+The adversary picks resource addition 81.70%, resource re-routing 17.26%, and resource obfuscation 0.04% of the time
+
+Resource obfuscation is rarely chosen by the adversary because the graph already has content manipulations applied, and these manipulations have already severed many of the edges that would be severed by resource obfuscation
+
+To separate out the impact of different mutations, we conduct two additional experiments: (1) where the adversary can only perform resource addition, and (2) where the adversary can only perform resource re-routing and obfuscation
+
+We exclude 33 of the web pages for experiment 2 because these web pages do not have re-route-able or obfuscate-able resources
+
+For the remaining 67 pages, we see that the re- routing/obfuscation mutations (Figure 6(c)) are more effective than addition mutations (Figure 6(b))
+
+Re-routing/obfuscationnot only yields higher success rates for the adversary, but also results in lower collateral damage
+
+This is unsurprising because these mutations target information sharing patterns which are distinctive of trackers; changing these patterns removes an important signal for the classiﬁer (see Table 3)
+
+However, in practice, resource re-routing and obfuscation would entail high costs for the adversary since they involve the manipulation of identiﬁer sharing patterns
+
+Speciﬁcally, the ad- versary would have to coordinate with other parties on changes to these patterns, and redesign how they perform tracking in order to perform these mutations
+
+The success of these muta- tions also depends on the degree to which ﬂows are captured by the instrumentation used to create the graph
+
+WEBGRAPH ’s instrumentation approximates information ﬂows and will not capture all attempts by an adversary to use re-routing and obfuscation
+
+We argue that this is not a fundamental ﬂaw in WEBGRAPH ’s architecture but a limitation in our implementa- tion that approximates information ﬂow (Section 4)
+
+A fully ﬂedged instrumentation would make these manipulations much more difﬁcult to deploy
+
+See Section 6 for an extended discus- sion
+
+Resource addition has fewer costs for the adversary since it does not involve coordination with additional parties
+
+This manipulation is not affected by the type of implementation because it is not related to the ﬂow of identiﬁers
+
+5.3.3 Comparison with A DGRAPH We also evaluate whether WEBGRAPH , in addition to having superior classiﬁcation performance, offers robustness beneﬁts over ADGRAPH
+
+We only use ADGRAPH ’s structural features, as we already demonstrated that content features are not ro- bust
+
+Because ADGRAPH does not have features based on ﬂow information, we only perform resource addition
+
+We ﬁnd that the adversary has greater success against ADGRAPH than WEBGRAPH , but also suffers from more collateral damage (Figure 10 in Appendix F)
+
+This is because the structural ef- fects of node additions are hard to control, as explained in Section 5.2
+
+Since the former is beneﬁcial to the adversary but the latter is not, it is not clear-cut as to whether one system provides more robustness than the other
+
+2886    31st USENIX Security Symposium USENIX AssociationIn summary, it is not trivial for an adversary to produce the desired classiﬁcation switches for their advertising and tracking resources without producing any undesired changes
+
+Yet, an adversary willing to accept the collateral damage, and with the resources to grow the graph beyond the 20% we evaluated, can increase the success rate
+
+Even this success, however, would increase the adversary’s operational and computational costs
+
+6 Limitations In this section, we discuss limitations of WEBGRAPH ’s design, implementation, and evaluation
+
+Completeness
+
+For efﬁciency reasons, WEBGRAPH fo- cuses on a limited subset of the browser’s API surface, such as HTTP cookie headers, document.cookie , and window.localStorage .WEBGRAPH ’s implementation is also geared towards capturing client-side information that is pertinent to stateful tracking
+
+However, techniques used by ATS need not to be limited to these APIs or to stateful tracking
+
+Some ATS have started to use stateless tracking techniques, such as browser ﬁngerprinting, which use APIs that are not cur- rently covered by our instrumentation [ 27,38,46]
+
+To account for these techniques, WEBGRAPH ’s instrumentation must be extended to include the corresponding APIs
+
+WEBGRAPH ’s manually designed graph representation and feature set capture the most well-known information shar- ing patterns
+
+The limits of these approach are shown in Sec- tion 5.3.2, where we show that an adversary capable of hiding or obfuscating traditional sharing ﬂows has a better chance to bypass WEBGRAPH than doing structure modiﬁcations
+
+This limitation is, however, linked to our implementation choices
+
+To increase WEBGRAPH ’s coverage of sharing behaviors, if sufﬁces with increase the instrumentation to cover more infor- mation ﬂows
+
+Ideally, we would instrument full-blown infor- mation ﬂow tracking
+
+Such expansion would incur prohibitive runtime overheads (up to 100X-1000X [ 35]) and its complex- ity makes it hard to integrate in the browser [ 18,20,45,59]
+
+Nevertheless, the design of WEBGRAPH permits that the instru- mentation to be upgraded gradually, as ATS evolve in response to our evasion protection techniques, increasing the cost of eva- sion without fundamentally changing the detection approach
+
+Robustness analysis
+
+Inspired by previous work on graph- based detection evasion [ 36,62,67], we use a greedy algorithm to attack WEBGRAPH
+
+This algorithm only considers the best mutation in each iteration
+
+Thus, it is not guaranteed to ﬁnd the optimal mutation sequence that would lead to the best adversary performance
+
+We note however that even exhaustive search does not lead to perfect success (see our results on small websites)
+
+We expect adversaries to try alternative algorithms to improve their success rates
+
+However, any alternative that is close to exhaustive search will become prohibitively expensive for the adversary when the web page graph is large.Another option for the adversary would be to perform more sophisticated graph mutations instead of the simple node ad- ditions that we perform
+
+An adversary could tailor their muta- tions to the page’s graph structure by studying how their node changes affect the graph properties of the web page
+
+However, this requires that the rest of the graph (i.e., the portions outside of the adversary’s control) remaining unchanged
+
+Realistically, it would be difﬁcult for an adversary to coordinate with other parties to generate these changes
+
+Finally, we note that the dynamism of modern websites [ 17] complicates the process for the adversary
+
+Web pages change often, sometimes on every load
+
+Even if the adversary manages to ﬁnd an appropriate set of mutations, those mutations may be invalid the next time the page is reloaded
+
+7 Conclusion In this paper, we showed that state-of-the-art ad and tracker blocking approaches are susceptible to evasion due to their re- liance on easy-to-manipulate content features
+
+We then showed that information sharing patterns in online advertising and tracking can be leveraged for their robust blocking
+
+We pro- posed WEBGRAPH , that builds a cross-layer graph represen- tation to capture such information ﬂows and trains a machine learning classiﬁer for accurate and robust blocking
+
+Our results showed that it is non-trivial to evade WEBGRAPH ’s classiﬁer without causing unavoidable collateral damage
+
+While it is not foolproof, WEBGRAPH raises the bar for advertisers and trackers attempting to evade detection
+
+We foresee that advertising and tracking services would need to signiﬁcantly re-architecture their information sharing patterns to achieve long-lasting evasion against WEBGRAPH
+
+We note, however, that introducing new information ﬂows may be quite complicated, as they may require collaboration among the ﬁrst- party and numerous third-parties on a typical web page
+
+Acknowledgments We thank Charles Nguyen for helping with the breakage analy- sis
+
+We also thank our anonymous reviewers and our shepherd, Blase Ur, for their constructive feedback
+
+A part of this work was carried out during Sandra Siby’s internship at Mozilla
+
+We thank Luke Crouch for his mentorship of the project dur- ing Sandra’s internship
+
+This work is supported in part by the National Science Foundation under grant numbers 2051592, 2102347, 2103038, and 2103439
+
+References [1] Adblock Plus
+
+https://adblockplus.org/
+
+[2]Bypassing ad blockers for Google Analytics
+
+https:// analytics-bypassing-adblockers.netlify.app/
+
+[3] Disconnect
+
+https://disconnect.me/
+
+USENIX Association 31st USENIX Security Symposium    2887[4]EasyList
+
+https://easylist.to/easylist/easylis t.txt
+
+[5]EasyPrivacy
+
+https://easylist.to/easylist/eas yprivacy.txt
+
+[6] Ghostery
+
+https://www.ghostery.com
+
+[7]treeinterpreter
+
+https://pypi.org/project/treeint erpreter/
+
+[8]uBlock Origin
+
+https://github.com/gorhill/uBl ock
+
+[9]ACAR, G., E UBANK , C., E NGLEHARDT , S., J UAREZ , M., N ARAYANAN , A., AND DIAZ, C
+
+The web never forgets: Persistent tracking mechanisms in the wild
+
+In CCS (2014)
+
+[10] ALRIZAH , M., Z HU, S., X ING, X., AND WANG , G
+
+Errors, misunderstandings, and attacks: Analyzing the crowdsourcing process of ad-blocking systems
+
+In IMC (2019)
+
+[11] AMJAD , A
+
+H., S ALEEM , D., Z AFFAR , F., G ULZAR , M
+
+A., AND SHAFIQ , Z.Trackersift: Untangling mixed tracking and functional web resources
+
+arXiv preprint arXiv:2108.13923 (2021)
+
+[12] BASHIR , M
+
+A., AND WILSON , C
+
+Diffusion of user tracking data in the online advertising ecosystem
+
+PETS (2018)
+
+[13] BHAGAVATULA , S., D UNN , C., K ANICH , C., G UPTA , M., AND ZIEBART , B
+
+Leveraging Machine Learning to Improve Unwanted Resource Filtering
+
+In WAIS (2014)
+
+[14] BLOOMBERG , J.Ad Blocking Battle Drives Disruptive Innovation
+
+https://www.forbes.com/sites/jason bloomberg/2017/02/18/ad-blocking-battle-dri ves-disruptive-innovation , 2017
+
+[15] BOSWORTH , A
+
+A New Way to Control the Ads You See on Facebook, and an Update on Ad Blocking
+
+https://newsroom.fb.com/news/2016/08/a-new-way-to- control-the-ads-you-see-on-facebook-and-an-update-on- ad-blocking/, 2016
+
+[16] BRAVE
+
+A Long List of Ways Brave Goes Beyond Other Browsers to Protect Your Privacy
+
+https://brave.co m/privacy-features/
+
+[17] BUTKIEWICZ , M., M ADHYASTHA , H
+
+V., AND SEKAR , V.Understanding website complexity: measurements, metrics, and implications
+
+In IMC (2011)
+
+[18] CHEN, Q., AND KAPRAVELOS , A
+
+Mystique: Uncov- ering information leakage from browser extensions
+
+In CCS (2018)
+
+[19] CHEN, Q., S NYDER , P., L IVSHITS , B., AND KAPRAVE - LOS, A
+
+Detecting ﬁlter list evasion with event-loop-turn granularity javascript signatures
+
+In S&P (2021)
+
+[20] CHUDNOV , A., AND NAUMANN , D
+
+A
+
+Inlined informa- tion ﬂow monitoring for javascript
+
+In CCS (2015)
+
+[21] CIMPANU , C
+
+Ad Network Uses DGA Algorithm to By- pass Ad Blockers and Deploy In-Browser Miners
+
+https: //www.bleepingcomputer.com/news/security/ad-network-uses-dga-algorithm-to-bypass-ad-b lockers-and-deploy-in-browser-miners/ , 2018
+
+[22] CIMPANU , C
+
+Ad Network Uses DGA Algorithm to By- pass Ad Blockers and Deploy In-Browser Miners
+
+https: //www.bleepingcomputer.com/news/security/a d-network-uses-dga-algorithm-to-bypass-ad-b lockers-and-deploy-in-browser-miners/ , 2018
+
+[23] COINTEPAS , R
+
+CNAME Cloaking, the dangerous disguise of third-party trackers
+
+https://medium.com/nextdns/cname-cloaking- the-dangerous-disguise-of-third-party-trackers- 195205dc522a, 2010
+
+[24] COOK , J., N ITHYANAND , R., AND SHAFIQ , Z
+
+Dif- fusion of user tracking data in the online advertising ecosystem
+
+PETS (2020)
+
+[25] DANG, H., H UANG , Y., AND CHANG , E.Evading Clas- siﬁers by Morphing in the Dark
+
+In CCS (2017)
+
+[26] DAO, H., M AZEL , J., AND FUKUDA , K
+
+Characterizing CNAME Cloaking-Based Tracking on the Web
+
+In TMA (2020)
+
+[27] DAS, A., A CAR, G., B ORISOV , N., AND PRADEEP , A
+
+The Web’s Sixth Sense: A study of scripts accessing smartphone sensors
+
+In CCS (2018)
+
+[28] DIMOVA , Y., A CAR, G., O LEJNIK , L., J OOSEN , W., AND VANGOETHEM , T
+
+The CNAME of the Game: Large-scale Analysis of DNS-based Tracking Evasion
+
+PETS (2021)
+
+[29] ENGLEHARDT , S., H AN, J., AND NARAYANAN , A
+
+I never signed up for this! privacy implications of email tracking
+
+PETS (2018)
+
+[30] ENGLEHARDT , S., AND NARAYANAN , A
+
+Online track- ing: A 1-million-site measurement and analysis
+
+In CCS (2016)
+
+[31] FASS, A., B ACKES , M., AND STOCK , B
+
+HideNoSeek: Camouﬂaging Malicious JavaScript in Benign ASTs
+
+In CCS (2019)
+
+[32] FOUAD , I., B IELOVA , N., L EGOUT , A., AND SARAFIJANOVIC -DJUKIC , N
+
+Missed by Filter Lists: Detecting Unknown Third-Party Trackers with Invisible Pixels
+
+PETS (2020)
+
+[33] GUGELMANN , D., H APPE , M., A GER, B., AND LENDERS , V
+
+An Automated Approach for Comple- menting Ad Blockers’ Blacklists
+
+In PETS (2015)
+
+[34] HANSEN , N., C ARLI , L
+
+D., AND DAVIDSON , D
+
+As- sessing Adaptive Attacks Against Trained JavaScript Classiﬁers
+
+In SecureComm (2020)
+
+[35] HEDIN , D., B IRGISSON , A., B ELLO , L., AND SABELFELD , A
+
+Jsﬂow: Tracking information ﬂow in javascript and its apis
+
+In SAC (2014), pp
+
+1663–1671
+
+[36] HOU, S., F AN, Y., Z HANG , Y., Y E, Y., L EI, J., W AN, W., W ANG , J., X IONG , Q., AND SHAO, F.αcyber: En- hancing robustness of android malware detection system against adversarial attacks on heterogeneous graph based model
+
+In IKM (2019), pp
+
+609–618
+
+2888    31st USENIX Security Symposium USENIX Association[37] IKRAM , M., A SGHAR , H
+
+J., K AAFAR , M
+
+A., M A- HANTI , A., AND KRISHNAMURTHY , B
+
+Towards Seam- less Tracking-Free Web: Improved Detection of Trackers via One-class Learning
+
+In PETS (2017)
+
+[38] IQBAL , U., E NGLEHARDT , S., AND SHAFIQ , Z.Finger- printing the Fingerprinters:Learning to Detect Browser Fingerprinting Behaviors
+
+In S&P (2021)
+
+[39] IQBAL , U., S HAFIQ , Z., AND QIAN, Z
+
+The Ad Wars: Retrospective Measurement and Analysis of Anti- Adblock Filter Lists
+
+In IMC (2017)
+
+[40] IQBAL , U., S NYDER , P., Z HU, S., L IVSHITS , B., Q IAN, Z., AND SHAFIQ , Z
+
+AdGraph: A Graph-Based Ap- proach to Ad and Tracker Blocking
+
+In S&P (2020)
+
+[41] JOHANSEN , B
+
+Tracking visitors with adblock- ers
+
+https://www.bjornjohansen.com/tracking-v isitors-with-adblockers
+
+[42] KAIZER , A
+
+J., AND GUPTA , M
+
+Towards Auto- matic identiﬁcation of JavaScript-oriented Machine- Based Tracking
+
+In IWSPA (2016)
+
+[43] KARGARAN , A
+
+H., A KHONDZADEH , M
+
+S., H EIDAR - POUR , M
+
+R., M ANSHAEI , M
+
+H., S ALAMATIAN , K., AND SATTARY , M
+
+N
+
+On detecting hidden third- party web trackers with a wide dependency chain graph: A representation learning approach
+
+arXiv preprint arXiv:2004.14826 (2020)
+
+[44] LE, H., M ARKOPOULOU , A., AND SHAFIQ , Z
+
+Cv- inspector: Towards automating detection of adblock cir- cumvention
+
+In NDSS (2021)
+
+[45] LEKIES , S., S TOCK , B., AND JOHNS , M
+
+25 million ﬂows later: Large-scale detection of DOM-based XSS
+
+InCCS (2013)
+
+[46] MAVROUDIS , V., H AO, S., F RATANTONIO , Y., M AGGI , F., K RUEGEL , C., AND VIGNA , G
+
+On the privacy and security of the ultrasound ecosystem
+
+PETS (2017)
+
+[47] MDN
+
+Redirect tracking protection
+
+https://develo per.mozilla.org/en-US/docs/Mozilla/Firefox /Privacy/Redirect_Tracking_Protection
+
+[48] MDN
+
+Storage access policy: Block cookies from trackers
+
+https://developer.mozilla.org/en-US/ docs/Mozilla/Firefox/Privacy/Storage_acces s_policy
+
+[49] MICROSOFT EDGE TEAM
+
+Introducing tracking prevention, now available in Microsoft Edge preview builds
+
+https://blogs.windows.com/msedgedev/ 2019/06/27/tracking-prevention-microsoft-e dge-preview/
+
+[50] OLEJNIK , L., T RAN, M.-D., AND CASTELLUCCIA , C
+
+Selling off privacy at auction
+
+In NDSS (2014)
+
+[51] PAPADOPOULOS , P., K OURTELLIS , N., AND MARKATOS , E
+
+P
+
+Cookie synchronization: Ev- erything you always wanted to know but were afraid to ask
+
+In WWW (2019)
+
+[52] PLOHMANN , D., Y AKDAN , K., K LATT , M., B ADER , J.,AND GERHARDS -PADILLA , E
+
+A ComprehensiveMeasurement Study of Domain Generating Malware
+
+In USENIX Security (2016)
+
+[53] SHUBA , A., M ARKOPOULOU , A., AND SHAFIQ , Z
+
+NoMoAds: Effective and Efﬁcient Cross-App Mobile Ad-Blocking
+
+In PETS (2018)
+
+[54] SJÖSTEN , A., S NYDER , P., P ASTOR , A., P APADOPOU - LOS, P., AND LIVSHITS , B
+
+Filter List Generation for Underserved Regions
+
+In WWW (2020)
+
+[55] SKOLKA , P., S TAICU , C.-A., AND PRADEL , M
+
+Any- thing to hide? studying miniﬁed and obfuscated code in the web
+
+In WWW (2019), pp
+
+1735–1746
+
+[56] SLOANE , G
+
+Ad Blocker’s Successful Assault on Facebook Enters Its Second Month
+
+http://adage.co m/article/digital/blockrace-adblock/311103/ , 2017
+
+[57] SNYDER , P., T AYLOR , C., AND KANICH , C
+
+Most web- sites don’t need to vibrate: A cost-beneﬁt approach to improving browser security
+
+In CCS (2017)
+
+[58] SNYDER , P., V ASTEL , A., AND LIVSHITS , B
+
+Who Filters the Filters: Understanding the Growth, Useful- ness and Efﬁciency of Crowdsourced Ad Blocking
+
+In SIGMETRICS (2020)
+
+[59] STOCK , B., L EKIES , S., M UELLER , T., S PIEGEL , P., AND JOHNS , M
+
+Precise Client-side Protection against DOM-based Cross-Site Scripting
+
+In USENIX Security (2014)
+
+[60] TRAMÈR , F., D UPRÉ , P., R USAK , G., P ELLEGRINO , G., AND BONEH , D
+
+Adversarial: Perceptual ad blocking meets adversarial machine learning
+
+In CCS (2019)
+
+[61] WANG, W., Z HENG , Y., X ING, X., K WON , Y., Z HANG , X., AND EUGSTER , P.WebRanz: Web Page Random- ization For Better Advertisement Delivery and Web-Bot Prevention
+
+In FSE (2016)
+
+[62] WANG , X., E ATON , J., H SIEH , C.-J., AND WU, F.At- tack graph convolutional networks by adding fake nodes
+
+arXiv preprint arXiv:1810.10751 (2018)
+
+[63] WILLIAMS , B
+
+Ping pong with Facebook
+
+https://ad blockplus.org/blog/ping-pong-with-facebook , 2018
+
+[64] WU, Q., L IU, Q., Z HANG , Y., L IU, P., AND WEN, G
+
+A Machine Learning Approach for Detecting Third-Party Trackers on the Web
+
+In ESORICS (2016)
+
+[65] ZAIFENG , Z
+
+Who is Stealing My Power III: An Adnetwork Company Case Study, 2018
+
+http://blog .netlab.360.com/who-is-stealing-my-power-i ii-an-adnetwork-company-case-study-en/
+
+[66] ZHU, S., W ANG , Z., C HEN, X., L I, S., I QBAL , U., QIAN, Z., C HAN, K
+
+S., K RISHNAMURTHY , S
+
+V., AND SHAFIQ , Z
+
+A4: Evading learning-based adblockers
+
+arXiv preprint arXiv:2001.10999 (2020)
+
+[67] ZÜGNER , D., A KBARNEJAD , A., AND GÜNNEMANN , S.Adversarial attacks on neural networks for graph data
+
+InKDD (2018)
+
+USENIX Association 31st USENIX Security Symposium    2889A Comparison between A DGRAPH and W EB- GRAPH features Table 4 compares the features used in WEBGRAPH andAD- GRAPH .WEBGRAPH does not use content features
+
+Graph size, Degree and Centrality features come under both struc- ture and ﬂow categories, since they include graph properties that are based on both normal and shared information edges
+
+Some structural features used in ADGRAPH are not used in WEBGRAPH due to WEBGRAPH being adapted for ofﬂine use, whereas the features are useful in an online context
+
+B Distribution of graph sizes Figure 7 shows the distribution of number of nodes in the graph representations of the web pages in our dataset
+
+Since 80% of web pages have 250 nodes or fewer, we sample from this subset in our structural mutation experiments in Section 5
+
+Figure 7: Distribution of number of nodes in the graph representations of the web pages in the dataset
+
+C Experimental run times (a) (b) Figure 8: Run-times for robustness experiments without collusion
+
+Figure 8(a) shows mean time per iteration vs graph size, and 8(b) shows total run time
+
+Figure ??describes the run times for the experiment de- scribed in Section 5.3.1 (adversary without collusion)
+
+Fig- ure 8(a) shows the impact of graph size on each iteration of the experiment
+
+Smaller graphs have lower run times sincefeatures have to be calculated over a smaller number of nodes
+
+Factors such as the complexity of the structure and ﬂow be- haviors also contribute towards time spent in each iteration, which explains variations in iteration time among graphs of the same size
+
+We see that the mean time per iteration can be as high as≈1200 seconds (median is ≈68 seconds)
+
+Figure 8(b) shows the total experiment time over all iterations for a graph
+
+Since we increase the sizes of graphs by 20% of their origi- nal size, bigger graphs will have a larger number of iterations
+
+In our dataset, the maximum time taken for an experiment is 46654.19 seconds, the minimum is 15.67 seconds, and the median is 1745.11 seconds
+
+39% of the graphs in our dataset have a run time of more than an hour
+
+For the experiment in Section 5.3.1 (collusion with ﬁrst party), the median time is 265.03 seconds, with the maximum time going up to 992.67 seconds, despite the maximum graph size being only 50 nodes
+
+In comparison, for the adversary without collusion, for graph sizes up to 50 nodes, the median is 21.46 seconds and the maximum is 221.51 seconds
+
+Since the adversary considers all nodes in the graph as potential parents, each iteration takes a longer amount of time
+
+D Graph Mutation algorithm In each iteration, the algorithm mutates WEBGRAPH ’s graph representation and probes the model for classiﬁcation decisions
+
+The algorithm takes the following inputs: a graph represen- tation of a web page, G0, consisting of all the nodes in the graph; a set of nodes and edges Tof size lT, representing the resources loaded by the adversary, hereafter referred to as the adversary resources; a trained classiﬁer Mthat identiﬁes ATS inWEBGRAPH ; and a maximum number of iterations that the algorithm can run, max_iter
+
+The algorithm processes the input as follows: It ﬁrst uses the classiﬁer Mto obtain classiﬁcations of all nodes in the original graph G0(lines 1–4 in Algorithm ??)
+
+Second, it iterates over the steps from lines 9–20 max_iter times
+
+In each iteration, ev- ery adversary node tries resource addition, resource re-routing, and obfuscation, and produces a new mutated graph, Gi(line 11)
+
+Third, it extracts features from the mutated graph Giand uses them to classify all the nodes in this graph (lines 11–12)
+
+Fourth, it compares the predictions in the original and mutated graphs to obtain the number of desired and undesired switches (line 13)
+
+We assume an adversarial goal for which desired switches are all those in which an adversary node is switched from ATStoNon-ATS , whereas undesired switches are all those where any Non-ATS node is switched to ATSnode
+
+We call the total number of adversarial ATSnodes whose prediction the adversary wishes to change to Non-ATS the number of required switches
+
+The switching of nodes not under the adversary’s control from ATStoNon-ATS do not affect the adversary
+
+These switches are, therefore, neither desired nor undesired
+
+Finally, the adversary chooses the mutation that provides the best re- sult, i.e., the one with the best trade-off between desired and 2890    31st USENIX Security Symposium USENIX AssociationFeature Type WEBGRAPH ADGRAPH Request type (e.g
+
+iframe, image) Content Ad keywords in request (e.g
+
+banner, sponsor) Content Ad or screen dimensions in URL Content Valid query string parameters Content Length of URL Content Domain party Content Sub-domain check Content Base domain in query string Content Semi-colon in query string Content Graph size (# of nodes, # of edges, and nodes/edge ratio) Structure Degree (in, out, in+out, and average degree connectivity) Structure Centrality (closeness centrality, eccentricity) Structure Number of siblings (node and parents) Structure Modiﬁcations by scripts (node and parents) Structure Parent’s attributes Structure Parent degree (in, out, in+out, and average degree connectivity) Structure Sibling’s attributes Structure Ascendant’s attributes Structure Descendant of a script Structure Ascendant’s script properties Structure Parent is an eval script Structure Local storage access (# of sets, # of gets) Flow (storage) Cookie access (# of sets, # of gets) Flow (storage) Requests (sent, received) Flow (network) Redirects (sent, received, depth in chain) Flow (network) Common access to the same storage node Flow (shared information) Sharing of a storage node’s value in a URL Flow (shared information) Graph size (# of nodes, # of edges, and nodes/edge ratio) Flow (shared information) Degree (in, out, in+out, and average degree connectivity) Flow (shared information) Centrality (closeness centrality, eccentricity) Flow (shared information) Table 4: WEBGRAPH features comparison with ADGRAPH .indicates that a feature is present
+
+WEBGRAPH calculates Graph size, Degree and Centrality features using both normal and shared information edges
+
+The former comes under structural features while the latter comes under ﬂow features
+
+undesired switches (lines 14–15)
+
+The adversary updates its T based on the chosen mutation (line 18)
+
+To keep memory and run time manageable, at the end of every iteration the algorithm randomly samples lTadversarial nodes and edges from T(line 19) to be considered in the next iteration
+
+E Mutations on a single web page
+
+To illustrate how mutations result in classiﬁcation switches, we take as an example a web page in which the third party with the highest number of ATSresources is assets.wogaa.sg , which has 12 nodes in the graph
+
+Figure 9 shows the breakdown of classiﬁcation switches as the adversary mutates the graph using the greedy mutation algorithm
+
+The ATS Advor the number of classiﬁcations the adversary wants to switch is 5 (pink line )
+
+From the adversary’s point of view, adversarial nodes switching from ATS→Non-ATS are desired (blue line ), whereas adversarial nodes switching from Non-ATS→ATS are undesired (orange line )
+
+We consider Non-ATS→ATS changes on non-adversarial nodes to be undesired because they may have unintended impact on the web page (red line andbrown line )
+
+For instance, a ﬁrst party Non-ATS→ATS switch may break the web page
+
+We note that, if the adversary’s goal is to just create a denial of service and force the user to disable ad and tracker blocking, the adversary might be unconcerned about breakage
+
+In our experiments, switches that do not affect the adversary, such as ATS→Non-ATS for non- adversary nodes, are neither considered desired nor undesired (purple line and green line )
+
+There are two points worth highlighting from Figure 9: (1) Even if an adversary achieves the maximum number of desired switches, the mutations may produce undesirable changes, to both the adversary’s nodes and others
+
+For instance, at 20% of growth, 3 of the adversary’s ATS nodes are classiﬁed as Non-ATS , but also 7 Non-ATS nodes (3 adversary and 4 non- adversary) switch to the undesired ATSclassiﬁcation
+
+(2) The evolution of desired and undesired switches is not monotonic, i.e
+
+the classiﬁcation of nodes may change in both directions as the adversary mutates the graph, resulting in increasing or decreasing counts
+
+This ﬁnding reinforces our argument that it can be cumbersome for an adversary to create targeted structural mutations without any unintended consequences
+
+Not USENIX Association 31st USENIX Security Symposium    2891Algorithm 1 Greedy random graph mutation
+
+G0is a web page representation, Tis the set of lTnodes and edges controlled by the adversary, Mis a trained model, and max_iter is the maximum number of operations
+
+Input: G0,T,C,M,max_iter 1:forv∈G0do 2: xG0←ExtractFeatures(v)∀v∈G0 3: yG0←Classify(M,x)∀x inxG0 4:end for 5:G←G0 6:i←0 7:graph-info =[] 8:while i<max_iter do 9: fort∈Tdo 10: Gt←MutateGraph(G,t) 11: xt←ExtractFeatures(v)∀v∈Gt 12: yt←Classify(M,x)∀x inxt 13: d,u←GetDesiredAndUndesired (yt,yG0) 14: ∆t=d−u 15: graph-info[t]←(∆t,t,Gt) 16: end for 17: G←Gtingraph-info [t] with largest ∆t 18: T←UpdateAdv(T,t∈graph-info[t]) 19: T←sample(T,lT) 20: i←i+1 21:end while Figure 9: Example breakdown of classiﬁcation switches for the adversary’s and other nodes on the graph
+
+NATS is shorthand for Non-ATS .ATSAdv= 5 (pink line), Non-ATS Adv= 7, ATSWeb= 62, ATSWeb= 13 (not shown in plot)
+
+At 20% growth, the adversary achieves 3 desired switches, 7 undesired switches and 1 neutral switch
+
+This leads to a success rate of 60%, a collateral damage of 10.14% and other changes of 7.7%
+
+only it is hard to predict how mutations will affect adversary’s own desired classiﬁcation, but also how those mutations may result in undesirable changes to others.F W EBGRAPH robustness experiments We show plots for the experiments in Sections 5.3.1 and 5.3.3
+
+Figure 10 shows the results for an adversary that performs only resource addition against ADGRAPH (with only struc- tural features) and WEBGRAPH .ADGRAPH shows a higher number of successes for the adversary (44 pages with suc- cess rate > 50% as compared to 30 for WEBGRAPH )
+
+At the same time, ADGRAPH also shows a higher amount of collat- eral damage (which is not beneﬁcial for the adversary) – 66 pages with non-zero collateral damage, as compared to 47 for WEBGRAPH
+
+Hence, there is no clear-cut winner between the two classiﬁers in terms of robustness
+
+However, we do see that ADGRAPH has lower successes and higher collateral damage than WEBGRAPH against the powerful adversary that can do all mutations as shown in Figure 6(a) (note that this adversary cannot be used against ADGRAPH since ADGRAPH does not use information ﬂow edges), since this adversary targets the effective, but costly, information sharing patterns
+
+Figure 11 shows the results for an adversary that colludes against an adversary with no collusion (Section 5.3.1)
+
+A col- luding adversary shows a higher number of successes (63 pages with success rate > 50% as compared to 60 for the non- colluding adversary), and a lower collateral damage (9 pages with damage >0% compared to 18 pages for a non-colluding adversary)
+
+Figure 10: Adversary’s success rate vs
+
+collateral damage for each test page at 20% graph growth, for resource addition against ADGRAPH and W EBGRAPH
+
+Figure 11: Adversary’s success rate vs
+
+collateral damage for each test page at 20% graph growth, for colluding and non-colluding ad- versaries
+
+2892    31st USENIX Security Symposium USENIX Association
+
+This paper is included in the Proceedings of the 31st USENIX Security Symposium
+
+August 10–12, 2022 • Boston, MA, USA 978-1-939133-31-1 Open access to the Proceedings of the 31st USENIX Security Symposium is sponsored by USENIX.WebGraph: Capturing Advertising and Tracking Information Flows for Robust Blocking Sandra Siby, EPFL; Umar Iqbal, University of Iowa; Steven Englehardt, DuckDuckGo; Zubair Shafiq, UC Davis; Carmela Troncoso, EPFL https://www.usenix.org/conference/usenixsecurity22/presentation/sibyWEBGRAPH : Capturing Advertising and Tracking Information Flows for Robust Blocking Sandra Siby∗Umar Iqbal†Steven Englehardt‡Zubair Shaﬁq¶Carmela Troncoso∗ ∗EPFL†University of Iowa‡DuckDuckGo¶UC Davis Abstract Users rely on ad and tracker blocking tools to protect their privacy
+
+Unfortunately, existing ad and tracker blocking tools are susceptible to mutable advertising and tracking content
+
+In this paper, we ﬁrst demonstrate that a state-of-the-art ad and tracker blocker, ADGRAPH , is susceptible to such adver- sarial evasion techniques that are currently deployed on the web
+
+Second, we introduce WEBGRAPH , the ﬁrst ML-based ad and tracker blocker that detects ads and trackers based on their action rather than their content
+
+By featurizing the actions that are fundamental to advertising and tracking information ﬂows – e.g., storing an identiﬁer in the browser or sharing an identiﬁer with another tracker – WEBGRAPH performs nearly as well as prior approaches, but is signiﬁcantly more robust to adversarial evasions
+
+In particular, we show that WEBGRAPH achieves comparable accuracy to ADGRAPH , while signiﬁcantly de- creasing the success rate of an adversary from near-perfect for ADGRAPH to around 8% for WEBGRAPH
+
+Finally, we show thatWEBGRAPH remains robust to sophisticated adversaries that use adversarial evasion techniques beyond those currently deployed on the web
+
+1 Introduction Users rely on privacy-enhancing blocking tools to protect themselves from online advertising and tracking
+
+Many of these tools—including uBlock Origin [ 8], Ghostery [ 6], Fire- fox [ 47,48], Edge [ 49], and Brave [ 16]—rely on manually curated ﬁlter lists [ 3,4,5] to block advertising and tracking
+
+The research community is developing machine learning (ML) approaches to automate the detection of advertising and track- ing and make ﬁlter lists more comprehensive
+
+The ﬁrst gen- eration of ML-based blocking approaches analyze network requests [ 13,33,53] or JavaScript code [ 37,42,64] to learn distinctive behaviors of advertising and tracking
+
+However, these approaches are highly susceptible to adversarial evasion techniques that are already found in the wild, including URL ‡The majority of this work was completed while Steven was at Mozilla.and code obfuscation [ 55,58]
+
+The next generation of ML- based blocking approaches leverage cross-layer graph infor- mation from multiple layers of the web stack [ 40,54]
+
+These approaches claim better robustness to evasion than single-layer approaches, due to their use of structural features (the hierar- chy of resource inclusions) in addition to traditional content features (the resource’s network location or response content)
+
+In this paper, we show that state-of-the-art ad and tracker blocking approaches, such as ADGRAPH [40], are susceptible to adversarial evasions due to their disproportionate reliance on easy-to-manipulate content features
+
+We show that a third-party adversary can achieve 8% evasion success by manipulating URLs of its resources
+
+Worse yet, an adversary can achieve near-perfect evasion—as high as a 96% success rate—if they collude with the ﬁrst party, e.g, by using the CNAME cloaking technique already deployed by some trackers [26, 28]
+
+We introduce WEBGRAPH , the ﬁrst ML-based ad and tracker blocking approach that does not rely on content features
+
+WEBGRAPH improves the cross-layer graph representation by capturing a fundamental property of advertising and tracking services (ATS): the ﬂow of information from one entity to the browser’s storage, the network, and other entities loaded on a page
+
+The intuition behind WEBGRAPH is to focus on the actions of the advertising and tracking services, rather than the contents of their resources
+
+We posit that actions are harder to obfuscate
+
+Advertising and tracking scripts need to store identiﬁers for users, and those identiﬁers must be shared with any other entity with which they wish to share data (e.g., via cookie syncing [ 51])
+
+Thus, we build a graph representation of the page load by monitoring network requests, JavaScript exe- cution, HTML element creations, and browser storage access
+
+From this graph we extract ﬂow features, which explicitly cap- ture distinctive information ﬂows in advertising and tracking
+
+Our evaluation shows that WEBGRAPH ’s graph representation and ﬂow features can supplant content features, with compara- ble accuracy
+
+While high accuracy is necessary for deployment, it is not sufﬁcient
+
+We have repeatedly seen that advertisers and track- ers will attempt to circumvent detection and evade blocking USENIX Association 31st USENIX Security Symposium    2875[26,44,55,58]
+
+Therefore, in order for an advertising and tracking classiﬁer to be useful in practice, it must be robust to adversarial manipulation
+
+We show that WEBGRAPH rep- resents a signiﬁcant step forward in robustness to adversarial evasion as compared to prior approaches
+
+In particular, we ﬁnd thatWEBGRAPH is robust to the types of URL, CNAME, and content manipulation evasion techniques that are currently de- ployed on the web
+
+We also know that advertisers and trackers will attempt to deploy more sophisticated evasion techniques tailored to our proposed approach
+
+To understand how robust WEBGRAPH would be in the face of these new evasion tech- niques, we propose a novel realistic graph manipulation eva- sion technique
+
+We show that this attack achieves only limited evasion success against WEBGRAPH , while incurring a non- trivial usability loss in terms of mistakenly blocking its own advertising/tracking resources or other benign resources on the web page
+
+Overall, our ﬁndings suggest that the community should migrate away from unreliable content features for advertising and tracking blocking
+
+We show that information ﬂow features built upon the actions of advertisers and trackers provide a promising path forward
+
+In summary, our contributions are as follows: •We show that existing ML-based ad and tracker blocking approaches are susceptible to evasion due to their reliance on content features
+
+As a representative example, we show how an adversary can achieve near-perfect evasion of ADGRAPH using techniques already in use on the web today
+
+•We introduce WEBGRAPH , the ﬁrst ML-based ad and tracker blocking approach that does not rely on content fea- tures and captures fundamentally distinctive information ﬂows in advertising and tracking
+
+•Our in-depth evaluation shows that WEBGRAPH achieves comparable accuracy to prior approaches and achieves sig- niﬁcantly better robustness to adversarial manipulation of content features
+
+•We propose a novel graph manipulation evasion technique, and show that WEBGRAPH (and the information ﬂow fea- tures it relies on) remains robust under this attack
+
+Paper organization: The rest of this paper is organized as follows: Section 2 provides an overview of the recent advances in ML-based ad and tracker blocking
+
+Section 3 evaluates ro- bustness of existing graph-based approaches, using ADGRAPH as a representative example
+
+Section 4 describes the design and evaluation of WEBGRAPH
+
+Section 5 further evaluates WEBGRAPH ’s robustness to adversarial attacks
+
+We discuss limitations of our work in Section 6 and conclude in Section 7
+
+2 Background & Related Work Online behavioral advertising enables ad targeting based on users’ interests and behaviors
+
+To target ads, online advertisingrelies on the intertwined tracking ecosystem that uses cook- ies for cross-site tracking
+
+For instance, the real-time bidding (RTB) protocol that powers programmatic online advertising has built-in mechanisms for advertisers and trackers to share information [ 24,32,51]
+
+Thus, almost always, ads and trackers go together, with intertwined execution ﬂows and resource de- pendencies
+
+Below, we revisit prior literature on ad and tracker blocking, and analyze its limitations
+
+Popular ad and tracker blocking tools such as Adblock Plus [1] rely on ﬁlter lists [ 4,5]
+
+These ﬁlter lists are manually curated based on user feedback
+
+Prior work has shown that manually curated ﬁlter lists suffer from scalability androbust- ness issues
+
+First, ﬁlter lists have trouble keeping up with the ever expanding advertising and tracking ecosystem
+
+Filter lists have grown to include tens of thousands of rules that are often not updated in a timely fashion
+
+For instance, ﬁlter lists may take as long as 3 months to add rules for newly discovered ads and trackers [ 39]
+
+Once a ﬁlter rule is added to block an adver- tising and tracking service, it is rarely removed, even if it is no longer needed
+
+In fact, prior work showed that almost 90% of the rules in ﬁlter lists are rarely or never used [ 58]
+
+Second, ﬁlter lists are not robust to evasion attempts by advertisers and trackers
+
+Filter lists are brittle in the face of domain rotation [21,65] and manipulation of page structure [ 15,56,63]
+
+For instance, prior work showed that ﬁlter lists are susceptible to evasion attacks such as randomization of URL path, hostname, or element attributes and IDs [10, 44, 61]
+
+Addressing scalability
+
+To address the scalability issues that arise due to manual curation of ﬁlter lists, researchers have proposed to use machine learning (ML) for automated ad and tracker blocking
+
+Prior ML-based approaches mainly detect ads and trackers at the network and JavaScript layers of the web stack
+
+These approaches detect ads and trackers by featurizing network requests [13, 33, 53] or JavaScript code [37, 42, 64]
+
+Network layer approaches rely on content in URLs, HTTP headers, and request and response payloads (e.g., keywords, query strings, payload size) to extract features and train ML models to detect ads and trackers [ 13,33]
+
+While trying to mimic ﬁlter lists by detecting ad and tracker URLs, these ap- proaches end up replicating some characteristics of ﬁlter lists and thus also naturally inherit their shortcomings
+
+For example, presence of a certain keyword in the request URL could be a distinguishing feature
+
+However, as discussed earlier, such keyword based features are brittle in the face of trivial evasions such as domain rotation [10, 61]
+
+JavaScript layer approaches rely on static or dynamic anal- ysis to extract features and train ML models to detect ads and trackers
+
+Examples of features are n-grams of code state- ments obtained via static analysis [ 37] or JavaScript API invo- cations captured via dynamic analysis [ 64]
+
+These approaches are susceptible to JavaScript obfuscation [ 25,31,34]
+
+These approaches are also susceptible to evasion such as script amal- gamation or dispersion
+
+They implicitly assume that tracking code is bundled in a single script or that tracking scripts only 2876    31st USENIX Security Symposium USENIX Associationcontain tracking code
+
+However, in practice, tracking code could be distributed across several chunks and packaged with functional code [11, 40]
+
+Addressing robustness
+
+While network and JavaScript layer approaches consider information at each layer in isolation, ads and trackers rely on all three layers (i.e
+
+network, JavaScript, and HTML) of the web stack for their execution
+
+Therefore, focusing on only one layer lacks robustness against the afore- mentioned evasion attempts
+
+To address this limitation, graph- based approaches aim to capture the interactions among and across layers of the web stack
+
+Graph-based approaches extract features from the cross- layer graph representation to train ML models to detect ads and trackers [ 40,54]
+
+These approaches leverage rich cross- layer context and thus claim to be robust to evasion attempts
+
+ADGRAPH was the ﬁrst graph-based approach to ad and tracker classiﬁcation [ 40]
+
+It extracts structural features from the graph such as node connectivity and ancestry information as well as content features such as URL length and presence/absence of certain keywords
+
+Sjösten et al
+
+[ 54] introduced PageGraph, which extends ADGRAPH ’s graph representation by improv- ing event attribution and capturing more behaviors
+
+In addi- tion to content and structural features, they also added percep- tual features to train the classiﬁer
+
+Since perceptual features attempt to use the rendered resource content, they are also considered content features
+
+Chen et al
+
+[ 19] proposed an ap- proach, using PageGraph, to detect trackers based on their exe- cution signatures
+
+In contrast to ML-based approaches, their signature-based approach would only be able to detect trackers that strictly match the signatures of tracking scripts, but miss trackers with even slight deviations in their behavior, such as changes in the execution order
+
+Kargaran et al
+
+[ 43] followed a different approach
+
+Instead of building a graph representa- tion per website, they combined graph representations across multiple websites to model relations between third parties on those sites
+
+Just like ADGRAPH , they also extract structural and content features from the graph to train the classiﬁer
+
+These graph-based systems use a combination of content and structural features for classiﬁcation, which they claim in- creases the robustness to evasion attacks
+
+While this combina- tion should intuitively improve classiﬁer robustness, we posit that it would be less robust than expected if the classiﬁer relies heavily on content features
+
+This is because content features pertain to a single node on the graph and are easy to manipu- late for an adversary, e.g., using adversarial attacks on textual [66] and perceptual [ 60] content features, without causing un- desired changes in other nodes
+
+It is noteworthy that Zhu et al
+
+[66], also manipulate structural features, however their ma- nipulations are only limited to graph size
+
+Further, they do not evaluate the impact of their mutations on overall graph
+
+In the next section, we analyze the robustness of graph-based ad and tracker detection systems
+
+We focus on ADGRAPH as it is representative of other graph-based systems that use similar structural and content features.3 A DGRAPH Robustness In this section, we analyze ADGRAPH ’s robustness by evaluat- ing its accuracy in the face of adversarial content manipulation
+
+ADGRAPH is a graph-based machine learning approach that detects ads and trackers based on their structural and content properties
+
+ADGRAPH instruments the Chromium web browser to capture detailed execution of ads and trackers across the HTML, JavaScript, and the network layer, and models the in- teraction among these layers in the form of a graph
+
+Using this graph, ADGRAPH extracts two categories of features: content (information related to individual nodes in the graph, such as URL length and presence of ad/tracking keywords in the URL) andstructure (information about relationships between nodes, such as connectivity and ancestry information)
+
+It uses the ex- tracted features to train a machine learning classiﬁer to detect advertising and tracking resources
+
+The full list of ADGRAPH features are described in Table 4
+
+Since ADGRAPH relies on content properties, in addition to structural properties, it is subject to same evasion attacks that succeed against the ﬁlter lists-based ad and tracker detection approaches [10, 61]
+
+3.1 Threat Model & Attack Our threat model assumes an adversarial third-party adver- tiser or tracker embedded on a site, who aims to change the classiﬁcation of its resources from advertising and tracking ser- vices (ATS) to benign resources (Non-ATS) in order to evade detection by ad and tracker blocking tools
+
+We assume that the adversarial third party has limited coop- eration with the ﬁrst-party publisher
+
+We do not assume full cooperation because the parties are mutually distrusting
+
+The third-party adversary generally does not trust the ﬁrst-party publisher to serve its advertising and tracking resources via a reverse proxy [ 2,41]
+
+Likewise, the ﬁrst-party publisher does not trust the third-party adversary to host functional resources via the adversary-controlled CDN [ 14]
+
+Given existing prac- tices, we assume that the adversary can serve its advertising and tracking resources from a ﬁrst-party subdomain but not arbitrarily within the ﬁrst-party domain space
+
+For example, the adversary can masquerade its resources through CNAME cloaking [ 23], which only requires a minor change in DNS records by the ﬁrst party
+
+Recent measurement studies have reported an increase in the prevalence of CNAME cloaking over the last few years
+
+Dao et al
+
+[ 26] showed that the usage of CNAME cloaking-based tracking has steadily increased between 2016 and 2020, with 1,762 of Alexa’s top-300K web- sites employing at least one CNAME-based tracker as of Jan- uary 2020
+
+Dimova et al
+
+[ 28] also showed that the usage of CNAME cloaking has increased by 22% from 2018 to 2020, with 9.98% of Tranco’s top-10K websites now employing at least one CNAME-based tracker as of October 2020
+
+USENIX Association 31st USENIX Security Symposium    2877Figure 1: Classiﬁcation switch success rate distribution by web page (over 10 folds) when the adversary does notcollude with the ﬁrst party
+
+The average success rate per web page is 15.92 ±0.03 %
+
+We assume that the adversary is able to manipulate their own URLs by altering the domain name or query string
+
+The adver- sary can only manipulate URLs that are under their control, and only attempts to manipulate URLs that were initially correctly classiﬁed as ATS (ad and tracker URLs initially classiﬁed as Non-ATS already beneﬁt the adversary)
+
+The adversary cannot manipulate the data used to train the classiﬁer
+
+Therefore, we only implement mutations during inference
+
+We implement two types of URL manipulations
+
+For domain names, we allow the adversary to randomly change the URL’s domain, subdomain, or both
+
+In practice, adversaries can rely on automated techniques to generate random domains and sub- domains
+
+For example, they can use malware-inspired domain generation algorithms (DGA) techniques to generate a large number of domains [ 22,52]
+
+For query strings, we randomly change the number of parameters, the parameter names, the parameter values in the URL, or a combination of the three
+
+3.2 Results Experimental setup
+
+We extend OpenWPM [ 30] to automati- cally crawl websites with Firefox and build ADGRAPH ’s rep- resentation
+
+We crawl 10K sites sampled from the Alexa’s top-100K list, the top 1K sites and a random sample of 9K sites ranked between 1K-100K, and store their graph repre- sentations
+
+Next, we implement a decision tree classiﬁer that closely follows ADGRAPH ’s design [ 40], and extract features from the graphs for training and testing
+
+For ground truth, we use the same set of ﬁlter lists for data labeling that were used byADGRAPH [40]
+
+A URL is labeled as ATS if it is present in one or more of the ﬁlter lists, and Non-ATS otherwise
+
+We use 10-fold cross validation to obtain our results, where the folds are selected such that every fold uses a different set of web pages in the test set
+
+Our classiﬁer obtains comparable performance to the original results reported by [ 40]: 92.33% accuracy, 88.91% precision, and 92.14% recall
+
+The minor differences are likely due to differences in crawled sites, up- dated ﬁlter lists, and a few subtle changes in our adaptation ofADGRAPH from online to ofﬂine
+
+In ADGRAPH ’s online Figure 2: Classiﬁcation switch success rate distribution by web page (over 10 folds) when the adversary colludes with the ﬁrst party
+
+The average success rate per web page is 93.01 ±0.01 %
+
+implementation, features are extracted from each node in the graph as they are created
+
+Our ofﬂine adaptation, instead, ex- tracts features after page load completion
+
+There are also some minor differences due to JavaScript attribution, caused by the differences in instrumentation between Chromium-based AD- GRAPH and Firefox-based OpenWPM.1 Adversarial success rate without collusion
+
+In our ﬁrst ex- periment, we assume that the adversary does not collude with the ﬁrst party
+
+The adversary can randomize their domain and subdomain, but cannot masquerade as the ﬁrst party
+
+Our con- tent mutation procedure results in the mutation of 41.48 ±1.47 % of all the test data URLs (averaged over 10 folds)
+
+The ad- versary’s success rate in evading the classiﬁer is 8.72 ±0.42 % (over 10 folds)
+
+While this may seem like a low percentage, we note that every successful mutation is a win for the adversary since it means that one more of their ads or trackers is now unblocked
+
+Over all 10 folds, the adversary mutated 691,602 URLs, out of which 60,270 had their classiﬁcations switched
+
+We also observe that the evasion success rate varies across sites, as shown in Figure 1
+
+For ≈1% of the web pages in the test set (90 pages), the adversary achieves a perfect success rate, meaning that all third-party ads and trackers on the web page are now classiﬁed as benign content
+
+It is noteworthy that 21.62% of the unblocked URLs belong to popular ad exchanges, which are responsible for further diffusion of user information due to the broadcast nature of real-time bidding (RTB) [ 12]
+
+These unblocked ad exchanges can amplify the privacy harm because they often share information about page visits with multiple advertisers and trackers
+
+Adversarial success rate with collusion
+
+In our second ex- periment, we assume that the adversary colludes with the ﬁrst party
+
+The adversary can perform domain mutation such that their URL is a subdomain of the ﬁrst party
+
+The adversary’s success rate increases to 96.62 ±0.37 % (over 10 folds)
+
+This 1Due to these differences, our features are not exactly identical to the online implementation of ADGRAPH
+
+For example, in ADGRAPH , a node can have a maximum of two parents, which need not be the case for our system
+
+Therefore, we do not use ADGRAPH features speciﬁc to these two parents
+
+The full feature list, showing these differences is provided in Appendix A
+
+2878    31st USENIX Security Symposium USENIX AssociationFeature Category Information Gain (%) URL length Content 14.87 ±0.36 URL domain is a subdomain of the ﬁrst party Content 11.06 ±1.24 URL is a third party Content 10.67 ±1.32 Degree of a node Structure 7.56 ±0.63 Number of edges divided by number of nodes Structure 7.48 ±0.41 Table 1: Top 5 most important features for ADGRAPH ’s classiﬁcation, their category, and information gain values (averaged over 10 folds)
+
+means that being able to use a ﬁrst-party subdomain provides almost perfect evasion capabilities
+
+Figure 2 shows the evasion success rate variation across sites
+
+For ≈50% of the web pages in the test set, the adversary achieves a perfect success rate
+
+We also see a higher proportion (32.25%) of the unblocked URLs belonging to popular ad exchanges, as compared to the previous experiment
+
+To better understand why such URL manipulation is able to evade detection by ADGRAPH , we analyze feature importance using information gain (see Table 1)
+
+We see that content features are essential to the ADGRAPH classiﬁer: not only are the top-3 most important features content features, their relative importance scores are also high compared to the other features
+
+Two of the top-3 features depend on whether a URL is third-party, which explains why we obtain high success rates when the adversary has the capability to masquerade as the ﬁrst party
+
+These two features do not have an effect in the case where the adversary does not collude with the ﬁrst party, since the adversary cannot change the fact that they are third party
+
+However, the adversary’s manipulations still inﬂuence the third top feature, length of the URL
+
+Hence, we observe lower but non-trivial success rates even without collusion
+
+These results show that graph-based ML classiﬁers such asADGRAPH over-rely on content features that makes them vulnerable
+
+Next, we propose an approach to improve the ro- bustness of graph-based ad and tracker blocking tools
+
+4 W EBGRAPH Online advertising and tracking fundamentally relies on in- formation sharing
+
+Trackers need to share information with each other to improve their coverage of users’ browsing his- tory [ 30,51]
+
+Trackers also need to share information with each other as part of built-in dependencies in programmatic advertising protocols [ 9,24,32,50,51]
+
+We contend that lever- aging such fundamental information sharing patterns can help build accurate and robust classiﬁers for ad and tracker blocking
+
+We introduce WEBGRAPH , a classiﬁer that explicitly captures these information sharing patterns as part of its cross-layer graph representation of the execution of a web page
+
+To illustrate the information sharing patterns that we want to capture in WEBGRAPH , let us revisit how information shar- ing between different origins is mediated by the browser
+
+We deliberately use a loose deﬁnition of origin
+
+An origin can be, depending on the speciﬁc use case, a site, a domain, or an entity, among others
+
+At a high-level, the web browser iso-lates different origins, based on various policies, so that their data is not leaked to each other
+
+Figure 3(a) illustrates how the browser limits information sharing between different origins: example.com ,tracker1.com , and tracker2.com each have access to their isolated local storage (e.g., cookies, IndexedDB) that may be used to store user identiﬁers
+
+The browser isolates information ﬂows between the local storage and remote servers of different origins: tracker1.com andtracker2.com can- not generally access each others’ cookies
+
+Trackers typically circumvent these limitations in the browser in two main ways
+
+First, Figure 3(b) illustrates how a tracker may share its identiﬁer with another tracker through cookie syncing
+
+This can be implemented in several ways
+
+For example, let’s say example.com loads a JavaScript from Tracker 1 that ﬁrst uses document.cookie to retrieve Tracker 1’s identiﬁer cookie from its cookie storage and then initiates a GET request to Tracker 2
+
+The script includes Tracker 1’s identiﬁer cookie in the request URL as a query string parameter
+
+Note that the request automatically includes Tracker 2’s identiﬁer cookie in the Cookie header
+
+Therefore, when Tracker 2’s remote server receives the request, it would be able to sync Tracker 1’s identiﬁer with its own identiﬁer
+
+As another example, let’s say example.com ﬁrst loads an in- visible pixel from Tracker 1, which responds back with a 3XX redirect status code along with the URL in the Location header that points to Tracker 2 and includes Tracker 1’s identiﬁer cookie
+
+Upon receiving the response, the browser issues a GET request to Tracker 2 and includes Tracker 1’s identiﬁer cookie in the request URL and Tracker 2’s identiﬁer cookie in the Cookie header
+
+Again, Tracker 2’s remote server is able to sync Tracker 1’s identiﬁer with its own identiﬁer
+
+Second, Figure 3(c) illustrates how a tracker may share its identiﬁer with another tracker through various web APIs in several ways
+
+For example, let’s say example.com loads scripts from Tracker 1 and Tracker 2 which then share their identiﬁers by reading/writing to the global variables of the window object
+
+The script from Tracker 1 may assign its iden- tiﬁer to a new global variable foo that is then read by the script from Tracker 2
+
+Therefore, Tracker 1 and Tracker 2’s scripts would be able to sync identiﬁers with each other and also send them to their respective remote servers
+
+As an- other example, let’s say example.com loads iframes from Tracker 1 and Tracker 2 which then share their identiﬁers us- ingpostMessage
+
+While these iframes have different origins, Tracker 1’s iframe can use window.parent property to get a reference to the parent window and then use window.frames to get a reference to Tracker 2’s iframe
+
+Tracker 1’s iframe can then use this reference to call window.postMessage and send its identiﬁer to Tracker 2’s iframe, which can use window.addEventListener to receive the identiﬁer
+
+Tracker 2’s iframe can then send the shared identiﬁer with its remote server to sync them
+
+Trackers use a wide variety of information sharing patterns, beyond the two aforementioned mechanisms
+
+A sound and USENIX Association 31st USENIX Security Symposium    2879(a) (b) (c) Figure 3: Origin isolation vs
+
+sharing
+
+Circles represent information about a user gathered by a particular domain ( example.com ,; tracker1.com ,; and tracker2.com ,)
+
+The box represents the browser which acts as channel between the local storage on the user’s device and the remote server of each domain
+
+3(a) Illustrates origin isolation in the browser: every domain can only access information in their own storage
+
+3(b) and 3(c) illustrate two information sharing patterns that trackers use to circumvent origin isolation: (b) cookie syncing, where users’ identiﬁers are sent to more than one domain; and (c) sharing identiﬁers using web APIs
+
+precise examination of all patterns warrants full-blown infor- mation ﬂow tracking that adds signiﬁcant implementation com- plexity and runtime overhead [ 18,20,35]
+
+As we discuss next, WEBGRAPH approximately captures these information sharing patterns by including additional nodes and edges in its graph representation that correspond to elements and actions associ- ated with these information sharing patterns
+
+(See Section 6 for a discussion of WEBGRAPH ’s completeness.) It then extracts new features on this enriched graph representation to train a classiﬁer for detecting ads and trackers
+
+4.1 Design & Implementation 4.1.1 Graph Construction WEBGRAPH captures the ﬂow of information among and across the HTML, network, JavaScript, and storage layers of the web stack
+
+At the HTML layer, WEBGRAPH captures cre- ation and modiﬁcation of all HTML elements that are initiated with scripts, e.g., iframe
+
+At the JavaScript layer, WEBGRAPH captures the scripts’ interaction with other layer, e.g., initiation of a network request
+
+At the network layer, WEBGRAPH cap- tures all outgoing network requests and their responses
+
+At the storage layer, WEBGRAPH captures read/write in cookies and local storage through scripts and network requests, and also value exchanges between network requests
+
+OpenWPM Instrumentation
+
+We extend OpenWPM [ 30] to capture the execution and interaction of HTML, network, JavaScript, and storage layers
+
+To capture HTML elements creation and modiﬁcations, we instrument createElement method and register a MutationObserver interface
+
+To cap- ture network requests, we parse OpenWPM’s existing instru- mentation, which uses a webRequest2listener, to capture all of the network requests, their responses, and redirects
+
+To cap- ture JavaScript interaction, we parse OpenWPM’s existing instrumentation, which relies on JavaScript’s stack trace to log JavaScript execution
+
+To capture read/write to storage, we instrument document.cookie and localStorage methods and also intercept cookie read/write HTTP headers
+
+2https://developer.mozilla.org/en-US/docs/Mozilla/Add- ons/WebExtensions/API/webRequestGraph Composition
+
+Elements at each of the layers are rep- resented with nodes and the interaction between these nodes is represented with edges
+
+Speciﬁcally, each HTML element, net- work request, script, and stored value, is represented as a node
+
+Edges to HTML nodes from script nodes represent the creation and modiﬁcation of elements
+
+Edges from HTML nodes to network nodes represent initiation of network requests to load content, such as scripts and images
+
+Edges from script nodes to network nodes represent the initiation of XMLHTTPRequest which will be parsed by the script
+
+Edges between script and storage nodes and network and storage nodes, represent the read/write of values in the storage
+
+Edges between network nodes either represent redirects or the presence of the same stored values.3 Graph Composition Example
+
+To illustrate WEBGRAPH ’s graph representation, let us consider the example web page given by Code 1
+
+The web page embeds a script from Tracker 1 and an iframe from Tracker 2
+
+The tracking iframe from Tracker 2 reads its tracking cookies and sends them to Tracker 3 via an XHR
+
+Both trackers trigger requests to share tracking identiﬁers
+
+The HTTP requests and responses that result from loads in Code 1 are listed in Listing 1
+
+Tracker 1’s script embeds an image element from Tracker 2, which causes the browser to send an HTTP request (Request 1 in Listing 1) that includes Tracker 2’s cookie
+
+Tracker 2 re- sponds to this request with a redirect to Tracker 1 that embeds the user identiﬁer Tracker 2 received via the initial request’s Cookie header (i.e., user1 )
+
+The browser makes a subsequent request (Request 2 in Listing 1) to Tracker 1
+
+Tracker 1 re- sponds with a tracking pixel image and a Set-Cookie header to set its own tracking cookie with the value userA
+
+On the backend, Tracker 1 knows that userA is known as user1 by Tracker 2
+
+Tracker 2’s embedded iframe further shares its iden- tiﬁer cookie with Tracker 3
+
+It does so by accessing its cookies locally via document.cookie and embedding them in an XHR to Tracker 3 (Request 3 in Listing 1)
+
+Differences as compared to A DGRAPH .WEBGRAPH keeps ADGRAPH ’s HTML and JavaScript layers as they are, but extends the network layer and includes a new storage layer in the graph representation
+
+WEBGRAPH also introduces infor- 3We match stored values with their base64-encoded and MD5 and SHA-1 hashed values [29, 32]
+
+2880    31st USENIX Security Symposium USENIX Association1<html> 2 <script src= ’tracker1.com /track.js ’ > 3 ..
+
+4 var image =document.createElement (’img’); 5 image.src =’tracker2.com /sync ’; 6 document.body.appendChild (image); 7 ..
+
+8 </script> 9 ..
+
+10 <iframe src= ’tracker2.com /track.html ’ > 11 <script> 12 ..
+
+13 idCookie =document.cookie; 14 var newReq = new XMLHTTPRequest (); 15 newReq.open ("GET", " tracker3.com ?user_id= " + idCookie); 16 ..
+
+17 </script> 18 </iframe > 19</html> Code 1: Web page sending requests to several trackers
+
+mation ﬂow edges, which are absent in ADGRAPH , to entwine the extended network layer and the storage layer
+
+The extension of network and the addition of storage layer allow WEBGRAPH to explicitly capture information sharing patterns used in ad- vertising and tracking
+
+--------------------------------------------------- Request 1 URL: tracker2.com /sync Cookie: user1 Response 1 Status: 302 Location: tracker1.com ? tracker2_id=user1 --------------------------------------------------- Request 2 URL: tracker1.com ? tracker2_id=user1 Response 2 Status: 200 Set-Cookie: userA Content: pixel.png --------------------------------------------------- Request 3 URL: tracker3.com ? user_id=user1 Response 3 Status: 200 Listing 1: HTTP requests and responses initiated from Code 1
+
+We illustrate the differences in Figure 4 which shows the graph representation of the web page in Code 1 and request and response sequences in Listing 1 for both ADGRAPH (Fig- ure 4(a)) and WEBGRAPH (Figure 4(b))
+
+ADGRAPH ’s rep- resentation of the example web page consists in two disjoint graphs which capture the individual actions of the two trackers: The ﬁrst row of nodes (from 10 to 15) captures Tracker 2’s tracking behavior: from the iframe loading to the initiation of an XHR request
+
+The second row of nodes (from 2 to 6) captures Tracker 1’s tracking behavior: from the script loading to the initiation of a network request for loading an image
+
+Inthis ﬁgure, it becomes clear that ADGRAPH does not capture the information sharing pattern between the nodes, because of its inability to capture the redirect (Request 2) made by the image request (network node 5) and the cookie set (storage node 5; visible only in WEBGRAPH ’s graph) by the redirect request
+
+WEBGRAPH , on the contrary, not only captures the ﬂows appearing in ADGRAPH , but also captures the redirects (dotted edge between the two network nodes labeled 5) and cookies set by requests (the second network node 5 to storage node 5)
+
+This representation further enables WEBGRAPH to link requests that share common identiﬁers (node 5 to 15)
+
+4.1.2 Features We take the ADGRAPH feature set and augment them with three categories of features
+
+These additional features come from WEBGRAPH ’s improved graph representation, i.e., exten- sion of the network layer and a new storage layer
+
+The features target storage, network, and information sharing behaviors that were absent in ADGRAPH
+
+First, we extract features that mea- sure the number of read/write cookie and localStorage accesses by a node
+
+We obtain these features from the new storage layer
+
+Second, we extract features that measure the number of re- quests and redirects to/from a node as well as the depth of a node in a redirect chain
+
+These features come from our ex- tension to the network layer
+
+Third, we extract features that measure the number of different types of information sharing edges (e.g., nodes access the same storage node or share data of a storage node) to/from a node
+
+We obtain these features using both the network and storage layers in WEBGRAPH ’s graph representation
+
+We also extract some standard graph features (e.g., in-degree, out-degree, eccentricity) for the information sharing edges
+
+We jointly refer to these three newly added categories of features as ﬂow features
+
+Table 4 in Appendix A lists the full set of features in W EBGRAPH
+
+To illustrate the potential of these features in distinguishing ATS and Non-ATS resources, let us consider three ﬂow features belonging to each of the categories described above:the number of storage elements set by a resource (Figure 5(a)), the number of requests that were redirected to a resource (Figure 6(b)), and the number of information sharing edge ancestors (Fig- ure 6(c))
+
+As explained in Section 4, ATS resources store user identiﬁers in storage elements and use redirects and sharing of identiﬁers in URLs to perform actions such as cookie syncing
+
+Therefore, we expect ATS resources to set a larger number of storage elements, be at the receiving end of redirects, and be involved in a larger number of shared information edges than Non-ATS resources
+
+We plot in Figure 5 the distributions of these features in our dataset
+
+We see that, indeed, the distri- butions are different for benign and ATS resources, with ATS presenting higher values on average for the three features under study
+
+The differences in distributions is especially apparent for Figure 6(c), which shows the number of shared informa- tion edge ancestors
+
+In our dataset, we observe 589,218 cases USENIX Association 31st USENIX Security Symposium    28812 5 6 Script nodeImage requestHTML image1 1 210 10 Script requestHTML iframeScript nodeIframe request15 XMLHTTP request(a) Graph representation of Code 1 in A DGRAPH 2 5 56 5 Script nodeImage requestCookie storage Network request setting a cookieRedirect initiation to load the imageHTML image11 15 Script node Shared cookie in request 210 10 Script requestHTML iframeIframe requestXMLHTTP request 5,13 Read Cookie storage (b) Graph representation of Code 1 in W EBGRAPH Figure 4: Graph representation of Code 1 in ADGRAPH andWEBGRAPH .represents network nodes, represents script nodes, represents HTML nodes, and represents storage nodes
+
+Node numbers correspond to the lines in Code 1
+
+In Figure 4(b), dotted (- - -) lines represent the additional edges that are captured by W EBGRAPH and missed by A DGRAPH
+
+of ATS receiving a cookie value in a request URL, as com- pared to 89,564 cases for non-ATS
+
+This sharing is detected as an information sharing edge, which in turn leads to ATS having larger values in shared information edge properties than Non-ATS
+
+In the case of redirects (Figure 6(b)), the probability that a Non-ATS resource has more than 7 redirects tends to 0, which is not the case with ATS resources
+
+The number of ATS resources with more than 7 redirects is very small in our dataset (≈0.04%)
+
+Yet, it is a top-20 feature in our classiﬁer, as observing more than 7 redirects directly identiﬁes the resource as ATS
+
+Storage element setting (Figure 5(a)) shows a similar behavior, with ATS resources sometimes having more than 54 elements set, while Non-ATS resources never have so many
+
+While individual contributions of some of these ﬂow features might be small, they provide a strong signal in distinguishing ATS when combined, as we show in the next section
+
+4.2 Evaluation To evaluate WEBGRAPH , we use the same dataset of 10K web pages and method as in Section 3.2
+
+To understand the marginal beneﬁt of WEBGRAPH over ADGRAPH , we systematically compare the performance of different feature sets and graph representations
+
+Table 2 summarizes the results
+
+Graph Feature Set Accuracy Precision Recall ADGRAPH Structural + Content 92.33 ±0.50 88.91±1.14 92.14±0.65 Structural 80.22 ±0.81 71.85±1.53 82.44±1.26 WEBGRAPH Structural+ Flow + Content 94.32 ±0.27 92.24±0.67 94.14±0.30 Structural + Flow 86.93 ±0.64 80.57±1.12 90.01±0.50 Structural 82.62 ±0.47 75.67±0.75 85.09±1.41 Table 2: Evaluation of WEBGRAPH andADGRAPH with different feature set variations
+
+We observe that ADGRAPH ’s performance drops by at least 10% when content features are removed
+
+Recall from Section 3.2 that if content features are present alongside structural fea- tures, ADGRAPH is particularly susceptible to evasion: trackers have an 8.72% evasion success rate on their own, and a 96.62% success rate if they collude with the ﬁrst party
+
+Thus, there is a trade-off in ADGRAPH between effectiveness (with content) and robustness to evasion (without content).Second, Table 2 shows that WEBGRAPH ’s performance is better than ADGRAPH
+
+When using all feature sets, WEB- GRAPH outperforms ADGRAPH by about 2-4%
+
+If, for robust- ness, we remove content features, we observe a drop in accu- racy limited to just 4-9% across all measures
+
+We conclude that WEBGRAPH ’s improved graph representation and new ﬂow features can compensate for the loss of content features to a large extent
+
+Finally, Table 2 shows that WEBGRAPH ’s improved graph representation by itself (i.e., even without the new ﬂow fea- tures) contributes to about half of the improvement over AD- GRAPH .WEBGRAPH with only structural features achieves 2-4% improvement across all measures as compared to AD- GRAPH also with only structural features
+
+We conclude that, while WEBGRAPH ’s new ﬂow features help improve its accu- racy, the improved graph representation is an important con- tributor to performance
+
+Feature Category Information gain (%) Shared information ancestors Flow 6.48 ±0.69 Number of requests sent by node Flow 5.9 ±0.69 Number of nodes in graph Structure 5.46 ±0.35 Average degree connectivity of node Structure 5.18 ±0.16 Number of edges in graph Structure 4.19 ±0.34 Table 3: Top-5 most important features for WEBGRAPH ’s classiﬁca- tion, their category, and information gain (averaged over 10 folds)
+
+To provide insights into the relative importance of ﬂow and structural features, we list top ﬁve most important features in terms of information gain in Table 3
+
+The two most important features are ﬂow features
+
+As discussed in Section 4.1.2, the top feature distribution (Figure 6(c)) is very different for ATS and non-ATS, so it’s not surprising that this feature contributes to the classiﬁcation
+
+Storage setting (Figure 5(a)) and received redirects (Figure 6(b)) contribute a smaller, but still useful, portion towards identiﬁcation; they have information gains of 1.9% (±0.37) and 2.5% (±0.47) respectively (21st and 17th most important features)
+
+Structure features, enhanced byWEBGRAPH ’s improved graph representation, also con- tribute towards the performance
+
+We further analyze which features contribute most to each prediction of WEBGRAPH using treeinterpreter [7]
+
+For≈32% of predicted ATS in 2882    31st USENIX Security Symposium USENIX Association(a) (b) (c) Figure 5: Histograms of three example ﬂow features for ATS and Non-ATS resources (normalized, y-axis in log scale)
+
+(a) Number of storage elements set by a resource; (b) Number of network redirects received by a resource, and (c) Number of shared information ancestors of a resource
+
+These features demonstrate different distributions for ATS and Non-ATS resources, and thus can help the classiﬁer to distinguish between them
+
+the dataset, the ﬂow features were the top contributors, indi- cating that they provide an important signal for the presence of trackers
+
+In contrast, for ≈47% of predicted Non-ATS in the dataset, structure features were the top contributors
+
+These results conﬁrm our earlier intuition that capturing information sharing behaviors that are unique to advertising and tracking carries signiﬁcant predictive power
+
+4.3 Efﬁciency We envision WEBGRAPH to be used for ﬁlter list curation and maintenance in an ofﬂine setting
+
+WEBGRAPH relies on large scale web crawls and notoriously expensive graph traversals for feature extraction
+
+We now measure WEBGRAPH ’s ofﬂine overhead to demonstrate its adequacy as a tool to periodically update ﬁlter lists
+
+Crawl time
+
+Our implementation of WEBGRAPH has an up- per bound of 60 seconds, enforced with a timeout, to crawl a website
+
+In the average case, crawls take only ∼26.46 seconds per-page
+
+Crawls can be parallelized over several instances to reduce the crawl time
+
+For example, it took us around 10.5 hours to crawl 10K websites, parallelized over 7 instances
+
+Without parallelization and if all websites would reach the timeout, the crawls would take ∼166 hours
+
+Processing websites
+
+On average, WEBGRAPH takes 0.72 sec- onds to build the graph, 15 seconds to extract features, and 0.25 seconds to train and test each website
+
+For our crawl of 10K websites, it took us a total of ∼44 hours to create their graphs and extract features on a single instance
+
+This time can be signiﬁcantly reduced with parallelization
+
+Update frequency
+
+These estimates suggest that for 10K web- sites containing∼1.1 million requests WEBGRAPH will re- quire, at most,∼166 (data crawling) and ∼44 (data processing) hours with a single instance
+
+However, when averaged over 7 instances, the computation time signiﬁcantly reduces to 16.83 hours (10.5 for crawling and 6.33 for processing)
+
+We antici- pate the computation time for periodic updates to reduce sig- niﬁcantly because many websites have low update frequency
+
+Monitoring the update frequency of websites will allow us to only crawl when changes are expected in websites
+
+In caseswhere we determine that the website did not change since the last crawl, we will not recompute their classiﬁcations
+
+With this update frequency, WEBGRAPH will be able to update ﬁlter lists on a daily basis, and certainly operate within the current expiry period, i.e., mandated update frequency, of popular ﬁlter lists, e.g., 4 days for Easylist [ 4]
+
+Frequent updates with WE- BGRAPH can help remove outdated rules and as well as add new rules to block newly discovered ads and trackers
+
+To evade detection by the updated rules generated by WEB- GRAPH , adversaries could change their page content (e.g., ro- tate domains) [ 44]
+
+In order to successfully evade WEBGRAPH , however, an adversary would need to change their page content at a rate faster than the rate of WEBGRAPH ’s updates (i.e, at least once a day)
+
+Such frequent changes, however, require continuous coordination and cooperation between the trackers and publishers hosting their content and are complicated to implement in practice
+
+If an adversary with sufﬁcient resources and capabilities to perform frequent page content changes, WEBGRAPH would need to operate in an online manner to be robust by directly classifying page resources at runtime
+
+This would require few changes in WEBGRAPH ’s operation
+
+Specif- ically, instead of extracting features from a complete graph representation at the end of a page load, in an online setting WEBGRAPH would need to extract features from partial graph representations build as the page is being loaded
+
+Relying on partial graph representation, will make WEBGRAPH more per- formant, but it may may degrade WEBGRAPH ’s accuracy
+
+We leave to future work to explore the tradeoffs involved in an online implementation of W EBGRAPH
+
+5 W EBGRAPH Robustness In this section, we evaluate WEBGRAPH ’s robustness against content mutation attacks (described in Section 3) and structure mutation attacks
+
+5.1 Content mutation attacks To evaluate WEBGRAPH against content mutations, we strengthen the threat model described in Section 3 to enable the adversary to also masquerade their resources as ﬁrst party, USENIX Association 31st USENIX Security Symposium    2883i.e., through ﬁrst-party subdomains
+
+Overall, our attacks in- volve random mutations to domain names, subdomains, and the query string in URLs (Section 3.2)
+
+By relying on content mutations, the adversary is able to switch 96.62% of their ATSresources to Non-ATS against AD- GRAPH
+
+Against WEBGRAPH , the adversary’s success rate plummets to just 8.34 ±0.66% (over 10 folds)
+
+For example, mylivesignature.com , a tracking domain, was able to switch all of its 560 ATSresources to Non-ATS against ADGRAPH , but none against W EBGRAPH
+
+Note that, even though WEBGRAPH does not use content features, the evasion success rate against WEBGRAPH does not drop to zero
+
+This is because some of the WEBGRAPH ’s features implicitly rely on URL properties
+
+For example, shared information edges, that consider sharing of cookie values via query strings in the URL, are affected by URLs manipulations
+
+5.2 Structure mutation attacks Next, we evaluate W EBGRAPH ’s robustness against structure mutations
+
+We assume that the adversarial third-party has un- restricted black box access to the WEBGRAPH ’s classiﬁer, i.e., the adversary can make unlimited queries and observe WEBGRAPH ’s classiﬁcation output
+
+This access enables the adversary to validate the effect of their structure mutations
+
+Attack details
+
+We assume that the adversary can mutate the structure of a web page through resource addition, re-routing, and obfuscation
+
+Moreover, we assume that the adversary also performs content mutations, to maximize its chance of success Resource addition entails addition of new resources, such as images and scripts
+
+Resource re-routing entails re-organization of existing redirect chains, i.e., dispersing a redirect chain in a sequence of XMLHttpRequest’s through one or multiple scripts
+
+Resource obfuscation entails obfuscation of cookie or query string parameter values of existing resources, i.e., encod- ing or encrypting cookie or query string parameter values in a format that is not detected by WEBGRAPH ’s implementation, before sharing them in network requests
+
+To remain stealthy, we assume that the adversary does not delete functional content from the web page that could damage usability
+
+It is important to note that even simple mutations, such as adding a single element to the web page, can signiﬁcantly change graph properties and impact several features
+
+For ex- ample, the addition of a child node causes a cascading effect
+
+It increases the number of descendants of all the parent nodes in the branch, all the way up to the root node, and also impacts their centrality
+
+Thus, the result of such simple mutations can become unpredictable and hard to control by the adversary: It can cause unintended classiﬁcation changes for nodes under and outside the control of the adversary
+
+Complex mutations, such as adding a combination of nodes at once, further compli- cate having control on the number of unintended classiﬁcation changes
+
+In our evaluation, we only consider atomic mutations, i.e., addition, re-routing, or obfuscation of individual resources.Mutation algorithm
+
+We capture the adversary’s unrestricted black box access to classiﬁer by implementing a greedy random algorithm to ﬁnd suitable mutations
+
+This kind of algorithm is extensively used in the literature due to its simplicity and practicality [ 36,62,67]
+
+The algorithm (formally described in Appendix D) iteratively mutates WEBGRAPH ’s graph rep- resentation
+
+At each step, it adds, re-routes, or obfuscates the resource that provides the best trade-off between desired (ATS toNon-ATS ) and undesired (NON-ATS toATS) classiﬁcation switches
+
+Resource addition is simulated by adding nodes to a randomly selected leaf nodes in the graph
+
+Resource re-routing is simulated by adding each request, in a redirect chain, as an individual node to one or more randomly selected scripts
+
+Resource obfuscation is simulated by replacing stored values in URLs with an encoding that is not detected by WEBGRAPH
+
+5.3 Empirical evaluation Experimental Setup
+
+To evaluate WEBGRAPH ’s robustness, we must rebuild the graph and recompute the features after each mutation
+
+To keep the evaluation time reasonable, we sample 100 web pages from our dataset, and we limit the graph growth to 20%
+
+To ensure that this sample is representative of our dataset, we divide graphs into 5 bins according to their size and sample 20 web pages from each bin
+
+To avoid exception- ally long evaluation times, we only consider web pages that have 250 or fewer nodes (80% of the dataset; see Appendix B for the full distribution).4For each web page, we designate the adversary as the third party with the highest number of resources classiﬁed as ATS
+
+It is noteworthy that the adversary with the highest number of ATSresources has an opportunity to do maximum damage
+
+In this dataset, the median evaluation time per web page was 29.08 minutes, with 39% of the pages taking more than an hour to run
+
+Even though this is a simulation, the computational cost is directly proportional to the operational cost for the adversary
+
+The adversary must consume additional CPU cycles and memory and in the case of node addition, send additional network requests, thereby increasing the cost of their attack
+
+Success metrics
+
+To measure adversary’s success, we deﬁne the following terms: ATS Web: Number of nodes classiﬁed as ATS
+
+ATS Adv: Number of adversary nodes classiﬁed as ATS
+
+Non-ATS Web: Number of nodes classiﬁed as Non-ATS
+
+Non-ATS Adv: Number of adversary nodes classiﬁed as Non-ATS
+
+desired : Number of nodes switching from ATS Advto Non-ATS Adv
+
+4The resulting reduced dataset has similar mean, stand deviation, and me- dian for the features as the full dataset
+
+2884    31st USENIX Security Symposium USENIX Associationundesired : Number of nodes switching from Non-ATS Webto ATS Adv
+
+neutral : Number of nodes switching from ATStoNon-ATS for non-adversary nodes
+
+Success rate : Desired changes from the adversary’s point of view
+
+It is calculated as desired/ATS Adv
+
+Collateral damage : Undesired changes from the adversary’s point of view
+
+It is calculated as undesired/(Non-ATS Adv+Non-ATS Web)
+
+Other changes : Non-consequential changes from the adver- sary’s point of view
+
+It is calculated as neutral/ATS Web
+
+We illustrate the node switches, with the mutation algorithm, for an example graph in Appendix E
+
+5.3.1 Adversary’s success We assume that the adversary neither colludes with other third parties nor with the ﬁrst party and can only perform mutations on the nodes and edges it controls
+
+We conduct the attack on 100 web pages
+
+We note that increasing the number of graph mutations increases the adversary’s mean success rate from 38.6±33.01 (median: 33.33) at 5% graph growth to 52.48 ± 33.4 (median: 50.00) at 20% graph growth
+
+The classiﬁcation switches lead to a decrease in the overall classiﬁcation accuracy by 1.5%, recall by 8.85%, and precision by 2.29%
+
+However, the adversary’s success comes at a cost of collat- eral damage
+
+The average collateral damage rises from 2.17 ± 11.19 to 3.88±13.55 (median: 0)
+
+In Figure 6, we illustrate the trade-off between success rate and collateral damage at 20% graph growth
+
+The x-axis represents success rate, the y-axis represents collateral damage, and circles represent a trade-off between the two
+
+The circles’ color represents ATS Advor the number of classiﬁcations the adversary has to switch for the particular web page
+
+The lighter the color, the more switches are required, i.e, the cost of success increases
+
+For the web pages in this dataset, the adversary has, on average, ATS Adv= 5.98±5.39 nodes classiﬁed as ATS
+
+For certain pages, the ATS Advcan be as high as 26
+
+Ideally, the adversary wants to be at the bottom right of the graph, where it achieves 100% success rate with zero collateral damage
+
+The adversary is able to reach its ideal target on only 13 web pages, which only required four switches
+
+The adversary is able to achieve 50% or more success on 61 of the tested web pages
+
+Together, they amount to 240 nodes switched, with 45 of these pages having non-zero collateral damage
+
+On the other hand, we have 9 web pages that had a higher collateral damage than success rate: a net negative effect of the mutation
+
+Out of these, 6 web pages had 0% success rate with non-zero collateral damage, and 3 web pages had a large collateral damage >75% (with one web page hitting 83%).Overall, even in the case of an unrealistic adversary that has the capabilities to manipulate structure features at will, and also the operational power to do so for a large number of iterations, there is no guarantee of perfect success
+
+Breakage
+
+If undesired changes affect benign resources that are essential to the correct functioning of the web page, even a small collateral damage can break the page
+
+This may have large impact on trackers
+
+If users leave the broken web pages, the adversary cannot track them or show them ads
+
+We deﬁne website breakage as degradation in usability of the website
+
+We say there is major breakage if the user is unable to complete the primary functionality of the web pages (e.g
+
+login, search or page navigation)
+
+If the user is unable to complete a secondary functionality of the web pages (e.g
+
+comment or review), we say there is minor breakage
+
+Otherwise, we consider that the web page does not have any breakage
+
+We quantify breakage on all of the 21 web pages where the adversary experiences undesired classiﬁcation switches.5 We open these web pages side by side on stock Firefox and a Firefox conﬁgured with an extension that blocks the URLs that switched classiﬁcation, and we compare them side by side to identify any visual signs of breakage
+
+We ask two reviewers to perform the analysis
+
+Our reviewers attain an agreement of 90.46% in their evaluation
+
+They ﬁnd that the undesired classiﬁcation switches cause major break- age on 3 and minor breakage on 2 web pages
+
+This breakage mostly happens when the ﬁrst-party resources are switched from Non-ATS→ATS
+
+Our approach and results are in line with other works that evaluate breakage [ 40,57], though we cannot test whether this breakage is representative of what users experience in the wild
+
+Careless adversary
+
+If the adversary is not concerned with changes to any non-adversarial nodes, their collateral damage decreases
+
+The adversary still does not want their own con- tent to be blocked, so it will optimize against their own nodes switching to ATS
+
+This change in strategy updates the collateral damage calculation to: undesired/Non-ATS Adv
+
+With our modiﬁed deﬁnition, there can be no collateral dam- age for web pages on which all of the adversary nodes are classiﬁed as ATS; we note 55 such web pages
+
+For the remain- ing 45 web pages, only 8 web pages have collateral damage, as compared to 27 web pages that had collateral damage as per our original deﬁnition
+
+Out of these 8 web pages, 4 had a higher collateral damage than success rate (net negative effect), and 6 web pages have a large collateral damage > 20% (with 2 web pages hitting 100%)
+
+Thus, even when an adversary is not concerned about collateral damage to other parties they are not signiﬁcantly more successful in subverting WEBGRAPH
+
+Surprisingly, the success rate mean growth does not change much from the previous scenario
+
+The unpredictable effect of the mutations on the graph features (see Appendix E for an 5The adversary experiences undesired classiﬁcation switches on 45 web pages
+
+However, 24 web pages no longer serve the switched ATSresources
+
+USENIX Association 31st USENIX Security Symposium    2885(a) (b) (c) Figure 6: Adversary’s success rate vs
+
+collateral damage for each web page in the test data at 20% graph growth
+
+Figure 6(a) represents all mutations, 6(b) represents only structure mutations, and 6(c) represents only resource re-routing and obfuscation mutations
+
+Colored circles represent the number of required switches
+
+example) makes it difﬁcult to pinpoint what causes this lack of change in the adversary’s success rate
+
+Collusion with the ﬁrst party
+
+So far, we have assumed that the adversary is a single third party that does not collude with other third parties or the ﬁrst party
+
+If we assume the adversary colludes with both, the adversary can add child nodes to any node in the graph
+
+This is a much stronger adversary than in Section 5.3.1, where in each iteration the adversary can only test a random subset of the options
+
+Realistically, such a powerful collusion would be difﬁcult to implement, as it would require coordination and cooperation among multiple parties to ensure that the mutation is feasible
+
+We repeat our experiment, but we now allow the adversary to consider all possible mutation options on any node, and pick the best one in each iteration
+
+These experiments take longer to run (see Appendix C), so we only analyze 100 web pages whose graphs have at most 50 nodes
+
+We see that collusion enables the adversary to have a slightly higher success rate (63 pages with success rate > 50% as compared to 60 for the non-colluding adversary) and lower collateral damage (9 pages with damage >0% compared to 18 pages for a non-colluding adversary)
+
+These results are described in detail in Appendix F)
+
+5.3.2 Impact of mutation choice Next, we study the adversary’s preference in selecting the most useful mutations
+
+The adversary picks resource addition 81.70%, resource re-routing 17.26%, and resource obfuscation 0.04% of the time
+
+Resource obfuscation is rarely chosen by the adversary because the graph already has content manipulations applied, and these manipulations have already severed many of the edges that would be severed by resource obfuscation
+
+To separate out the impact of different mutations, we conduct two additional experiments: (1) where the adversary can only perform resource addition, and (2) where the adversary can only perform resource re-routing and obfuscation
+
+We exclude 33 of the web pages for experiment 2 because these web pages do not have re-route-able or obfuscate-able resources
+
+For the remaining 67 pages, we see that the re- routing/obfuscation mutations (Figure 6(c)) are more effective than addition mutations (Figure 6(b))
+
+Re-routing/obfuscationnot only yields higher success rates for the adversary, but also results in lower collateral damage
+
+This is unsurprising because these mutations target information sharing patterns which are distinctive of trackers; changing these patterns removes an important signal for the classiﬁer (see Table 3)
+
+However, in practice, resource re-routing and obfuscation would entail high costs for the adversary since they involve the manipulation of identiﬁer sharing patterns
+
+Speciﬁcally, the ad- versary would have to coordinate with other parties on changes to these patterns, and redesign how they perform tracking in order to perform these mutations
+
+The success of these muta- tions also depends on the degree to which ﬂows are captured by the instrumentation used to create the graph
+
+WEBGRAPH ’s instrumentation approximates information ﬂows and will not capture all attempts by an adversary to use re-routing and obfuscation
+
+We argue that this is not a fundamental ﬂaw in WEBGRAPH ’s architecture but a limitation in our implementa- tion that approximates information ﬂow (Section 4)
+
+A fully ﬂedged instrumentation would make these manipulations much more difﬁcult to deploy
+
+See Section 6 for an extended discus- sion
+
+Resource addition has fewer costs for the adversary since it does not involve coordination with additional parties
+
+This manipulation is not affected by the type of implementation because it is not related to the ﬂow of identiﬁers
+
+5.3.3 Comparison with A DGRAPH We also evaluate whether WEBGRAPH , in addition to having superior classiﬁcation performance, offers robustness beneﬁts over ADGRAPH
+
+We only use ADGRAPH ’s structural features, as we already demonstrated that content features are not ro- bust
+
+Because ADGRAPH does not have features based on ﬂow information, we only perform resource addition
+
+We ﬁnd that the adversary has greater success against ADGRAPH than WEBGRAPH , but also suffers from more collateral damage (Figure 10 in Appendix F)
+
+This is because the structural ef- fects of node additions are hard to control, as explained in Section 5.2
+
+Since the former is beneﬁcial to the adversary but the latter is not, it is not clear-cut as to whether one system provides more robustness than the other
+
+2886    31st USENIX Security Symposium USENIX AssociationIn summary, it is not trivial for an adversary to produce the desired classiﬁcation switches for their advertising and tracking resources without producing any undesired changes
+
+Yet, an adversary willing to accept the collateral damage, and with the resources to grow the graph beyond the 20% we evaluated, can increase the success rate
+
+Even this success, however, would increase the adversary’s operational and computational costs
+
+6 Limitations In this section, we discuss limitations of WEBGRAPH ’s design, implementation, and evaluation
+
+Completeness
+
+For efﬁciency reasons, WEBGRAPH fo- cuses on a limited subset of the browser’s API surface, such as HTTP cookie headers, document.cookie , and window.localStorage .WEBGRAPH ’s implementation is also geared towards capturing client-side information that is pertinent to stateful tracking
+
+However, techniques used by ATS need not to be limited to these APIs or to stateful tracking
+
+Some ATS have started to use stateless tracking techniques, such as browser ﬁngerprinting, which use APIs that are not cur- rently covered by our instrumentation [ 27,38,46]
+
+To account for these techniques, WEBGRAPH ’s instrumentation must be extended to include the corresponding APIs
+
+WEBGRAPH ’s manually designed graph representation and feature set capture the most well-known information shar- ing patterns
+
+The limits of these approach are shown in Sec- tion 5.3.2, where we show that an adversary capable of hiding or obfuscating traditional sharing ﬂows has a better chance to bypass WEBGRAPH than doing structure modiﬁcations
+
+This limitation is, however, linked to our implementation choices
+
+To increase WEBGRAPH ’s coverage of sharing behaviors, if sufﬁces with increase the instrumentation to cover more infor- mation ﬂows
+
+Ideally, we would instrument full-blown infor- mation ﬂow tracking
+
+Such expansion would incur prohibitive runtime overheads (up to 100X-1000X [ 35]) and its complex- ity makes it hard to integrate in the browser [ 18,20,45,59]
+
+Nevertheless, the design of WEBGRAPH permits that the instru- mentation to be upgraded gradually, as ATS evolve in response to our evasion protection techniques, increasing the cost of eva- sion without fundamentally changing the detection approach
+
+Robustness analysis
+
+Inspired by previous work on graph- based detection evasion [ 36,62,67], we use a greedy algorithm to attack WEBGRAPH
+
+This algorithm only considers the best mutation in each iteration
+
+Thus, it is not guaranteed to ﬁnd the optimal mutation sequence that would lead to the best adversary performance
+
+We note however that even exhaustive search does not lead to perfect success (see our results on small websites)
+
+We expect adversaries to try alternative algorithms to improve their success rates
+
+However, any alternative that is close to exhaustive search will become prohibitively expensive for the adversary when the web page graph is large.Another option for the adversary would be to perform more sophisticated graph mutations instead of the simple node ad- ditions that we perform
+
+An adversary could tailor their muta- tions to the page’s graph structure by studying how their node changes affect the graph properties of the web page
+
+However, this requires that the rest of the graph (i.e., the portions outside of the adversary’s control) remaining unchanged
+
+Realistically, it would be difﬁcult for an adversary to coordinate with other parties to generate these changes
+
+Finally, we note that the dynamism of modern websites [ 17] complicates the process for the adversary
+
+Web pages change often, sometimes on every load
+
+Even if the adversary manages to ﬁnd an appropriate set of mutations, those mutations may be invalid the next time the page is reloaded
+
+7 Conclusion In this paper, we showed that state-of-the-art ad and tracker blocking approaches are susceptible to evasion due to their re- liance on easy-to-manipulate content features
+
+We then showed that information sharing patterns in online advertising and tracking can be leveraged for their robust blocking
+
+We pro- posed WEBGRAPH , that builds a cross-layer graph represen- tation to capture such information ﬂows and trains a machine learning classiﬁer for accurate and robust blocking
+
+Our results showed that it is non-trivial to evade WEBGRAPH ’s classiﬁer without causing unavoidable collateral damage
+
+While it is not foolproof, WEBGRAPH raises the bar for advertisers and trackers attempting to evade detection
+
+We foresee that advertising and tracking services would need to signiﬁcantly re-architecture their information sharing patterns to achieve long-lasting evasion against WEBGRAPH
+
+We note, however, that introducing new information ﬂows may be quite complicated, as they may require collaboration among the ﬁrst- party and numerous third-parties on a typical web page
+
+Acknowledgments We thank Charles Nguyen for helping with the breakage analy- sis
+
+We also thank our anonymous reviewers and our shepherd, Blase Ur, for their constructive feedback
+
+A part of this work was carried out during Sandra Siby’s internship at Mozilla
+
+We thank Luke Crouch for his mentorship of the project dur- ing Sandra’s internship
+
+This work is supported in part by the National Science Foundation under grant numbers 2051592, 2102347, 2103038, and 2103439
+
+References [1] Adblock Plus
+
+https://adblockplus.org/
+
+[2]Bypassing ad blockers for Google Analytics
+
+https:// analytics-bypassing-adblockers.netlify.app/
+
+[3] Disconnect
+
+https://disconnect.me/
+
+USENIX Association 31st USENIX Security Symposium    2887[4]EasyList
+
+https://easylist.to/easylist/easylis t.txt
+
+[5]EasyPrivacy
+
+https://easylist.to/easylist/eas yprivacy.txt
+
+[6] Ghostery
+
+https://www.ghostery.com
+
+[7]treeinterpreter
+
+https://pypi.org/project/treeint erpreter/
+
+[8]uBlock Origin
+
+https://github.com/gorhill/uBl ock
+
+[9]ACAR, G., E UBANK , C., E NGLEHARDT , S., J UAREZ , M., N ARAYANAN , A., AND DIAZ, C
+
+The web never forgets: Persistent tracking mechanisms in the wild
+
+In CCS (2014)
+
+[10] ALRIZAH , M., Z HU, S., X ING, X., AND WANG , G
+
+Errors, misunderstandings, and attacks: Analyzing the crowdsourcing process of ad-blocking systems
+
+In IMC (2019)
+
+[11] AMJAD , A
+
+H., S ALEEM , D., Z AFFAR , F., G ULZAR , M
+
+A., AND SHAFIQ , Z.Trackersift: Untangling mixed tracking and functional web resources
+
+arXiv preprint arXiv:2108.13923 (2021)
+
+[12] BASHIR , M
+
+A., AND WILSON , C
+
+Diffusion of user tracking data in the online advertising ecosystem
+
+PETS (2018)
+
+[13] BHAGAVATULA , S., D UNN , C., K ANICH , C., G UPTA , M., AND ZIEBART , B
+
+Leveraging Machine Learning to Improve Unwanted Resource Filtering
+
+In WAIS (2014)
+
+[14] BLOOMBERG , J.Ad Blocking Battle Drives Disruptive Innovation
+
+https://www.forbes.com/sites/jason bloomberg/2017/02/18/ad-blocking-battle-dri ves-disruptive-innovation , 2017
+
+[15] BOSWORTH , A
+
+A New Way to Control the Ads You See on Facebook, and an Update on Ad Blocking
+
+https://newsroom.fb.com/news/2016/08/a-new-way-to- control-the-ads-you-see-on-facebook-and-an-update-on- ad-blocking/, 2016
+
+[16] BRAVE
+
+A Long List of Ways Brave Goes Beyond Other Browsers to Protect Your Privacy
+
+https://brave.co m/privacy-features/
+
+[17] BUTKIEWICZ , M., M ADHYASTHA , H
+
+V., AND SEKAR , V.Understanding website complexity: measurements, metrics, and implications
+
+In IMC (2011)
+
+[18] CHEN, Q., AND KAPRAVELOS , A
+
+Mystique: Uncov- ering information leakage from browser extensions
+
+In CCS (2018)
+
+[19] CHEN, Q., S NYDER , P., L IVSHITS , B., AND KAPRAVE - LOS, A
+
+Detecting ﬁlter list evasion with event-loop-turn granularity javascript signatures
+
+In S&P (2021)
+
+[20] CHUDNOV , A., AND NAUMANN , D
+
+A
+
+Inlined informa- tion ﬂow monitoring for javascript
+
+In CCS (2015)
+
+[21] CIMPANU , C
+
+Ad Network Uses DGA Algorithm to By- pass Ad Blockers and Deploy In-Browser Miners
+
+https: //www.bleepingcomputer.com/news/security/ad-network-uses-dga-algorithm-to-bypass-ad-b lockers-and-deploy-in-browser-miners/ , 2018
+
+[22] CIMPANU , C
+
+Ad Network Uses DGA Algorithm to By- pass Ad Blockers and Deploy In-Browser Miners
+
+https: //www.bleepingcomputer.com/news/security/a d-network-uses-dga-algorithm-to-bypass-ad-b lockers-and-deploy-in-browser-miners/ , 2018
+
+[23] COINTEPAS , R
+
+CNAME Cloaking, the dangerous disguise of third-party trackers
+
+https://medium.com/nextdns/cname-cloaking- the-dangerous-disguise-of-third-party-trackers- 195205dc522a, 2010
+
+[24] COOK , J., N ITHYANAND , R., AND SHAFIQ , Z
+
+Dif- fusion of user tracking data in the online advertising ecosystem
+
+PETS (2020)
+
+[25] DANG, H., H UANG , Y., AND CHANG , E.Evading Clas- siﬁers by Morphing in the Dark
+
+In CCS (2017)
+
+[26] DAO, H., M AZEL , J., AND FUKUDA , K
+
+Characterizing CNAME Cloaking-Based Tracking on the Web
+
+In TMA (2020)
+
+[27] DAS, A., A CAR, G., B ORISOV , N., AND PRADEEP , A
+
+The Web’s Sixth Sense: A study of scripts accessing smartphone sensors
+
+In CCS (2018)
+
+[28] DIMOVA , Y., A CAR, G., O LEJNIK , L., J OOSEN , W., AND VANGOETHEM , T
+
+The CNAME of the Game: Large-scale Analysis of DNS-based Tracking Evasion
+
+PETS (2021)
+
+[29] ENGLEHARDT , S., H AN, J., AND NARAYANAN , A
+
+I never signed up for this! privacy implications of email tracking
+
+PETS (2018)
+
+[30] ENGLEHARDT , S., AND NARAYANAN , A
+
+Online track- ing: A 1-million-site measurement and analysis
+
+In CCS (2016)
+
+[31] FASS, A., B ACKES , M., AND STOCK , B
+
+HideNoSeek: Camouﬂaging Malicious JavaScript in Benign ASTs
+
+In CCS (2019)
+
+[32] FOUAD , I., B IELOVA , N., L EGOUT , A., AND SARAFIJANOVIC -DJUKIC , N
+
+Missed by Filter Lists: Detecting Unknown Third-Party Trackers with Invisible Pixels
+
+PETS (2020)
+
+[33] GUGELMANN , D., H APPE , M., A GER, B., AND LENDERS , V
+
+An Automated Approach for Comple- menting Ad Blockers’ Blacklists
+
+In PETS (2015)
+
+[34] HANSEN , N., C ARLI , L
+
+D., AND DAVIDSON , D
+
+As- sessing Adaptive Attacks Against Trained JavaScript Classiﬁers
+
+In SecureComm (2020)
+
+[35] HEDIN , D., B IRGISSON , A., B ELLO , L., AND SABELFELD , A
+
+Jsﬂow: Tracking information ﬂow in javascript and its apis
+
+In SAC (2014), pp
+
+1663–1671
+
+[36] HOU, S., F AN, Y., Z HANG , Y., Y E, Y., L EI, J., W AN, W., W ANG , J., X IONG , Q., AND SHAO, F.αcyber: En- hancing robustness of android malware detection system against adversarial attacks on heterogeneous graph based model
+
+In IKM (2019), pp
+
+609–618
+
+2888    31st USENIX Security Symposium USENIX Association[37] IKRAM , M., A SGHAR , H
+
+J., K AAFAR , M
+
+A., M A- HANTI , A., AND KRISHNAMURTHY , B
+
+Towards Seam- less Tracking-Free Web: Improved Detection of Trackers via One-class Learning
+
+In PETS (2017)
+
+[38] IQBAL , U., E NGLEHARDT , S., AND SHAFIQ , Z.Finger- printing the Fingerprinters:Learning to Detect Browser Fingerprinting Behaviors
+
+In S&P (2021)
+
+[39] IQBAL , U., S HAFIQ , Z., AND QIAN, Z
+
+The Ad Wars: Retrospective Measurement and Analysis of Anti- Adblock Filter Lists
+
+In IMC (2017)
+
+[40] IQBAL , U., S NYDER , P., Z HU, S., L IVSHITS , B., Q IAN, Z., AND SHAFIQ , Z
+
+AdGraph: A Graph-Based Ap- proach to Ad and Tracker Blocking
+
+In S&P (2020)
+
+[41] JOHANSEN , B
+
+Tracking visitors with adblock- ers
+
+https://www.bjornjohansen.com/tracking-v isitors-with-adblockers
+
+[42] KAIZER , A
+
+J., AND GUPTA , M
+
+Towards Auto- matic identiﬁcation of JavaScript-oriented Machine- Based Tracking
+
+In IWSPA (2016)
+
+[43] KARGARAN , A
+
+H., A KHONDZADEH , M
+
+S., H EIDAR - POUR , M
+
+R., M ANSHAEI , M
+
+H., S ALAMATIAN , K., AND SATTARY , M
+
+N
+
+On detecting hidden third- party web trackers with a wide dependency chain graph: A representation learning approach
+
+arXiv preprint arXiv:2004.14826 (2020)
+
+[44] LE, H., M ARKOPOULOU , A., AND SHAFIQ , Z
+
+Cv- inspector: Towards automating detection of adblock cir- cumvention
+
+In NDSS (2021)
+
+[45] LEKIES , S., S TOCK , B., AND JOHNS , M
+
+25 million ﬂows later: Large-scale detection of DOM-based XSS
+
+InCCS (2013)
+
+[46] MAVROUDIS , V., H AO, S., F RATANTONIO , Y., M AGGI , F., K RUEGEL , C., AND VIGNA , G
+
+On the privacy and security of the ultrasound ecosystem
+
+PETS (2017)
+
+[47] MDN
+
+Redirect tracking protection
+
+https://develo per.mozilla.org/en-US/docs/Mozilla/Firefox /Privacy/Redirect_Tracking_Protection
+
+[48] MDN
+
+Storage access policy: Block cookies from trackers
+
+https://developer.mozilla.org/en-US/ docs/Mozilla/Firefox/Privacy/Storage_acces s_policy
+
+[49] MICROSOFT EDGE TEAM
+
+Introducing tracking prevention, now available in Microsoft Edge preview builds
+
+https://blogs.windows.com/msedgedev/ 2019/06/27/tracking-prevention-microsoft-e dge-preview/
+
+[50] OLEJNIK , L., T RAN, M.-D., AND CASTELLUCCIA , C
+
+Selling off privacy at auction
+
+In NDSS (2014)
+
+[51] PAPADOPOULOS , P., K OURTELLIS , N., AND MARKATOS , E
+
+P
+
+Cookie synchronization: Ev- erything you always wanted to know but were afraid to ask
+
+In WWW (2019)
+
+[52] PLOHMANN , D., Y AKDAN , K., K LATT , M., B ADER , J.,AND GERHARDS -PADILLA , E
+
+A ComprehensiveMeasurement Study of Domain Generating Malware
+
+In USENIX Security (2016)
+
+[53] SHUBA , A., M ARKOPOULOU , A., AND SHAFIQ , Z
+
+NoMoAds: Effective and Efﬁcient Cross-App Mobile Ad-Blocking
+
+In PETS (2018)
+
+[54] SJÖSTEN , A., S NYDER , P., P ASTOR , A., P APADOPOU - LOS, P., AND LIVSHITS , B
+
+Filter List Generation for Underserved Regions
+
+In WWW (2020)
+
+[55] SKOLKA , P., S TAICU , C.-A., AND PRADEL , M
+
+Any- thing to hide? studying miniﬁed and obfuscated code in the web
+
+In WWW (2019), pp
+
+1735–1746
+
+[56] SLOANE , G
+
+Ad Blocker’s Successful Assault on Facebook Enters Its Second Month
+
+http://adage.co m/article/digital/blockrace-adblock/311103/ , 2017
+
+[57] SNYDER , P., T AYLOR , C., AND KANICH , C
+
+Most web- sites don’t need to vibrate: A cost-beneﬁt approach to improving browser security
+
+In CCS (2017)
+
+[58] SNYDER , P., V ASTEL , A., AND LIVSHITS , B
+
+Who Filters the Filters: Understanding the Growth, Useful- ness and Efﬁciency of Crowdsourced Ad Blocking
+
+In SIGMETRICS (2020)
+
+[59] STOCK , B., L EKIES , S., M UELLER , T., S PIEGEL , P., AND JOHNS , M
+
+Precise Client-side Protection against DOM-based Cross-Site Scripting
+
+In USENIX Security (2014)
+
+[60] TRAMÈR , F., D UPRÉ , P., R USAK , G., P ELLEGRINO , G., AND BONEH , D
+
+Adversarial: Perceptual ad blocking meets adversarial machine learning
+
+In CCS (2019)
+
+[61] WANG, W., Z HENG , Y., X ING, X., K WON , Y., Z HANG , X., AND EUGSTER , P.WebRanz: Web Page Random- ization For Better Advertisement Delivery and Web-Bot Prevention
+
+In FSE (2016)
+
+[62] WANG , X., E ATON , J., H SIEH , C.-J., AND WU, F.At- tack graph convolutional networks by adding fake nodes
+
+arXiv preprint arXiv:1810.10751 (2018)
+
+[63] WILLIAMS , B
+
+Ping pong with Facebook
+
+https://ad blockplus.org/blog/ping-pong-with-facebook , 2018
+
+[64] WU, Q., L IU, Q., Z HANG , Y., L IU, P., AND WEN, G
+
+A Machine Learning Approach for Detecting Third-Party Trackers on the Web
+
+In ESORICS (2016)
+
+[65] ZAIFENG , Z
+
+Who is Stealing My Power III: An Adnetwork Company Case Study, 2018
+
+http://blog .netlab.360.com/who-is-stealing-my-power-i ii-an-adnetwork-company-case-study-en/
+
+[66] ZHU, S., W ANG , Z., C HEN, X., L I, S., I QBAL , U., QIAN, Z., C HAN, K
+
+S., K RISHNAMURTHY , S
+
+V., AND SHAFIQ , Z
+
+A4: Evading learning-based adblockers
+
+arXiv preprint arXiv:2001.10999 (2020)
+
+[67] ZÜGNER , D., A KBARNEJAD , A., AND GÜNNEMANN , S.Adversarial attacks on neural networks for graph data
+
+InKDD (2018)
+
+USENIX Association 31st USENIX Security Symposium    2889A Comparison between A DGRAPH and W EB- GRAPH features Table 4 compares the features used in WEBGRAPH andAD- GRAPH .WEBGRAPH does not use content features
+
+Graph size, Degree and Centrality features come under both struc- ture and ﬂow categories, since they include graph properties that are based on both normal and shared information edges
+
+Some structural features used in ADGRAPH are not used in WEBGRAPH due to WEBGRAPH being adapted for ofﬂine use, whereas the features are useful in an online context
+
+B Distribution of graph sizes Figure 7 shows the distribution of number of nodes in the graph representations of the web pages in our dataset
+
+Since 80% of web pages have 250 nodes or fewer, we sample from this subset in our structural mutation experiments in Section 5
+
+Figure 7: Distribution of number of nodes in the graph representations of the web pages in the dataset
+
+C Experimental run times (a) (b) Figure 8: Run-times for robustness experiments without collusion
+
+Figure 8(a) shows mean time per iteration vs graph size, and 8(b) shows total run time
+
+Figure ??describes the run times for the experiment de- scribed in Section 5.3.1 (adversary without collusion)
+
+Fig- ure 8(a) shows the impact of graph size on each iteration of the experiment
+
+Smaller graphs have lower run times sincefeatures have to be calculated over a smaller number of nodes
+
+Factors such as the complexity of the structure and ﬂow be- haviors also contribute towards time spent in each iteration, which explains variations in iteration time among graphs of the same size
+
+We see that the mean time per iteration can be as high as≈1200 seconds (median is ≈68 seconds)
+
+Figure 8(b) shows the total experiment time over all iterations for a graph
+
+Since we increase the sizes of graphs by 20% of their origi- nal size, bigger graphs will have a larger number of iterations
+
+In our dataset, the maximum time taken for an experiment is 46654.19 seconds, the minimum is 15.67 seconds, and the median is 1745.11 seconds
+
+39% of the graphs in our dataset have a run time of more than an hour
+
+For the experiment in Section 5.3.1 (collusion with ﬁrst party), the median time is 265.03 seconds, with the maximum time going up to 992.67 seconds, despite the maximum graph size being only 50 nodes
+
+In comparison, for the adversary without collusion, for graph sizes up to 50 nodes, the median is 21.46 seconds and the maximum is 221.51 seconds
+
+Since the adversary considers all nodes in the graph as potential parents, each iteration takes a longer amount of time
+
+D Graph Mutation algorithm In each iteration, the algorithm mutates WEBGRAPH ’s graph representation and probes the model for classiﬁcation decisions
+
+The algorithm takes the following inputs: a graph represen- tation of a web page, G0, consisting of all the nodes in the graph; a set of nodes and edges Tof size lT, representing the resources loaded by the adversary, hereafter referred to as the adversary resources; a trained classiﬁer Mthat identiﬁes ATS inWEBGRAPH ; and a maximum number of iterations that the algorithm can run, max_iter
+
+The algorithm processes the input as follows: It ﬁrst uses the classiﬁer Mto obtain classiﬁcations of all nodes in the original graph G0(lines 1–4 in Algorithm ??)
+
+Second, it iterates over the steps from lines 9–20 max_iter times
+
+In each iteration, ev- ery adversary node tries resource addition, resource re-routing, and obfuscation, and produces a new mutated graph, Gi(line 11)
+
+Third, it extracts features from the mutated graph Giand uses them to classify all the nodes in this graph (lines 11–12)
+
+Fourth, it compares the predictions in the original and mutated graphs to obtain the number of desired and undesired switches (line 13)
+
+We assume an adversarial goal for which desired switches are all those in which an adversary node is switched from ATStoNon-ATS , whereas undesired switches are all those where any Non-ATS node is switched to ATSnode
+
+We call the total number of adversarial ATSnodes whose prediction the adversary wishes to change to Non-ATS the number of required switches
+
+The switching of nodes not under the adversary’s control from ATStoNon-ATS do not affect the adversary
+
+These switches are, therefore, neither desired nor undesired
+
+Finally, the adversary chooses the mutation that provides the best re- sult, i.e., the one with the best trade-off between desired and 2890    31st USENIX Security Symposium USENIX AssociationFeature Type WEBGRAPH ADGRAPH Request type (e.g
+
+iframe, image) Content Ad keywords in request (e.g
+
+banner, sponsor) Content Ad or screen dimensions in URL Content Valid query string parameters Content Length of URL Content Domain party Content Sub-domain check Content Base domain in query string Content Semi-colon in query string Content Graph size (# of nodes, # of edges, and nodes/edge ratio) Structure Degree (in, out, in+out, and average degree connectivity) Structure Centrality (closeness centrality, eccentricity) Structure Number of siblings (node and parents) Structure Modiﬁcations by scripts (node and parents) Structure Parent’s attributes Structure Parent degree (in, out, in+out, and average degree connectivity) Structure Sibling’s attributes Structure Ascendant’s attributes Structure Descendant of a script Structure Ascendant’s script properties Structure Parent is an eval script Structure Local storage access (# of sets, # of gets) Flow (storage) Cookie access (# of sets, # of gets) Flow (storage) Requests (sent, received) Flow (network) Redirects (sent, received, depth in chain) Flow (network) Common access to the same storage node Flow (shared information) Sharing of a storage node’s value in a URL Flow (shared information) Graph size (# of nodes, # of edges, and nodes/edge ratio) Flow (shared information) Degree (in, out, in+out, and average degree connectivity) Flow (shared information) Centrality (closeness centrality, eccentricity) Flow (shared information) Table 4: WEBGRAPH features comparison with ADGRAPH .indicates that a feature is present
+
+WEBGRAPH calculates Graph size, Degree and Centrality features using both normal and shared information edges
+
+The former comes under structural features while the latter comes under ﬂow features
+
+undesired switches (lines 14–15)
+
+The adversary updates its T based on the chosen mutation (line 18)
+
+To keep memory and run time manageable, at the end of every iteration the algorithm randomly samples lTadversarial nodes and edges from T(line 19) to be considered in the next iteration
+
+E Mutations on a single web page
+
+To illustrate how mutations result in classiﬁcation switches, we take as an example a web page in which the third party with the highest number of ATSresources is assets.wogaa.sg , which has 12 nodes in the graph
+
+Figure 9 shows the breakdown of classiﬁcation switches as the adversary mutates the graph using the greedy mutation algorithm
+
+The ATS Advor the number of classiﬁcations the adversary wants to switch is 5 (pink line )
+
+From the adversary’s point of view, adversarial nodes switching from ATS→Non-ATS are desired (blue line ), whereas adversarial nodes switching from Non-ATS→ATS are undesired (orange line )
+
+We consider Non-ATS→ATS changes on non-adversarial nodes to be undesired because they may have unintended impact on the web page (red line andbrown line )
+
+For instance, a ﬁrst party Non-ATS→ATS switch may break the web page
+
+We note that, if the adversary’s goal is to just create a denial of service and force the user to disable ad and tracker blocking, the adversary might be unconcerned about breakage
+
+In our experiments, switches that do not affect the adversary, such as ATS→Non-ATS for non- adversary nodes, are neither considered desired nor undesired (purple line and green line )
+
+There are two points worth highlighting from Figure 9: (1) Even if an adversary achieves the maximum number of desired switches, the mutations may produce undesirable changes, to both the adversary’s nodes and others
+
+For instance, at 20% of growth, 3 of the adversary’s ATS nodes are classiﬁed as Non-ATS , but also 7 Non-ATS nodes (3 adversary and 4 non- adversary) switch to the undesired ATSclassiﬁcation
+
+(2) The evolution of desired and undesired switches is not monotonic, i.e
+
+the classiﬁcation of nodes may change in both directions as the adversary mutates the graph, resulting in increasing or decreasing counts
+
+This ﬁnding reinforces our argument that it can be cumbersome for an adversary to create targeted structural mutations without any unintended consequences
+
+Not USENIX Association 31st USENIX Security Symposium    2891Algorithm 1 Greedy random graph mutation
+
+G0is a web page representation, Tis the set of lTnodes and edges controlled by the adversary, Mis a trained model, and max_iter is the maximum number of operations
+
+Input: G0,T,C,M,max_iter 1:forv∈G0do 2: xG0←ExtractFeatures(v)∀v∈G0 3: yG0←Classify(M,x)∀x inxG0 4:end for 5:G←G0 6:i←0 7:graph-info =[] 8:while i<max_iter do 9: fort∈Tdo 10: Gt←MutateGraph(G,t) 11: xt←ExtractFeatures(v)∀v∈Gt 12: yt←Classify(M,x)∀x inxt 13: d,u←GetDesiredAndUndesired (yt,yG0) 14: ∆t=d−u 15: graph-info[t]←(∆t,t,Gt) 16: end for 17: G←Gtingraph-info [t] with largest ∆t 18: T←UpdateAdv(T,t∈graph-info[t]) 19: T←sample(T,lT) 20: i←i+1 21:end while Figure 9: Example breakdown of classiﬁcation switches for the adversary’s and other nodes on the graph
+
+NATS is shorthand for Non-ATS .ATSAdv= 5 (pink line), Non-ATS Adv= 7, ATSWeb= 62, ATSWeb= 13 (not shown in plot)
+
+At 20% growth, the adversary achieves 3 desired switches, 7 undesired switches and 1 neutral switch
+
+This leads to a success rate of 60%, a collateral damage of 10.14% and other changes of 7.7%
+
+only it is hard to predict how mutations will affect adversary’s own desired classiﬁcation, but also how those mutations may result in undesirable changes to others.F W EBGRAPH robustness experiments We show plots for the experiments in Sections 5.3.1 and 5.3.3
+
+Figure 10 shows the results for an adversary that performs only resource addition against ADGRAPH (with only struc- tural features) and WEBGRAPH .ADGRAPH shows a higher number of successes for the adversary (44 pages with suc- cess rate > 50% as compared to 30 for WEBGRAPH )
+
+At the same time, ADGRAPH also shows a higher amount of collat- eral damage (which is not beneﬁcial for the adversary) – 66 pages with non-zero collateral damage, as compared to 47 for WEBGRAPH
+
+Hence, there is no clear-cut winner between the two classiﬁers in terms of robustness
+
+However, we do see that ADGRAPH has lower successes and higher collateral damage than WEBGRAPH against the powerful adversary that can do all mutations as shown in Figure 6(a) (note that this adversary cannot be used against ADGRAPH since ADGRAPH does not use information ﬂow edges), since this adversary targets the effective, but costly, information sharing patterns
+
+Figure 11 shows the results for an adversary that colludes against an adversary with no collusion (Section 5.3.1)
+
+A col- luding adversary shows a higher number of successes (63 pages with success rate > 50% as compared to 60 for the non- colluding adversary), and a lower collateral damage (9 pages with damage >0% compared to 18 pages for a non-colluding adversary)
+
+Figure 10: Adversary’s success rate vs
+
+collateral damage for each test page at 20% graph growth, for resource addition against ADGRAPH and W EBGRAPH
+
+Figure 11: Adversary’s success rate vs
+
+collateral damage for each test page at 20% graph growth, for colluding and non-colluding ad- versaries
+
+2892    31st USENIX Security Symposium USENIX Association
+

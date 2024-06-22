@@ -46,7 +46,6 @@ def process_text_to_mindmap(text):
 
     current_section_topic = None
     current_subsection_topic = None
-    current_subsubsection_topic = None
     current_paragraph_topic = None
     current_section_index = -1
 
@@ -60,42 +59,45 @@ def process_text_to_mindmap(text):
         if title in paragraph:
             root_topic.Text = title
 
+        # Check for sections
         if current_section_index + 1 < len(sections) and sections[current_section_index + 1] in paragraph:
             current_section_index += 1
             section_title = sections[current_section_index]
             section_position = paragraph.find(section_title) + len(section_title)
             current_section_topic = add_topic(root_topic, section_title)
             current_subsection_topic = None
-            current_subsubsection_topic = None
             paragraph = paragraph[section_position:].strip()
             if paragraph:
-                add_topic(current_section_topic, paragraph)
+                current_paragraph_topic = add_topic(current_section_topic, paragraph.split(". ")[0])
+                for sentence in paragraph.split(". ")[1:]:
+                    add_topic(current_paragraph_topic, sentence)
             continue
 
+        # Check for subsections
         subsection_match = re.match(r"^(\d+\.\d+)\s+(.+)$", paragraph)
-        subsubsection_match = re.match(r"^(\d+\.\d+\.\d+)\s+(.+)$", paragraph)
-
         if subsection_match and current_section_topic:
             subsection_num, subsection_title = subsection_match.groups()
-            subsection_position = paragraph.find(subsection_title) + len(subsection_title)
             current_subsection_topic = add_topic(current_section_topic, f"{subsection_num} {subsection_title}")
-            current_subsubsection_topic = None
-            paragraph = paragraph[subsection_position:].strip()
+            paragraph = paragraph[len(subsection_num) + len(subsection_title) + 1:].strip()
             if paragraph:
-                add_topic(current_subsection_topic, paragraph)
-            continue
-        elif subsubsection_match and current_subsection_topic:
-            subsubsection_num, subsubsection_title = subsubsection_match.groups()
-            subsubsection_position = paragraph.find(subsubsection_title) + len(subsubsection_title)
-            current_subsubsection_topic = add_topic(current_subsection_topic, f"{subsubsection_num} {subsubsection_title}")
-            paragraph = paragraph[subsubsection_position:].strip()
-            if paragraph:
-                add_topic(current_subsubsection_topic, paragraph)
+                current_paragraph_topic = add_topic(current_subsection_topic, paragraph.split(". ")[0])
+                for sentence in paragraph.split(". ")[1:]:
+                    add_topic(current_paragraph_topic, sentence)
             continue
 
-        if current_subsubsection_topic:
-            current_paragraph_topic = add_topic(current_subsubsection_topic, paragraph.split(". ")[0])
-        elif current_subsection_topic:
+        subsubsection_match = re.match(r"^(\d+\.\d+\.\d+)\s+(.+)$", paragraph)
+        if subsubsection_match and current_subsection_topic:
+            subsubsection_num, subsubsection_title = subsubsection_match.groups()
+            current_paragraph_topic = add_topic(current_subsection_topic, f"{subsubsection_num} {subsubsection_title}")
+            paragraph = paragraph[len(subsubsection_num) + len(subsubsection_title) + 1:].strip()
+            if paragraph:
+                current_paragraph_topic = add_topic(current_paragraph_topic, paragraph.split(". ")[0])
+                for sentence in paragraph.split(". ")[1:]:
+                    add_topic(current_paragraph_topic, sentence)
+            continue
+
+        # Add paragraph to the current section or subsection
+        if current_subsection_topic:
             current_paragraph_topic = add_topic(current_subsection_topic, paragraph.split(". ")[0])
         elif current_section_topic:
             if current_section_topic.Text.lower().startswith("references"):
@@ -109,8 +111,7 @@ def process_text_to_mindmap(text):
         else:
             current_paragraph_topic = add_topic(root_topic, paragraph.split(". ")[0])
 
-        current_paragraph_sentences = paragraph.split(". ")[1:]
-        for sentence in current_paragraph_sentences:
+        for sentence in paragraph.split(". ")[1:]:
             add_topic(current_paragraph_topic, sentence)
     
     file_name = os.path.splitext(pdf_name)[0] + ".mmap"
