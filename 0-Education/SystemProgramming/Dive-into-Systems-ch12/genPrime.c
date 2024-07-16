@@ -27,11 +27,11 @@ void printArray(int * arr, int len) {
 //helper function: checks to see if a number is prime
 int isPrime(int x) {
     int i;
-    for (i = 2; i < sqrt(x)+1; i++) { //no prime number is less than 2
-        if (x % i == 0) { //if the number is divisible by i
-            return 0; //it is not prime
-        }
-    }
+    int max = sqrt(x) + 1;
+    for (i = 2; i < max; i += 2)
+        if ((x % i == 0) || (x % (i + 1) == 0))
+            return 0;
+
     return 1; //otherwise it is prime
 }
 
