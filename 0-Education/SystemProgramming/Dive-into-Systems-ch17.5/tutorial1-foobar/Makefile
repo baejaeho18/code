@@ -11,3 +11,5 @@ $(TARGET) : $(OBJS)
 clean : 
 	rm -f myprog *.o *~
 
+test: $(TARGET)
+	./$(TARGET)
