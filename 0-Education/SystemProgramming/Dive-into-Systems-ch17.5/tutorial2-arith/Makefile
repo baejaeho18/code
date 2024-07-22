@@ -8,23 +8,29 @@ STATIC_OBJS = add.o sub.o
 SHARED_OBJS = mul.o div.o
 MAIN_OBJS = main.o
 
-# 기본 빌드
-all: $(TARGET)
+all: build $(TARGET)
 
-$(TARGET): $(MAIN_OBJS) $(STATIC_LIB) $(SHARED_LIB)
-	$(CC) $(CFLAGS) -o $@ src/$(MAIN_OBJS) $(STATIC_LIB) -Llib -larith_shared -Wl,-rpath,lib
+build:
+	mkdir -p build
 
-$(STATIC_LIB): $(STATIC_OBJS)
-	$(AR) rcs $@ $(addprefix src/,$(STATIC_OBJS))
+$(TARGET): $(addprefix build/,$(MAIN_OBJS)) $(STATIC_LIB) $(SHARED_LIB)
+	$(CC) $(CFLAGS) -o $@ $(addprefix build/,$(MAIN_OBJS)) $(STATIC_LIB) -Llib -larith_shared -Wl,-rpath,lib
 
-$(SHARED_LIB): $(SHARED_OBJS)
-	$(CC) -shared -o $@ $(addprefix src/,$(SHARED_OBJS))
+$(STATIC_LIB): $(addprefix build/,$(STATIC_OBJS))
+	$(AR) rcs $@ $(addprefix build/,$(STATIC_OBJS))
 
-%.o: src/%.c
-	$(CC) $(CFLAGS) -c $< -o src/$@
+$(SHARED_LIB): $(addprefix build/,$(SHARED_OBJS))
+	$(CC) -shared -o $@ $(addprefix build/,$(SHARED_OBJS))
+
+build/%.o: src/%.c | build
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(TARGET) $(STATIC_LIB) $(SHARED_LIB) $(addprefix src/,$(STATIC_OBJS)) $(addprefix src/,$(SHARED_OBJS)) src/$(MAIN_OBJS)
+	rm -f $(TARGET) $(STATIC_LIB) $(SHARED_LIB) $(addprefix build/,$(STATIC_OBJS)) $(addprefix build/,$(SHARED_OBJS))
+	rm -rf build
 
 test: $(TARGET)
 	./$(TARGET)
+
+static_lib: $(STATIC_LIB)
+shared_lib: $(SHARED_LIB)
