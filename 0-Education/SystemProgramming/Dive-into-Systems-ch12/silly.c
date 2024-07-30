@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <limits.h>
 
 int silly(int a) {
@@ -11,8 +10,6 @@ int silly(int a) {
 
 int main() {
 	int max = INT_MAX;
-	printf("%d, %x\n", max+1, max+1);
-	printf("%d, %x\n", max, max);
 	printf("%d\n", silly(max));
 }
 

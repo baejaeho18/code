@@ -1,4 +1,4 @@
-[Adblock Plus 2.0]
+![Adblock Plus 2.0]
 ! Version: 202407221813
 ! Title: EasyList
 ! Last modified: 22 Jul 2024 18:13 UTC
@@ -316,7 +316,7 @@
 /ads/square-$image,domain=~spoolimports.com
 /ads/square.
 /ads/ta_wppas/*$third-party
-/ads/targeted|
+/ads/targeted
 /ads/top.
 /ads/video/controller.php
 /ads/view.php
