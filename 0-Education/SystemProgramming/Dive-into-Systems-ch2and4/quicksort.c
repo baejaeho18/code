@@ -3,7 +3,6 @@
 #include <string.h>
 #include <ctype.h>
 
-// 스왑 함수
 void swap(void *a, void *b, size_t size) {
     void *temp = malloc(size);
     if (temp == NULL) {
@@ -16,7 +15,6 @@ void swap(void *a, void *b, size_t size) {
     free(temp);
 }
 
-// 제네릭 퀵소트 함수
 void my_qsort(void *base, size_t num, size_t size, int (*cmp)(const void *, const void *)) {
     if (num < 2) return;
 
@@ -36,99 +34,66 @@ void my_qsort(void *base, size_t num, size_t size, int (*cmp)(const void *, cons
     my_qsort(base_char + (i + 1) * size, num - i - 1, size, cmp);
 }
 
-// 제네릭 배열 출력 함수
 void print_array(void *array, size_t size, size_t elem_size, void (*print_elem)(const void *)) {
-    for (size_t i = 0; i < size; i++) {
-        print_elem((char *)array + i * elem_size);
-    }
+    for (size_t i = 0; i < size; i++) print_elem((char *)array + i * elem_size);
     printf("\n");
 }
 
-// int 타입 비교 함수
-int compare_int(const void *a, const void *b) {
-    return (*(int *)a - *(int *)b);
-}
+int compare_int(const void *a, const void *b) { return (*(int *)a - *(int *)b); }
+int compare_char(const void *a, const void *b) { return (*(char *)a - *(char *)b); }
+void print_int(const void *elem) { printf("%d ", *(int *)elem); }
+void print_char(const void *elem) { printf("%c", *(char *)elem); }
 
-// char 타입 비교 함수
-int compare_char(const void *a, const void *b) {
-    return (*(char *)a - *(char *)b);
-}
-
-// int 타입 출력 함수
-void print_int(const void *elem) {
-    printf("%d ", *(int *)elem);
-}
-
-// char 타입 출력 함수
-void print_char(const void *elem) {
-    printf("%c ", *(char *)elem);
-}
-
-// 메인 함수
 int main(int argc, char *argv[]) {
-    if (argc < 3) {
+     if (argc < 3) {
         fprintf(stderr, "Usage: %s <type> <data...>\n", argv[0]);
         return 1;
     }
 
     char *type = argv[1];
-    size_t num, size;
+    size_t size = argc - 2;
+    void *array;
     int (*cmp)(const void *, const void *);
     void (*print_elem)(const void *);
-    void *array;
+    size_t elem_size;
 
     if (strcmp(type, "int") == 0) {
-        int *int_array = malloc((argc - 2) * sizeof(int));
+        elem_size = sizeof(int);
+        int *int_array = malloc(size * elem_size);
         if (int_array == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
             return 1;
         }
-        num = argc - 2;
-        for (size_t i = 0; i < num; i++) {
+        for (size_t i = 0; i < size; i++) {
             int_array[i] = atoi(argv[i + 2]);
         }
-        size = num;
         array = int_array;
         cmp = compare_int;
         print_elem = print_int;
-
-        printf("Before sorting int array: ");
-        print_array(array, size, sizeof(int), print_elem);
-
-        my_qsort(array, size, sizeof(int), cmp);
-
-        printf("After sorting int array: ");
-        print_array(array, size, sizeof(int), print_elem);
-
-        free(int_array);
     } else if (strcmp(type, "char") == 0) {
-        char *char_array = malloc((argc - 2) * sizeof(char));
+        elem_size = sizeof(char);
+        char *char_array = malloc(size * elem_size);
         if (char_array == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
             return 1;
         }
-        num = argc - 2;
-        for (size_t i = 0; i < num; i++) {
+        for (size_t i = 0; i < size; i++) {
             char_array[i] = argv[i + 2][0];
         }
-        size = num;
         array = char_array;
         cmp = compare_char;
         print_elem = print_char;
-
-        printf("Before sorting char array: ");
-        print_array(array, size, sizeof(char), print_elem);
-
-        my_qsort(array, size, sizeof(char), cmp);
-
-        printf("After sorting char array: ");
-        print_array(array, size, sizeof(char), print_elem);
-
-        free(char_array);
     } else {
         fprintf(stderr, "Unsupported type: %s. Use 'int' or 'char'.\n", type);
         return 1;
     }
 
+    printf("Before sorting array: ");
+    print_array(array, size, elem_size, print_elem);
+    my_qsort(array, size, elem_size, cmp);
+    printf("After sorting array: ");
+    print_array(array, size, elem_size, print_elem);
+
+    free(array);
     return 0;
 }
