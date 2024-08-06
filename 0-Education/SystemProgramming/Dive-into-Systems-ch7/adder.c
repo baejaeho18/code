@@ -14,7 +14,7 @@ int main() {
     int x;
     assign();
     x = adder();
-    printf("x is: %d", x);
+    printf("x is: %d\n", x);
 
     return 0;
 }
