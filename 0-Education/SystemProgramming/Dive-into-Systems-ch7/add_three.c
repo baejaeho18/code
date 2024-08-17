@@ -3,11 +3,11 @@
 int add_three(int x, int y, int z) {
     int result;
     __asm__(
-        "movl %2, %%eax;"     		// eax = a
-        "addl %3, %%eax;"      		// eax = eax + b
-        "addl %4, %%eax;"     		// eax = eax + c
-        : "=a" (result)        		// Output Operand
-        : "0" (x), "r" (y), "r" (z)  		// Input Operands
+        "movl %1, %%eax\n\t"     		// eax = x
+        "addl %2, %%eax\n\t"      		// eax = eax + y
+        "addl %3, %%eax"     		// eax = eax + z
+        : "=a" (result)        			// Output Operand
+        : "r" (x), "r" (y), "r" (z)  		// Input Operands
     );
     return result;
 }
