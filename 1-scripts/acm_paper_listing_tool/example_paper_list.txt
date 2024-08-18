@@ -1,0 +1,29 @@
+Korneeva E, Salge T, Cichy P and Antons D. (2024). How Users Assess Privacy Risks in the Internet of Things: The Role of Framing, Comparing, and Educating. Business & Society. 10.1177/00076503241255082.
+https://journals.sagepub.com/doi/10.1177/00076503241255082
+
+Alharbi F, Kashyap G and Allehyani B. (2024). Automated Ruleset Generation for “HTTPS Everywhere”. International Journal of Information Security and Privacy. 10.4018/IJISP.347330. 18:1. (1-14). Online publication date: 17-Jul-2024.
+https://services.igi-global.com/resolvedoi/resolve.aspx?doi=10.4018/IJISP.347330
+
+Ahmad Z, Calzavara S, Casarin S and Stock B. (2024). Information flow control for comparative privacy analyses. International Journal of Information Security. 10.1007/s10207-024-00886-0.
+https://link.springer.com/10.1007/s10207-024-00886-0
+
+Roongta R and Greenstadt R. From User Insights to Actionable Metrics: A User-Focused Evaluation of Privacy-Preserving Browser Extensions. Proceedings of the 19th ACM Asia Conference on Computer and Communications Security. (1753-1769).
+https://doi.org/10.1145/3634737.3657028
+
+Zaeifi M, Kalantari F, Oest A, Sun Z, Ahn G, Shoshitaishvili Y, Bao T, Wang R and Doupé A. Nothing Personal: Understanding the Spread and Use of Personally Identifiable Information in the Financial Ecosystem. Proceedings of the Fourteenth ACM Conference on Data and Application Security and Privacy. (55-65).
+https://doi.org/10.1145/3626232.3653266
+
+Kubicek K, Merane J, Bouhoula A and Basin D. Automating Website Registration for Studying GDPR Compliance. Proceedings of the ACM on Web Conference 2024. (1295-1306).
+https://doi.org/10.1145/3589334.3645709
+
+Kanyal R and Sarangi S. PanoptiChrome: A Modern In-browser Taint Analysis Framework. Proceedings of the ACM on Web Conference 2024. (1914-1922).
+https://doi.org/10.1145/3589334.3645699
+
+Lee K, Lim C, Jin B, Kim T and Kim H. AdFlush: A Real-World Deployable Machine Learning Solution for Effective Advertisement and Web Tracker Prevention. Proceedings of the ACM on Web Conference 2024. (1902-1913).
+https://doi.org/10.1145/3589334.3645698
+
+Ousat B, Schafir E, Hoang D, Tofighi M, Nguyen C, Arshad S, Uluagac S and Kharraz A. The Matter of Captchas: An Analysis of a Brittle Security Feature on the Modern Web. Proceedings of the ACM on Web Conference 2024. (1835-1846).
+https://doi.org/10.1145/3589334.3645619
+
+Senol A, Ukani A, Cutler D and Bilogrevic I. The Double Edged Sword: Identifying Authentication Pages and their Fingerprinting Behavior. Proceedings of the ACM on Web Conference 2024. (1690-1701).
+https://doi.org/10.1145/3589334.3645493
