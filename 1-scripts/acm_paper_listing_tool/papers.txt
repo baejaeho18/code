@@ -1,0 +1,1235 @@
+Huyghe M, Quinton C and Rudametkin W. Taming the Variability of Browser Fingerprints. Proceedings of the 28th ACM International Systems and Software Product Line Conference - Volume B. (66-71).
+https://doi.org/10.1145/3646548.3672591
+
+Alanazi R and Alanazi S. (2024). A hybrid NLP and domain validation technique for disposable email detection. Alexandria Engineering Journal. 10.1016/j.aej.2024.05.068. 102. (200-210). Online publication date: 1-Sep-2024.
+https://linkinghub.elsevier.com/retrieve/pii/S1110016824005386
+
+Jha N, Trevisan M, Leonardi E and Mellia M. (2024). Re-Identification Attacks against the Topics API. ACM Transactions on the Web. 18:3. (1-24). Online publication date: 31-Aug-2024.
+https://doi.org/10.1145/3675400
+
+Korneeva E, Salge T, Cichy P and Antons D. (2024). How Users Assess Privacy Risks in the Internet of Things: The Role of Framing, Comparing, and Educating. Business & Society. 10.1177/00076503241255082.
+https://journals.sagepub.com/doi/10.1177/00076503241255082
+
+Alharbi F, Kashyap G and Allehyani B. (2024). Automated Ruleset Generation for “HTTPS Everywhere”. International Journal of Information Security and Privacy. 10.4018/IJISP.347330. 18:1. (1-14). Online publication date: 17-Jul-2024.
+https://services.igi-global.com/resolvedoi/resolve.aspx?doi=10.4018/IJISP.347330
+
+Ahmad Z, Calzavara S, Casarin S and Stock B. (2024). Information flow control for comparative privacy analyses. International Journal of Information Security. 10.1007/s10207-024-00886-0.
+https://link.springer.com/10.1007/s10207-024-00886-0
+
+Roongta R and Greenstadt R. From User Insights to Actionable Metrics: A User-Focused Evaluation of Privacy-Preserving Browser Extensions. Proceedings of the 19th ACM Asia Conference on Computer and Communications Security. (1753-1769).
+https://doi.org/10.1145/3634737.3657028
+
+Zaeifi M, Kalantari F, Oest A, Sun Z, Ahn G, Shoshitaishvili Y, Bao T, Wang R and Doupé A. Nothing Personal: Understanding the Spread and Use of Personally Identifiable Information in the Financial Ecosystem. Proceedings of the Fourteenth ACM Conference on Data and Application Security and Privacy. (55-65).
+https://doi.org/10.1145/3626232.3653266
+
+Kubicek K, Merane J, Bouhoula A and Basin D. Automating Website Registration for Studying GDPR Compliance. Proceedings of the ACM on Web Conference 2024. (1295-1306).
+https://doi.org/10.1145/3589334.3645709
+
+Kanyal R and Sarangi S. PanoptiChrome: A Modern In-browser Taint Analysis Framework. Proceedings of the ACM on Web Conference 2024. (1914-1922).
+https://doi.org/10.1145/3589334.3645699
+
+Lee K, Lim C, Jin B, Kim T and Kim H. AdFlush: A Real-World Deployable Machine Learning Solution for Effective Advertisement and Web Tracker Prevention. Proceedings of the ACM on Web Conference 2024. (1902-1913).
+https://doi.org/10.1145/3589334.3645698
+
+Ousat B, Schafir E, Hoang D, Tofighi M, Nguyen C, Arshad S, Uluagac S and Kharraz A. The Matter of Captchas: An Analysis of a Brittle Security Feature on the Modern Web. Proceedings of the ACM on Web Conference 2024. (1835-1846).
+https://doi.org/10.1145/3589334.3645619
+
+Senol A, Ukani A, Cutler D and Bilogrevic I. The Double Edged Sword: Identifying Authentication Pages and their Fingerprinting Behavior. Proceedings of the ACM on Web Conference 2024. (1690-1701).
+https://doi.org/10.1145/3589334.3645493
+
+Rodríguez-Galán G and Torres J. (2024). Personal data filtering: a systematic literature review comparing the effectiveness of XSS attacks in web applications vs cookie stealing. Annals of Telecommunications. 10.1007/s12243-024-01022-8.
+https://link.springer.com/10.1007/s12243-024-01022-8
+
+Häußler H, Schultheiß S and Lewandowski D. (2023). Is googling risky? A study on risk perception and experiences of adverse consequences in web search. Journal of the Association for Information Science and Technology. 75:5. (567-580). Online publication date: 8-Apr-2024.
+https://doi.org/10.1002/asi.24802
+
+Yayla A, Dincelli E and Parameswaran S. (2023). A Mining Town in a Digital Land: Browser-Based Cryptocurrency Mining as an Alternative to Online Advertising. Information Systems Frontiers. 10.1007/s10796-023-10386-6. 26:2. (609-631). Online publication date: 1-Apr-2024.
+https://link.springer.com/10.1007/s10796-023-10386-6
+
+Clarke J, Mehrnezhad M and Toreini E. (2024). Invisible, Unreadable, and Inaudible Cookie Notices: An Evaluation of Cookie Notices for Users with Visual Impairments. ACM Transactions on Accessible Computing. 17:1. (1-39). Online publication date: 31-Mar-2024.
+https://doi.org/10.1145/3641281
+
+Mallissery S and Wu Y. (2023). Demystify the Fuzzing Methods: A Comprehensive Survey. ACM Computing Surveys. 56:3. (1-38). Online publication date: 31-Mar-2024.
+https://doi.org/10.1145/3623375
+
+Ahmad Z, Casarin S and Calzavara S. (2023). An Empirical Analysis of Web Storage and Its Applications to Web Tracking. ACM Transactions on the Web. 18:1. (1-28). Online publication date: 29-Feb-2024.
+https://doi.org/10.1145/3623382
+
+Kirkizh N, Ulloa R, Stier S and Pfeffer J. (2024). Predicting political attitudes from web tracking data: a machine learning approach. Journal of Information Technology & Politics. 10.1080/19331681.2024.2316679. (1-14).
+https://www.tandfonline.com/doi/full/10.1080/19331681.2024.2316679
+
+Petalotis C, Krumpak L, Floroiu M, Ahmad L, Athreya S and Malavolta I. (2024). An empirical study on the performance and energy costs of ads and analytics in mobile web apps. Information and Software Technology. 10.1016/j.infsof.2023.107370. 166. (107370). Online publication date: 1-Feb-2024.
+https://linkinghub.elsevier.com/retrieve/pii/S0950584923002252
+
+Jiang Y, Rezazadeh Baee M, Simpson L, Gauravaram P, Pieprzyk J, Zia T, Zhao Z and Le Z. (2024). Pervasive User Data Collection from Cyberspace: Privacy Concerns and Countermeasures. Cryptography. 10.3390/cryptography8010005. 8:1. (5).
+https://www.mdpi.com/2410-387X/8/1/5
+
+Müller-Tribbensee T. (2024). Privacy Promise Vs. Tracking Reality in Pay-or-Tracking Walls. Privacy Technologies and Policy. 10.1007/978-3-031-68024-3_9. (168-188).
+https://link.springer.com/10.1007/978-3-031-68024-3_9
+
+Wittig M and Kesdoğan D. (2024). Detecting Web Tracking at the Network Layer. ICT Systems Security and Privacy Protection. 10.1007/978-3-031-56326-3_10. (131-148).
+https://link.springer.com/10.1007/978-3-031-56326-3_10
+
+Ragab A, Mannan M and Youssef A. (2024). Try On, Spied On?: Privacy Analysis of Virtual Try-On Websites and Android Apps. Computer Security. ESORICS 2023 International Workshops. 10.1007/978-3-031-54204-6_13. (232-248).
+https://link.springer.com/10.1007/978-3-031-54204-6_13
+
+Gonçalves-Sá J and Pinheiro F. (2024). Societal Implications of Recommendation Systems: A Technical Perspective. Multidisciplinary Perspectives on Artificial Intelligence and the Law. 10.1007/978-3-031-41264-6_3. (47-63).
+https://link.springer.com/10.1007/978-3-031-41264-6_3
+
+Kikuchi H and Aoyama A. (2023). Targeted Ads Analysis: What are The most Targeted Personas? 2023 IEEE International Conference on Big Data (BigData). 10.1109/BigData59044.2023.10386760. 979-8-3503-2445-7. (5512-5518).
+https://ieeexplore.ieee.org/document/10386760/
+
+Ormeno M, Dao H and Fukuda K. Investigating Search Engines Terms Leakage. Proceedings of the on CoNEXT Student Workshop 2023. (15-16).
+https://doi.org/10.1145/3630202.3630236
+
+Sebastián S, Diugan R, Caballero J, Sanchez-Rola I and Bilge L. Domain and Website Attribution beyond WHOIS. Proceedings of the 39th Annual Computer Security Applications Conference. (124-137).
+https://doi.org/10.1145/3627106.3627190
+
+Pan R and Ruiz-Martínez A. (2023). Evolution of web tracking protection in Chrome. Journal of Information Security and Applications. 79:C. Online publication date: 1-Dec-2023.
+https://doi.org/10.1016/j.jisa.2023.103643
+
+(2023). Notes. The Privacy Fallacy. 10.1017/9781108995825.010. (173-242).
+https://www.cambridge.org/core/product/identifier/9781108995825%23EMT-bp-1/type/book_part
+
+Senol A and Acar G. Unveiling the Impact of User-Agent Reduction and Client Hints: A Measurement Study. Proceedings of the 22nd Workshop on Privacy in the Electronic Society. (91-106).
+https://doi.org/10.1145/3603216.3624965
+
+Warberg L, Lefrere V, Cheyre C and Acquisti A. Trends in Privacy Dialog Design after the GDPR: The Impact of Industry and Government Actions. Proceedings of the 22nd Workshop on Privacy in the Electronic Society. (107-121).
+https://doi.org/10.1145/3603216.3624963
+
+Dimova Y, Kode M, Kalantari S, Wuyts K, Joosen W and Mühlberg J. From Privacy Policies to Privacy Threats: A Case Study in Policy-Based Threat Modeling. Proceedings of the 22nd Workshop on Privacy in the Electronic Society. (17-29).
+https://doi.org/10.1145/3603216.3624962
+
+Lee C and Son S. AdCPG: Classifying JavaScript Code Property Graphs with Explanations for Ad and Tracker Blocking. Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security. (3505-3518).
+https://doi.org/10.1145/3576915.3623084
+
+Hantke F, Calzavara S, Wilhelm M, Rabitti A and Stock B. You Call This Archaeology? Evaluating Web Archives for Reproducible Web Security Measurements. Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security. (3168-3182).
+https://doi.org/10.1145/3576915.3616688
+
+Ghasemisharif M and Polakis J. Read Between the Lines: Detecting Tracking JavaScript with Bytecode Classification. Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security. (3475-3489).
+https://doi.org/10.1145/3576915.3616637
+
+Munir S, Siby S, Iqbal U, Englehardt S, Shafiq Z and Troncoso C. CookieGraph: Understanding and Detecting First-Party Tracking Cookies. Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security. (3490-3504).
+https://doi.org/10.1145/3576915.3616586
+
+Osin A and Murashko Y. (2023). A Review of User Identification Methods Based on Digital Fingerprint. Proceedings of Telecommunication Universities. 10.31854/1813-324X-2023-9-5-91-111. 9:5. (91-111).
+https://tuzs.sut.ru/jour/article/view/517
+
+Li D, Liu D, Ren Y, Wang Z, Sun Y, Guan Z, Wu Q and Liu J. (2023). FPHammer: A Device Identification Framework based on DRAM Fingerprinting 2023 IEEE 22nd International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom). 10.1109/TrustCom60117.2023.00144. 979-8-3503-8199-3. (1031-1040).
+https://ieeexplore.ieee.org/document/10538910/
+
+Rasaii A, Gosain D and Gasser O. Thou Shalt Not Reject: Analyzing Accept-Or-Pay Cookie Banners on the Web. Proceedings of the 2023 ACM on Internet Measurement Conference. (154-161).
+https://doi.org/10.1145/3618257.3624846
+
+Pegioudis J, Papadogiannakis E, Kourtellis N, Markatos E and Papadopoulos P. Not only E.T. Phones Home: Analysing the Native User Tracking of Mobile Browsers. Proceedings of the 2023 ACM on Internet Measurement Conference. (181-187).
+https://doi.org/10.1145/3618257.3624842
+
+McQuistin S, Snyder P, Perkins C, Haddadi H and Tyson G. A First Look at the Privacy Harms of the Public Suffix List. Proceedings of the 2023 ACM on Internet Measurement Conference. (383-390).
+https://doi.org/10.1145/3618257.3624836
+
+Iqbal U, Bahrami P, Trimananda R, Cui H, Gamero-Garrido A, Dubois D, Choffnes D, Markopoulou A, Roesner F and Shafiq Z. Tracking, Profiling, and Ad Targeting in the Alexa Echo Smart Speaker Ecosystem. Proceedings of the 2023 ACM on Internet Measurement Conference. (569-583).
+https://doi.org/10.1145/3618257.3624803
+
+Demir N, Hörnemann J, Große-Kampmann M, Urban T, Pohlmann N, Holz T and Wressnegger C. On the Similarity of Web Measurements Under Different Experimental Setups. Proceedings of the 2023 ACM on Internet Measurement Conference. (356-369).
+https://doi.org/10.1145/3618257.3624795
+
+Alqadhi M, Alkinoon A, Salem S and Mohaisen D. (2023). Understanding the Country-Level Security of Free Content Websites and their Hosting Infrastructure 2023 IEEE 10th International Conference on Data Science and Advanced Analytics (DSAA). 10.1109/DSAA60987.2023.10302611. 979-8-3503-4503-2. (1-10).
+https://ieeexplore.ieee.org/document/10302611/
+
+Gavazzi A, Williams R, Kirda E, Lu L, King A, Davis A and Leek T. A study of multi-factor and risk-based authentication availability. Proceedings of the 32nd USENIX Conference on Security Symposium. (2043-2060).
+/doi/10.5555/3620237.3620352
+
+Khandelwal R, Nayak A, Harkous H and Fawaz K. Automated cookie notice analysis and enforcement. Proceedings of the 32nd USENIX Conference on Security Symposium. (1109-1126).
+/doi/10.5555/3620237.3620300
+
+Torres C, Willi F and Shinde S. Is your wallet snitching on you? an analysis on the privacy implications of web3. Proceedings of the 32nd USENIX Conference on Security Symposium. (769-786).
+/doi/10.5555/3620237.3620281
+
+Ren K, Qiang W, Wu Y, Zhou Y, Zou D and Jin H. An Empirical Study on the Effects of Obfuscation on Static Machine Learning-Based Malicious JavaScript Detectors. Proceedings of the 32nd ACM SIGSOFT International Symposium on Software Testing and Analysis. (1420-1432).
+https://doi.org/10.1145/3597926.3598146
+
+Zhao R. (2023). FProbe: The Flow-Centric Detection and a Large-Scale Measurement of Browser Fingerprinting 2023 32nd International Conference on Computer Communications and Networks (ICCCN). 10.1109/ICCCN58024.2023.10230168. 979-8-3503-3618-4. (1-10).
+https://ieeexplore.ieee.org/document/10230168/
+
+Urpí-Bricollé M, Castell-Uroz I and Barlet-Ros P. (2023). Detecting and Analyzing Mouse Tracking in the Wild 2023 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW). 10.1109/EuroSPW59978.2023.00061. 979-8-3503-2720-5. (495-500).
+https://ieeexplore.ieee.org/document/10190681/
+
+Ioannou P and Athanasopoulos E. (2023). Been Here Already? Detecting Synchronized Browsers in the Wild 2023 IEEE 8th European Symposium on Security and Privacy (EuroS&P). 10.1109/EuroSP57164.2023.00058. 978-1-6654-6512-0. (913-927).
+https://ieeexplore.ieee.org/document/10190548/
+
+Kirkman D, Vaniea K and Woods D. (2023). DarkDialogs: Automated detection of 10 dark patterns on cookie dialogs 2023 IEEE 8th European Symposium on Security and Privacy (EuroS&P). 10.1109/EuroSP57164.2023.00055. 978-1-6654-6512-0. (847-867).
+https://ieeexplore.ieee.org/document/10190482/
+
+Heid K, Andrae V and Heider J. Towards detecting device fingerprinting on iOS with API function hooking. Proceedings of the 2023 European Interdisciplinary Cybersecurity Conference. (78-84).
+https://doi.org/10.1145/3590777.3590790
+
+Fast V, Schnurr D and Wohlfarth M. (2023). Regulation of data-driven market power in the digital economy: Business value creation and competitive advantages from big data. Journal of Information Technology. 10.1177/02683962221114394. 38:2. (202-229). Online publication date: 1-Jun-2023.
+http://journals.sagepub.com/doi/10.1177/02683962221114394
+
+Castell-Uroz I, Fukuda K and Barlet-Ros P. (2023). ASTrack: Automatic Detection and Removal of Web Tracking Code with Minimal Functionality Loss IEEE INFOCOM 2023 - IEEE Conference on Computer Communications. 10.1109/INFOCOM53939.2023.10228902. 979-8-3503-3414-2. (1-10).
+https://ieeexplore.ieee.org/document/10228902/
+
+Talaifar S and Lowery B. (2022). Freedom and Constraint in Digital Environments: Implications for the Self. Perspectives on Psychological Science. 10.1177/17456916221098036. 18:3. (544-575). Online publication date: 1-May-2023.
+http://journals.sagepub.com/doi/10.1177/17456916221098036
+
+Lin X, Araujo F, Taylor T, Jang J and Polakis J. (2023). Fashion Faux Pas: Implicit Stylistic Fingerprints for Bypassing Browsers' Anti-Fingerprinting Defenses 2023 IEEE Symposium on Security and Privacy (SP). 10.1109/SP46215.2023.10179437. 978-1-6654-9336-9. (987-1004).
+https://ieeexplore.ieee.org/document/10179437/
+
+Tiwari A, Prakash J, Rahimov A and Hammer C. (2023). Understanding the Impact of Fingerprinting in Android Hybrid Apps 2023 IEEE/ACM 10th International Conference on Mobile Software Engineering and Systems (MOBILESoft). 10.1109/MOBILSoft59058.2023.00011. 979-8-3503-1182-2. (28-39).
+https://ieeexplore.ieee.org/document/10172950/
+
+Alby T. Popular, but hardly used: Has Google Analytics been to the detriment of Web Analytics?. Proceedings of the 15th ACM Web Science Conference 2023. (304-311).
+https://doi.org/10.1145/3578503.3583601
+
+Nettersheim F, Arlt S, Rademacher M and Dehling F. Katti: An Extensive and Scalable Tool for Website Analyses. Companion Proceedings of the ACM Web Conference 2023. (217-220).
+https://doi.org/10.1145/3543873.3587351
+
+Yeung C, Iqbal U, O'Neil Y, Kohno T and Roesner F. Online Advertising in Ukraine and Russia During the 2022 Russian Invasion. Proceedings of the ACM Web Conference 2023. (2787-2796).
+https://doi.org/10.1145/3543507.3583484
+
+Papadogiannakis E, Papadopoulos P, P. Markatos E and Kourtellis N. Who Funds Misinformation? A Systematic Analysis of the Ad-related Profit Routines of Fake News Sites. Proceedings of the ACM Web Conference 2023. (2765-2776).
+https://doi.org/10.1145/3543507.3583443
+
+Lee D, Joo M and Lee W. Net-track: Generic Web Tracking Detection Using Packet Metadata. Proceedings of the ACM Web Conference 2023. (2230-2240).
+https://doi.org/10.1145/3543507.3583372
+
+Su J and Kapravelos A. Automatic Discovery of Emerging Browser Fingerprinting Techniques. Proceedings of the ACM Web Conference 2023. (2178-2188).
+https://doi.org/10.1145/3543507.3583333
+
+Bekos P, Papadopoulos P, Markatos E and Kourtellis N. The Hitchhiker’s Guide to Facebook Web Tracking with Invisible Pixels and Click IDs. Proceedings of the ACM Web Conference 2023. (2132-2143).
+https://doi.org/10.1145/3543507.3583311
+
+Zafar A and Das A. Comparative Privacy Analysis of Mobile Browsers. Proceedings of the Thirteenth ACM Conference on Data and Application Security and Privacy. (3-14).
+https://doi.org/10.1145/3577923.3583638
+
+Pesari F, Lagioia G and Paiano A. (2023). Client‐side energy and GHGs assessment of advertising and tracking in the news websites. Journal of Industrial Ecology. 10.1111/jiec.13376. 27:2. (548-561). Online publication date: 1-Apr-2023.
+https://onlinelibrary.wiley.com/doi/10.1111/jiec.13376
+
+Rasaii A, Singh S, Gosain D and Gasser O. Exploring the Cookieverse: A Multi-Perspective Analysis of Web Cookies. Passive and Active Measurement. (623-651).
+https://doi.org/10.1007/978-3-031-28486-1_26
+
+Mudassar M, Ali M, Ali A, Farid Z, Asif R, Mehmood M and Salam Mohammed A. (2023). An Analysis of Browser and Machine Fingerprinting Techniques 2023 International Conference on Business Analytics for Technology and Security (ICBATS). 10.1109/ICBATS57792.2023.10111174. 979-8-3503-3564-4. (1-8).
+https://ieeexplore.ieee.org/document/10111174/
+
+Ebert N, Ackermann K and Bearth A. (2022). When information security depends on font size: how the saliency of warnings affects protection behavior. Journal of Risk Research. 10.1080/13669877.2022.2142952. 26:3. (233-255). Online publication date: 4-Mar-2023.
+https://www.tandfonline.com/doi/full/10.1080/13669877.2022.2142952
+
+Ullah I, Kanhere S and Boreli R. (2023). Privacy-preserving targeted mobile advertising: A Blockchain-based framework for mobile ads. Journal of Network and Computer Applications. 10.1016/j.jnca.2022.103559. 211. (103559). Online publication date: 1-Feb-2023.
+https://linkinghub.elsevier.com/retrieve/pii/S1084804522002004
+
+Lutscher P. (2023). When Censorship Works: Exploring the Resilience of News Websites to Online Censorship. British Journal of Political Science. 10.1017/S0007123422000722. (1-9).
+https://www.cambridge.org/core/product/identifier/S0007123422000722/type/journal_article
+
+Houssiau F, Liénart T, Hendrickx J and de Montjoye Y. Web Privacy: A Formal Adversarial Model for Query Obfuscation. IEEE Transactions on Information Forensics and Security. 10.1109/TIFS.2023.3262123. 18. (2132-2143).
+https://ieeexplore.ieee.org/document/10081382/
+
+Oosthoek K, Van Staalduinen M and Smaragdakis G. Quantifying Dark Web Shops’ Illicit Revenue. IEEE Access. 10.1109/ACCESS.2023.3235409. 11. (4794-4808).
+https://ieeexplore.ieee.org/document/10012354/
+
+Su Z, Helles R, Al-Laith A, Veilahti A, Saxena A and Simonsen J. (2023). Privacy Lost in Online Education: Analysis of Web Tracking Evolution. Advanced Data Mining and Applications. 10.1007/978-3-031-46664-9_30. (440-455).
+https://link.springer.com/10.1007/978-3-031-46664-9_30
+
+Ren M, Josey J and Yue C. (2023). WebMea: A Google Chrome Extension for Web Security and Privacy Measurement Studies. Science of Cyber Security. 10.1007/978-3-031-45933-7_18. (305-318).
+https://link.springer.com/10.1007/978-3-031-45933-7_18
+
+Jakobi T and Grafenstein M. (2023). What HCI Can Do for (Data Protection) Law—Beyond Design. Human Factors in Privacy Research. 10.1007/978-3-031-28643-8_6. (115-136).
+https://link.springer.com/10.1007/978-3-031-28643-8_6
+
+Samarasinghe N, Kapoor P, Mannan M and Youssef A. (2023). No Salvation from Trackers: Privacy Analysis of Religious Websites and Mobile Apps. Data Privacy Management, Cryptocurrencies and Blockchain Technology. 10.1007/978-3-031-25734-6_10. (151-166).
+https://link.springer.com/10.1007/978-3-031-25734-6_10
+
+Mehrjoo A, Cuevas R and Cuevas Á. (2022). A new methodology to measure faultlines at scale leveraging digital traces. EPJ Data Science. 10.1140/epjds/s13688-022-00350-w. 11:1. Online publication date: 1-Dec-2022.
+https://epjdatascience.springeropen.com/articles/10.1140/epjds/s13688-022-00350-w
+
+Dimova Y, Franken G, Le Pochat V, Joosen W and Desmet L. Tracking the Evolution of Cookie-based Tracking on Facebook. Proceedings of the 21st Workshop on Privacy in the Electronic Society. (181-196).
+https://doi.org/10.1145/3559613.3563200
+
+Huo M, Bland M and Levchenko K. All Eyes On Me. Proceedings of the 21st Workshop on Privacy in the Electronic Society. (197-211).
+https://doi.org/10.1145/3559613.3563190
+
+Solomos K, Ilia P, Nikiforakis N and Polakis J. Escaping the Confines of Time. Proceedings of the 2022 ACM SIGSAC Conference on Computer and Communications Security. (2675-2688).
+https://doi.org/10.1145/3548606.3560576
+
+Bui D, Tang B and Shin K. Do Opt-Outs Really Opt Me Out?. Proceedings of the 2022 ACM SIGSAC Conference on Computer and Communications Security. (425-439).
+https://doi.org/10.1145/3548606.3560574
+
+Cheng D. (2022). Using Function Call Sequence for Browser Fingerprinting Detection 2022 3rd International Conference on Computer Science and Management Technology (ICCSMT). 10.1109/ICCSMT58129.2022.00029. 979-8-3503-2040-4. (104-109).
+https://ieeexplore.ieee.org/document/10143860/
+
+Zeng E, McAmis R, Kohno T and Roesner F. What factors affect targeting and bids in online advertising?. Proceedings of the 22nd ACM Internet Measurement Conference. (210-229).
+https://doi.org/10.1145/3517745.3561460
+
+Chalise S, Nguyen H and Vadrevu P. Your speaker or my snooper?. Proceedings of the 22nd ACM Internet Measurement Conference. (349-357).
+https://doi.org/10.1145/3517745.3561435
+
+Randall A, Snyder P, Ukani A, Snoeren A, Voelker G, Savage S and Schulman A. Measuring UID smuggling in the wild. Proceedings of the 22nd ACM Internet Measurement Conference. (230-243).
+https://doi.org/10.1145/3517745.3561415
+
+Lima S, Morla R and Routar J. JavaScript&Me, A Tool to Support Research into Code Transformation and Browser Security. Proceedings of the 31st ACM International Conference on Information & Knowledge Management. (4224-4228).
+https://doi.org/10.1145/3511808.3557620
+
+Gunnarsson P, Jakobsson A and Carlsson N. (2022). On the Impact of Internal Webpage Selection when Evaluating Ad Blocker Performance 2022 30th International Symposium on Modeling, Analysis, and Simulation of Computer and Telecommunication Systems (MASCOTS). 10.1109/MASCOTS56607.2022.00014. 978-1-6654-5580-0. (41-48).
+https://ieeexplore.ieee.org/document/10053726/
+
+Alby T and Jäschke R. Analyzing the Web: Are Top Websites Lists a Good Choice for Research?. Linking Theory and Practice of Digital Libraries. (11-25).
+https://doi.org/10.1007/978-3-031-16802-4_2
+
+Salomatin A, Iskhakov A and Meshcheryakov R. (2022). Proactive Detection of Attacks on APCS Accounts Based on Analysis of User Identification Graphical Attributes 2022 International Russian Automation Conference (RusAutoCon). 10.1109/RusAutoCon54946.2022.9896378. 978-1-6654-6655-4. (831-835).
+https://ieeexplore.ieee.org/document/9896378/
+
+Castell-Uroz I, Sanz-Garcia R, Sole-Pareta J and Barlet-Ros P. Demystifying Content-Blockers: Measuring Their Impact on Performance and Quality of Experience. IEEE Transactions on Network and Service Management. 10.1109/TNSM.2022.3179267. 19:3. (3562-3573).
+https://ieeexplore.ieee.org/document/9785859/
+
+Jha N, Trevisan M, Vassio L and Mellia M. (2022). The Internet with Privacy Policies: Measuring The Web Upon Consent. ACM Transactions on the Web. 16:3. (1-24). Online publication date: 31-Aug-2022.
+https://doi.org/10.1145/3555352
+
+Doan T, van Rijswijk-Deij R, Hohlfeld O and Bajpai V. (2022). An Empirical View on Consolidation of the Web. ACM Transactions on Internet Technology. 22:3. (1-30). Online publication date: 31-Aug-2022.
+https://doi.org/10.1145/3503158
+
+Fiebig T and Aschenbrenner D. 13 propositions on an internet for a "burning world". Proceedings of the ACM SIGCOMM Joint Workshops on Technologies, Applications, and Uses of a Responsible Internet and Building Greener Internet. (1-5).
+https://doi.org/10.1145/3538395.3545312
+
+Chaqfeh M, Haseeb M, Hashmi W, Inshuti P, Ramesh M, Varvello M, Subramanian L, Zaffar F and Zaki Y. To Block or Not to Block: Accelerating Mobile Web Pages On-The-Fly Through JavaScript Classification. Proceedings of the 2022 International Conference on Information and Communication Technologies and Development. (1-12).
+https://doi.org/10.1145/3572334.3572397
+
+Ajay V and Guptha A. (2022). A Defense against JavaScript Object-Based Fingerprinting and Passive Fingerprinting 2022 International Conference on Computing, Communication, Security and Intelligent Systems (IC3SIS). 10.1109/IC3SIS54991.2022.9885716. 978-1-6654-6883-1. (1-6).
+https://ieeexplore.ieee.org/document/9885716/
+
+Krämer J and Schnurr D. (2021). BIG DATA AND DIGITAL MARKETS CONTESTABILITY: THEORY OF HARM AND DATA ACCESS REMEDIES. Journal of Competition Law & Economics. 10.1093/joclec/nhab015. 18:2. (255-322). Online publication date: 11-Jun-2022.
+https://academic.oup.com/jcle/article/18/2/255/6358400
+
+Sheil A and Malone D. (2022). Fianán, Cuacha: Irish Cookie Banners 2022 33rd Irish Signals and Systems Conference (ISSC). 10.1109/ISSC55427.2022.9826167. 978-1-6654-5227-4. (1-8).
+https://ieeexplore.ieee.org/document/9826167/
+
+Yu X, Samarasinghe N, Mannan M and Youssef A. (2022). Got Sick and Tracked: Privacy Analysis of Hospital Websites 2022 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW). 10.1109/EuroSPW55150.2022.00034. 978-1-6654-9560-8. (278-286).
+https://ieeexplore.ieee.org/document/9799305/
+
+Sprecher S, Kerschbaumer C and Kirda E. (2022). SoK: All or Nothing - A Postmortem of Solutions to the Third-Party Script Inclusion Permission Model and a Path Forward 2022 IEEE 7th European Symposium on Security and Privacy (EuroS&P). 10.1109/EuroSP53844.2022.00021. 978-1-6654-1614-6. (206-222).
+https://ieeexplore.ieee.org/document/9797342/
+
+Chang D, Chen J, Li Z and Li X. (2022). Hide and Seek: Revisiting DNS-based User Tracking 2022 IEEE 7th European Symposium on Security and Privacy (EuroS&P). 10.1109/EuroSP53844.2022.00020. 978-1-6654-1614-6. (188-205).
+https://ieeexplore.ieee.org/document/9797362/
+
+Musch M, Kirchner R, Boll M and Johns M. Server-Side Browsers. Proceedings of the 2022 ACM on Asia Conference on Computer and Communications Security. (1168-1181).
+https://doi.org/10.1145/3488932.3517414
+
+Yang Z, Pei W, Chen M and Yue C. (2022). WTAGRAPH: Web Tracking and Advertising Detection using Graph Neural Networks 2022 IEEE Symposium on Security and Privacy (SP). 10.1109/SP46214.2022.9833670. 978-1-6654-1316-9. (1540-1557).
+https://ieeexplore.ieee.org/document/9833670/
+
+Romano A, Lehmann D, Pradel M and Wang W. (2022). Wobfuscator: Obfuscating JavaScript Malware via Opportunistic Translation to WebAssembly 2022 IEEE Symposium on Security and Privacy (SP). 10.1109/SP46214.2022.9833626. 978-1-6654-1316-9. (1574-1589).
+https://ieeexplore.ieee.org/document/9833626/
+
+Jueckstock J, Snyder P, Sarker S, Kapravelos A and Livshits B. Measuring the Privacy vs. Compatibility Trade-off in Preventing Third-Party Stateful Tracking. Proceedings of the ACM Web Conference 2022. (710-720).
+https://doi.org/10.1145/3485447.3512231
+
+Demir N, Große-Kampmann M, Urban T, Wressnegger C, Holz T and Pohlmann N. Reproducibility and Replicability of Web Measurement Studies. Proceedings of the ACM Web Conference 2022. (533-544).
+https://doi.org/10.1145/3485447.3512214
+
+Papadogiannakis E, Papadopoulos P, P. Markatos E and Kourtellis N. Leveraging Google’s Publisher-Specific IDs to Detect Website Administration. Proceedings of the ACM Web Conference 2022. (2522-2531).
+https://doi.org/10.1145/3485447.3512124
+
+Bahrami P, Iqbal U and Shafiq Z. (2022). FP-Radar: Longitudinal Measurement and Early Detection of Browser Fingerprinting. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2022-0056. 2022:2. (557-577). Online publication date: 1-Apr-2022.. Online publication date: 1-Apr-2022.
+https://petsymposium.org/popets/2022/popets-2022-0056.php
+
+Kats D, Silva D and Roturier J. (2022). Who Knows I Like Jelly Beans? An Investigation Into Search Privacy. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2022-0053. 2022:2. (426-446). Online publication date: 1-Apr-2022.. Online publication date: 1-Apr-2022.
+https://www.sciendo.com/article/10.2478/popets-2022-0053
+
+Matias J, Hounsel A and Feamster N. (2022). Software-Supported Audits of Decision-Making Systems: Testing Google and Facebook's Political Advertising Policies. Proceedings of the ACM on Human-Computer Interaction. 6:CSCW1. (1-19). Online publication date: 30-Mar-2022.
+https://doi.org/10.1145/3512965
+
+Andriamilanto N, Allard T, Le Guelvouit G and Garel A. (2021). A Large-scale Empirical Analysis of Browser Fingerprints Properties for Web Authentication. ACM Transactions on the Web. 16:1. (1-62). Online publication date: 28-Feb-2022.
+https://doi.org/10.1145/3478026
+
+Kotut L and McCrickard D. (2022). The TL;DR Charter: Speculatively Demystifying Privacy Policy Documents and Terms Agreements. Proceedings of the ACM on Human-Computer Interaction. 6:GROUP. (1-14). Online publication date: 14-Jan-2022.
+https://doi.org/10.1145/3492842
+
+Van Nortwick M and Wilson C. (2021). Setting the Bar Low: Are Websites Complying With the Minimum Requirements of the CCPA?. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2022-0030. 2022:1. (608-628). Online publication date: 1-Jan-2022.. Online publication date: 1-Jan-2022.
+https://petsymposium.org/popets/2022/popets-2022-0030.php
+
+Cassel D, Lin S, Buraggina A, Wang W, Zhang A, Bauer L, Hsiao H, Jia L and Libert T. (2021). OmniCrawl: Comprehensive Measurement of Web Tracking With Real Desktop and Mobile Browsers. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2022-0012. 2022:1. (227-252). Online publication date: 1-Jan-2022.. Online publication date: 1-Jan-2022.
+https://petsymposium.org/popets/2022/popets-2022-0012.php
+
+Mehrnezhad M, Coopamootoo K and Toreini E. (2021). How Can and Would People Protect From Online Tracking?. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2022-0006. 2022:1. (105-125). Online publication date: 1-Jan-2022.. Online publication date: 1-Jan-2022.
+https://petsymposium.org/popets/2022/popets-2022-0006.php
+
+Zhang D, Zhang J, Bu Y, Chen B, Sun C, Wang T and Tardif P. (2022). A Survey of Browser Fingerprint Research and Application. Wireless Communications & Mobile Computing. 2022. Online publication date: 1-Jan-2022.
+https://doi.org/10.1155/2022/3363335
+
+Collins S, Wu E and Ning R. (2022). Context-based Adblocker using Siamese Neural Network 2022 6th International Conference on Cryptography, Security and Privacy (CSP). 10.1109/CSP55486.2022.00019. 978-1-6654-7975-2. (56-60).
+https://ieeexplore.ieee.org/document/9845318/
+
+Ullah I and Binbusayyis A. Joint Optimization of Privacy and Cost of in-App Mobile User Profiling and Targeted Ads. IEEE Access. 10.1109/ACCESS.2022.3166152. 10. (38664-38683).
+https://ieeexplore.ieee.org/document/9754555/
+
+Li T, Zheng X, Shen K and Han X. (2022). FPFlow: Detect and Prevent Browser Fingerprinting with Dynamic Taint Analysis. Cyber Security. 10.1007/978-981-16-9229-1_4. (51-67).
+https://link.springer.com/10.1007/978-981-16-9229-1_4
+
+Ma J. (2022). Data Monopolies and Competition Law. Regulating Data Monopolies. 10.1007/978-981-16-8766-2_4. (85-108).
+https://link.springer.com/10.1007/978-981-16-8766-2_4
+
+Trampert L, Rossow C and Schwarz M. (2022). Browser-Based CPU Fingerprinting. Computer Security – ESORICS 2022. 10.1007/978-3-031-17143-7_5. (87-105).
+https://link.springer.com/10.1007/978-3-031-17143-7_5
+
+Rivera E, Tengana L, Solano J, López C, Flórez J and Ochoa M. (2022). Scalable and Secure HTML5 Canvas-Based User Authentication. Applied Cryptography and Network Security Workshops. 10.1007/978-3-031-16815-4_30. (554-574).
+https://link.springer.com/10.1007/978-3-031-16815-4_30
+
+Heijligenberg T, Lkhaouni O and Kohls K. (2022). Leaky Blinders: Information Leakage in Mobile VPNs. Applied Cryptography and Network Security Workshops. 10.1007/978-3-031-16815-4_26. (481-494).
+https://link.springer.com/10.1007/978-3-031-16815-4_26
+
+Hernandez-Castro C. (2022). Machine Learning and Deep Learning for Hardware Fingerprinting. Security and Artificial Intelligence. 10.1007/978-3-030-98795-4_9. (181-213).
+https://link.springer.com/10.1007/978-3-030-98795-4_9
+
+Saurwein F. (2022). Algorithms on the Internet: Factor of Media Change and Challenge for Change Management. Media and Change Management. 10.1007/978-3-030-86680-8_23. (419-442).
+https://link.springer.com/10.1007/978-3-030-86680-8_23
+
+Masood R, Berkovsky S and Kaafar M. (2022). Tracking and Personalization. Modern Socio-Technical Perspectives on Privacy. 10.1007/978-3-030-82786-1_9. (171-202).
+https://link.springer.com/10.1007/978-3-030-82786-1_9
+
+Dinklage P, Ellert J, Fischer J, Kurpicz F and Löbel M. (2021). Practical Wavelet Tree Construction. ACM Journal of Experimental Algorithmics. 26. (1-67). Online publication date: 31-Dec-2022.
+https://doi.org/10.1145/3457197
+
+Baharev A, Schichl H, Neumaier A and Achterberg T. (2021). An Exact Method for the Minimum Feedback Arc Set Problem. ACM Journal of Experimental Algorithmics. 26. (1-28). Online publication date: 31-Dec-2022.
+https://doi.org/10.1145/3446429
+
+Pachilakis M, Papadopoulos P, Laoutaris N, Markatos E and Kourtellis N. (2021). YourAdvalue: Measuring Advertising Price Dynamics without Bankrupting User Privacy. Proceedings of the ACM on Measurement and Analysis of Computing Systems. 5:3. (1-26). Online publication date: 14-Dec-2021.
+https://doi.org/10.1145/3491044
+
+Dao H and Fukuda K. Alternative to third-party cookies. Proceedings of the 17th International Conference on emerging Networking EXperiments and Technologies. (223-229).
+https://doi.org/10.1145/3485983.3494860
+
+Agogo D. (2020). Invisible market for online personal data: An examination. Electronic Markets. 10.1007/s12525-020-00437-0. 31:4. (989-1010). Online publication date: 1-Dec-2021.
+https://link.springer.com/10.1007/s12525-020-00437-0
+
+Kretschmer M, Pennekamp J and Wehrle K. (2021). Cookie Banners and Privacy Policies: Measuring the Impact of the GDPR on the Web. ACM Transactions on the Web. 15:4. (1-42). Online publication date: 30-Nov-2021.
+https://doi.org/10.1145/3466722
+
+Wesselkamp V, Fouad I, Santos C, Boussad Y, Bielova N and Legout A. In-Depth Technical and Legal Analysis of Tracking on Health Related Websites with ERNIE Extension. Proceedings of the 20th Workshop on Workshop on Privacy in the Electronic Society. (151-166).
+https://doi.org/10.1145/3463676.3485603
+
+Morkonda S, Chiasson S and van Oorschot P. Empirical Analysis and Privacy Implications in OAuth-based Single Sign-On Systems. Proceedings of the 20th Workshop on Workshop on Privacy in the Electronic Society. (195-208).
+https://doi.org/10.1145/3463676.3485600
+
+Fietkau J, Thimmaraju K, Kybranz F, Neef S and Seifert J. The Elephant in the Background. Proceedings of the 20th Workshop on Workshop on Privacy in the Electronic Society. (167-180).
+https://doi.org/10.1145/3463676.3485599
+
+Diamantaris M, Moustakas S, Sun L, Ioannidis S and Polakis J. This Sneaky Piggy Went to the Android Ad Market: Misusing Mobile Sensors for Stealthy Data Exfiltration. Proceedings of the 2021 ACM SIGSAC Conference on Computer and Communications Security. (1065-1081).
+https://doi.org/10.1145/3460120.3485366
+
+Kuchhal D and Li F. Knock and talk. Proceedings of the 21st ACM Internet Measurement Conference. (550-568).
+https://doi.org/10.1145/3487552.3487857
+
+Harrison J, Lyons J, Anderson L, Maunder L, O'Donnell P, George K and Michaels A. (2021). Quantifying Use and Abuse of Personal Information 2021 IEEE International Conference on Intelligence and Security Informatics (ISI). 10.1109/ISI53945.2021.9624816. 978-1-6654-3838-4. (1-6).
+https://ieeexplore.ieee.org/document/9624816/
+
+Amarasekara B, Mathrani A and Scogings C. (2021). Online Tracking: When Does it Become Stalking?. Vietnam Journal of Computer Science. 10.1142/S2196888821500226. 08:04. (585-605). Online publication date: 1-Nov-2021.
+https://www.worldscientific.com/doi/abs/10.1142/S2196888821500226
+
+Bermejo Fernandez C, Chatzopoulos D, Papadopoulos D and Hui P. (2021). This Website Uses Nudging: MTurk Workers' Behaviour on Cookie Consent Notices. Proceedings of the ACM on Human-Computer Interaction. 5:CSCW2. (1-22). Online publication date: 13-Oct-2021.
+https://doi.org/10.1145/3476087
+
+Smullen D, Yao Y, Feng Y, Sadeh N, Edelstein A and Weiss R. (2021). Managing Potentially Intrusive Practices in the Browser: A User-Centered Perspective. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2021-0082. 2021:4. (500-527). Online publication date: 1-Oct-2021.. Online publication date: 1-Oct-2021.
+https://www.sciendo.com/article/10.2478/popets-2021-0082
+
+Hosseini H, Degeling M, Utz C and Hupperich T. (2021). Unifying Privacy Policy Detection. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2021-0081. 2021:4. (480-499). Online publication date: 1-Oct-2021.. Online publication date: 1-Oct-2021.
+https://petsymposium.org/popets/2021/popets-2021-0081.php
+
+Hils M, Woods D and Böhme R. (2021). Privacy Preference Signals: Past, Present and Future. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2021-0069. 2021:4. (249-269). Online publication date: 1-Oct-2021.. Online publication date: 1-Oct-2021.
+https://petsymposium.org/popets/2021/popets-2021-0069.php
+
+Bach R, Kern C, Amaya A, Keusch F, Kreuter F, Hecht J and Heinemann J. (2019). Predicting Voting Behavior Using Digital Trace Data. Social Science Computer Review. 10.1177/0894439319882896. 39:5. (862-883). Online publication date: 1-Oct-2021.
+http://journals.sagepub.com/doi/10.1177/0894439319882896
+
+Azzolina S, Razza M, Sartiano K and Weitschek E. (2021). Price Discrimination in the Online Airline Market: An Empirical Study. Journal of Theoretical and Applied Electronic Commerce Research. 10.3390/jtaer16060126. 16:6. (2282-2303).
+https://www.mdpi.com/0718-1876/16/6/126
+
+Dao H, Mazel J and Fukuda K. CNAME Cloaking-Based Tracking on the Web: Characterization, Detection, and Protection. IEEE Transactions on Network and Service Management. 10.1109/TNSM.2021.3072874. 18:3. (3873-3888).
+https://ieeexplore.ieee.org/document/9403411/
+
+Sjosten A, Hedin D and Sabelfeld A. (2021). EssentialFP: Exposing the Essence of Browser Fingerprinting 2021 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW). 10.1109/EuroSPW54576.2021.00011. 978-1-6654-1012-0. (32-48).
+https://ieeexplore.ieee.org/document/9583693/
+
+Huang C and Shen S. (2021). Enabling Service Cache in Edge Clouds. ACM Transactions on Internet of Things. 2:3. (1-24). Online publication date: 31-Aug-2021.
+https://doi.org/10.1145/3456564
+
+Maaß M, Pridöhl H, Herrmann D and Hollick M. (2021). Best Practices for Notification Studiesfor Security and Privacy Issues on the Internet ARES 2021: The 16th International Conference on Availability, Reliability and Security. 10.1145/3465481.3470081. 9781450390514. (1-10). Online publication date: 17-Aug-2021.
+https://dl.acm.org/doi/10.1145/3465481.3470081
+
+Ali A and Zaaba Z. (2021). Mental Models Review for Security and Privacy Policy: An approach 2021 International Conference on Information Technology (ICIT). 10.1109/ICIT52682.2021.9491708. 978-1-6654-2870-5. (905-909).
+https://ieeexplore.ieee.org/document/9491708/
+
+Reitinger N and Mazurek M. (2021). ML-CB: Machine Learning Canvas Block. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2021-0056. 2021:3. (453-473). Online publication date: 1-Jul-2021.. Online publication date: 1-Jul-2021.
+https://petsymposium.org/popets/2021/popets-2021-0056.php
+
+Dimova Y, Acar G, Olejnik L, Joosen W and Van Goethem T. (2021). The CNAME of the Game: Large-scale Analysis of DNS-based Tracking Evasion. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2021-0053. 2021:3. (394-412). Online publication date: 1-Jul-2021.. Online publication date: 1-Jul-2021.
+https://petsymposium.org/popets/2021/popets-2021-0053.php
+
+Kargaran A, Akhondzadeh M, Heidarpour M, Manshaei M, Salamatian K and Nejad Sattary M. Wide-AdGraph: Detecting Ad Trackers with a Wide Dependency Chain Graph. Proceedings of the 13th ACM Web Science Conference 2021. (253-261).
+https://doi.org/10.1145/3447535.3462549
+
+Krupp B, Hadden J and Matthews M. An Analysis of Web Tracking Domains in Mobile Applications. Proceedings of the 13th ACM Web Science Conference 2021. (291-298).
+https://doi.org/10.1145/3447535.3462507
+
+Vekaria Y, Agarwal V, Agarwal P, Mahapatra S, Balan Muthiah S, Sastry N and Kourtellis N. Differential Tracking Across Topical Webpages of Indian News Media. Proceedings of the 13th ACM Web Science Conference 2021. (299-308).
+https://doi.org/10.1145/3447535.3462497
+
+Wu T, Song Y, Zhang F, Gao S and Chen B. (2021). My Site Knows Where You Are: A Novel Browser Fingerprint to Track User Position ICC 2021 - IEEE International Conference on Communications. 10.1109/ICC42927.2021.9500556. 978-1-7281-7122-7. (1-6).
+https://ieeexplore.ieee.org/document/9500556/
+
+Alani M. (2021). Big data in cybersecurity: a survey of applications and future trends. Journal of Reliable Intelligent Environments. 10.1007/s40860-020-00120-3. 7:2. (85-114). Online publication date: 1-Jun-2021.
+https://link.springer.com/10.1007/s40860-020-00120-3
+
+Zafar A, Sabir A, Ahmed D and Das A. Understanding the Privacy Implications of Adblock Plus's Acceptable Ads. Proceedings of the 2021 ACM Asia Conference on Computer and Communications Security. (644-657).
+https://doi.org/10.1145/3433210.3437536
+
+Castell-Uroz I, Sole-Pareta J and Barlet-Ros P. (2021). TrackSign: Guided Web Tracking Discovery IEEE INFOCOM 2021 - IEEE Conference on Computer Communications. 10.1109/INFOCOM42981.2021.9488842. 978-1-6654-0325-2. (1-10).
+https://ieeexplore.ieee.org/document/9488842/
+
+Mathur A. Identifying and Measuring Manipulative User Interfaces at Scale on the Web. Extended Abstracts of the 2021 CHI Conference on Human Factors in Computing Systems. (1-5).
+https://doi.org/10.1145/3411763.3457782
+
+Haliburton L, Hoppe M, Schmidt A and Kosch T. Quick, Print This Page! The Value of Analogue Media in a Digital World. Extended Abstracts of the 2021 CHI Conference on Human Factors in Computing Systems. (1-7).
+https://doi.org/10.1145/3411763.3450375
+
+Zeng E, Kohno T and Roesner F. What Makes a “Bad” Ad? User Perceptions of Problematic Online Advertising. Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems. (1-24).
+https://doi.org/10.1145/3411764.3445459
+
+Sanchez-Rola I, Dell'Amico M, Balzarotti D, Vervier P and Bilge L. (2021). Journey to the Center of the Cookie Ecosystem: Unraveling Actors' Roles and Relationships 2021 IEEE Symposium on Security and Privacy (SP). 10.1109/SP40001.2021.9796062. 978-1-7281-8934-5. (1990-2004).
+https://ieeexplore.ieee.org/document/9796062/
+
+Iqbal U, Englehardt S and Shafiq Z. (2021). Fingerprinting the Fingerprinters: Learning to Detect Browser Fingerprinting Behaviors 2021 IEEE Symposium on Security and Privacy (SP). 10.1109/SP40001.2021.00017. 978-1-7281-8934-5. (1143-1161).
+https://ieeexplore.ieee.org/document/9519502/
+
+Chen Q, Snyder P, Livshits B and Kapravelos A. (2021). Detecting Filter List Evasion with Event-Loop-Turn Granularity JavaScript Signatures 2021 IEEE Symposium on Security and Privacy (SP). 10.1109/SP40001.2021.00007. 978-1-7281-8934-5. (1715-1729).
+https://ieeexplore.ieee.org/document/9519497/
+
+Murley P, Ma Z, Mason J, Bailey M and Kharraz A. WebSocket Adoption and the Landscape of the Real-Time Web. Proceedings of the Web Conference 2021. (1192-1203).
+https://doi.org/10.1145/3442381.3450063
+
+Jueckstock J, Sarker S, Snyder P, Beggs A, Papadopoulos P, Varvello M, Livshits B and Kapravelos A. Towards Realistic and ReproducibleWeb Crawl Measurements. Proceedings of the Web Conference 2021. (80-91).
+https://doi.org/10.1145/3442381.3450050
+
+Amos R, Acar G, Lucherini E, Kshirsagar M, Narayanan A and Mayer J. Privacy Policies over Time: Curation and Analysis of a Million-Document Dataset. Proceedings of the Web Conference 2021. (2165-2176).
+https://doi.org/10.1145/3442381.3450048
+
+Chen Q, Ilia P, Polychronakis M and Kapravelos A. Cookie Swap Party: Abusing First-Party Cookies for Web Tracking. Proceedings of the Web Conference 2021. (2117-2129).
+https://doi.org/10.1145/3442381.3449837
+
+Mishra V, Laperdrix P, Rudametkin W and Rouvoy R. (2021). Déjà vu: Abusing Browser Cache Headers to Identify and Track Online Users. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2021-0033. 2021:2. (391-406). Online publication date: 1-Apr-2021.. Online publication date: 1-Apr-2021.
+https://www.sciendo.com/article/10.2478/popets-2021-0033
+
+Di Tizio G and Massacci F. (2021). A Calculus of Tracking: Theory and Practice. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2021-0027. 2021:2. (259-281). Online publication date: 1-Apr-2021.. Online publication date: 1-Apr-2021.
+https://petsymposium.org/popets/2021/popets-2021-0027.php
+
+Ortloff A, Zimmerman S, Elsweiler D and Henze N. The Effect of Nudges and Boosts on Browsing Privacy in a Naturalistic Environment. Proceedings of the 2021 Conference on Human Information Interaction and Retrieval. (63-73).
+https://doi.org/10.1145/3406522.3446014
+
+Pourghassemi B, Bonecutter J, Li Z and Chandramowlishwaran A. (2021). adPerf. Proceedings of the ACM on Measurement and Analysis of Computing Systems. 5:1. (1-26). Online publication date: 18-Feb-2021.
+https://doi.org/10.1145/3447381
+
+Laoutaris N and Iordanou C. (2021). What do information centric networks, trusted execution environments, and digital watermarking have to do with privacy, the data economy, and their future?. ACM SIGCOMM Computer Communication Review. 51:1. (32-38). Online publication date: 31-Jan-2021.
+https://doi.org/10.1145/3457175.3457181
+
+Rizzo V, Traverso S and Mellia M. (2020). Unveiling Web Fingerprinting in the Wild Via Code Mining and Machine Learning. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2021-0004. 2021:1. (43-63). Online publication date: 1-Jan-2021.. Online publication date: 1-Jan-2021.
+https://www.sciendo.com/article/10.2478/popets-2021-0004
+
+Estrada-Jimenez J, Parra-Arnau J, Rodriguez-Hoyos A, Forne J and Pallares-Segarra E. A Measurement Study of Online Tracking and Advertising in Ibero-America. IEEE Access. 10.1109/ACCESS.2021.3085024. 9. (80996-81007).
+https://ieeexplore.ieee.org/document/9444431/
+
+Leith D. Web Browser Privacy: What Do Browsers Say When They Phone Home?. IEEE Access. 10.1109/ACCESS.2021.3065243. 9. (41615-41627).
+https://ieeexplore.ieee.org/document/9374407/
+
+Awesta A. (2021). European Laws’ Effectiveness in Protecting Personal Data. Data Protection Around the World. 10.1007/978-94-6265-407-5_11. (249-267).
+http://link.springer.com/10.1007/978-94-6265-407-5_11
+
+Zaheri M and Curtmola R. (2021). Leakuidator: Leaky Resource Attacks and Countermeasures. Security and Privacy in Communication Networks. 10.1007/978-3-030-90022-9_8. (143-163).
+https://link.springer.com/10.1007/978-3-030-90022-9_8
+
+Durey A, Laperdrix P, Rudametkin W and Rouvoy R. (2021). FP-Redemption: Studying Browser Fingerprinting Adoption for the Sake of Web Security. Detection of Intrusions and Malware, and Vulnerability Assessment. 10.1007/978-3-030-80825-9_12. (237-257).
+https://link.springer.com/10.1007/978-3-030-80825-9_12
+
+Kampanos G and Shahandashti S. (2021). Accept All: The Landscape of Cookie Banners in Greece and the UK. ICT Systems Security and Privacy Protection. 10.1007/978-3-030-78120-0_14. (213-227).
+https://link.springer.com/10.1007/978-3-030-78120-0_14
+
+Kalantari S, Put A and De Decker B. (2021). Trackers in Your Inbox: Criticizing Current Email Tracking Practices. Privacy Technologies and Policy. 10.1007/978-3-030-76663-4_9. (156-167).
+https://link.springer.com/10.1007/978-3-030-76663-4_9
+
+Lotfy A, Zaki A, Abd-El-Hafeez T and Mahmoud T. (2021). Privacy Issues of Public Wi-Fi Networks. Proceedings of the International Conference on Artificial Intelligence and Computer Vision (AICV2021). 10.1007/978-3-030-76346-6_58. (656-665).
+https://link.springer.com/10.1007/978-3-030-76346-6_58
+
+Milligan J, Scheffler S, Sellars A, Tiwari T, Trachtenberg A and Varia M. (2021). Case Study: Disclosure of Indirect Device Fingerprinting in Privacy Policies. Socio-Technical Aspects in Security and Trust. 10.1007/978-3-030-55958-8_10. (175-186).
+https://link.springer.com/10.1007/978-3-030-55958-8_10
+
+Andriamilanto N, Allard T and Guelvouit G. (2021). “Guess Who?” Large-Scale Data-Centric Study of the Adequacy of Browser Fingerprints for Web Authentication. Innovative Mobile and Internet Services in Ubiquitous Computing. 10.1007/978-3-030-50399-4_16. (161-172).
+http://link.springer.com/10.1007/978-3-030-50399-4_16
+
+Sanchez-Rola I, Balzarotti D and Santos I. (2020). Cookies from the Past. Digital Threats: Research and Practice. 1:4. (1-24). Online publication date: 31-Dec-2021.
+https://doi.org/10.1145/3419473
+
+Castell-Uroz I, Sole-Pareta J and Barlet-Ros P. Network Measurements for Web Tracking Analysis and Detection: A Tutorial. IEEE Instrumentation & Measurement Magazine. 10.1109/MIM.2020.9289071. 23:9. (50-57).
+https://ieeexplore.ieee.org/document/9289071/
+
+Dao H and Fukuda K. (2020). A machine learning approach for detecting CNAME cloaking-based tracking on the Web GLOBECOM 2020 - 2020 IEEE Global Communications Conference. 10.1109/GLOBECOM42002.2020.9322514. 978-1-7281-8298-8. (1-6).
+https://ieeexplore.ieee.org/document/9322514/
+
+Krämer J. (2020). Personal Data Portability In The Platform Economy: Economic Implications And Policy Recommendations. Journal of Competition Law & Economics. 10.1093/joclec/nhaa030.
+https://academic.oup.com/jcle/advance-article/doi/10.1093/joclec/nhaa030/6000371
+
+Tang Y, Sui Y, Wang H, Luo X, Zhou H and Xu Z. All your app links are belong to us: understanding the threats of instant apps based attacks. Proceedings of the 28th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering. (914-926).
+https://doi.org/10.1145/3368089.3409702
+
+Castell-Uroz I, Sole-Pareta J and Barlet-Ros P. (2020). Demystifying Content-blockers: A Large-scale Study of Actual Performance Gains 2020 16th International Conference on Network and Service Management (CNSM). 10.23919/CNSM50824.2020.9269094. 978-3-903176-31-7. (1-7).
+https://ieeexplore.ieee.org/document/9269094/
+
+Castell-Uroz I, Poissonnier T, Manneback P and Barlet-Ros P. (2020). URL-based Web Tracking Detection Using Deep Learning 2020 16th International Conference on Network and Service Management (CNSM). 10.23919/CNSM50824.2020.9269065. 978-3-903176-31-7. (1-5).
+https://ieeexplore.ieee.org/document/9269065/
+
+Drakonakis K, Ioannidis S and Polakis J. The Cookie Hunter: Automated Black-box Auditing for Web Authentication and Authorization Flaws. Proceedings of the 2020 ACM SIGSAC Conference on Computer and Communications Security. (1953-1970).
+https://doi.org/10.1145/3372297.3417869
+
+Lin X, Ilia P and Polakis J. Fill in the Blanks. Proceedings of the 2020 ACM SIGSAC Conference on Computer and Communications Security. (507-519).
+https://doi.org/10.1145/3372297.3417271
+
+Matic S, Iordanou C, Smaragdakis G and Laoutaris N. Identifying Sensitive URLs at Web-Scale. Proceedings of the ACM Internet Measurement Conference. (619-633).
+https://doi.org/10.1145/3419394.3423653
+
+Urban T, Tatang D, Degeling M, Holz T and Pohlmann N. Measuring the Impact of the GDPR on Data Sharing in Ad Networks. Proceedings of the 15th ACM Asia Conference on Computer and Communications Security. (222-235).
+https://doi.org/10.1145/3320269.3372194
+
+Koop M, Tews E and Katzenbeisser S. (2020). In-Depth Evaluation of Redirect Tracking and Link Usage. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0079. 2020:4. (394-413). Online publication date: 1-Oct-2020.. Online publication date: 1-Oct-2020.
+https://www.sciendo.com/article/10.2478/popets-2020-0079
+
+Acar G, Englehardt S and Narayanan A. (2020). No boundaries: data exfiltration by third parties embedded on web pages. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0070. 2020:4. (220-238). Online publication date: 1-Oct-2020.. Online publication date: 1-Oct-2020.
+https://www.sciendo.com/article/10.2478/popets-2020-0070
+
+Belhadi A, Djenouri Y, Lin J and Cano A. (2020). Trajectory Outlier Detection. ACM Transactions on Management Information Systems. 11:3. (1-29). Online publication date: 30-Sep-2020.
+https://doi.org/10.1145/3399631
+
+Fouad I, Santos C, Al Kassar F, Bielova N and Calzavara S. (2020). On Compliance of Cookie Purposes with the Purpose Specification Principle 2020 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW). 10.1109/EuroSPW51379.2020.00051. 978-1-7281-8597-2. (326-333).
+https://ieeexplore.ieee.org/document/9229842/
+
+Tian H, Kanich C, Polakis J and Patil S. (2020). Tech Pains: Characterizations of Lived Cybersecurity Experiences 2020 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW). 10.1109/EuroSPW51379.2020.00040. 978-1-7281-8597-2. (250-259).
+https://ieeexplore.ieee.org/document/9229727/
+
+Agadakos I, Agadakos N, Polakis J and Amer M. (2020). Chameleons' Oblivion: Complex-Valued Deep Neural Networks for Protocol-Agnostic RF Device Fingerprinting 2020 IEEE European Symposium on Security and Privacy (EuroS&P). 10.1109/EuroSP48549.2020.00028. 978-1-7281-5087-1. (322-338).
+https://ieeexplore.ieee.org/document/9230376/
+
+Hu X, de Tangil G and Sastry N. (2020). Multi-country Study of Third Party Trackers from Real Browser Histories 2020 IEEE European Symposium on Security and Privacy (EuroS&P). 10.1109/EuroSP48549.2020.00013. 978-1-7281-5087-1. (70-86).
+https://ieeexplore.ieee.org/document/9230391/
+
+Diamantaris M, Marcantoni F, Ioannidis S and Polakis J. (2020). The Seven Deadly Sins of the HTML5 WebAPI. ACM Transactions on Privacy and Security. 23:4. (1-31). Online publication date: 28-Aug-2020.
+https://doi.org/10.1145/3403947
+
+Arrate A, González-Cabañas J, Cuevas Á and Cuevas R. (2020). Malvertising in Facebook: Analysis, Quantification and Solution. Electronics. 10.3390/electronics9081332. 9:8. (1332).
+https://www.mdpi.com/2079-9292/9/8/1332
+
+Frik A, Haviland A and Acquisti A. The impact of ad-blockers on product search and purchase behavior. Proceedings of the 29th USENIX Conference on Security Symposium. (163-179).
+/doi/10.5555/3489212.3489222
+
+Bird S, Segall I and Lopatka M. Replication: whywe still can't browse in peace. Proceedings of the Sixteenth USENIX Conference on Usable Privacy and Security. (489-503).
+/doi/10.5555/3488905.3488930
+
+Herrlich M, Reinschluessel A, Willems M, Langhorst N, Black D, Döring T, Rieder C, Kikinis R and Malaka R. (2020). Put That Needle There. ACM Transactions on Computing for Healthcare. 1:3. (1-17). Online publication date: 31-Jul-2020.
+https://doi.org/10.1145/3386307
+
+Thambawita V, Jha D, Hammer H, Johansen H, Johansen D, Halvorsen P and Riegler M. (2020). An Extensive Study on Cross-Dataset Bias and Evaluation Metrics Interpretation for Machine Learning Applied to Gastrointestinal Tract Abnormality Classification. ACM Transactions on Computing for Healthcare. 1:3. (1-29). Online publication date: 31-Jul-2020.
+https://doi.org/10.1145/3386295
+
+Goldstein O, Kachuee M, Karkkainen K and Sarrafzadeh M. (2020). Target-Focused Feature Selection Using Uncertainty Measurements in Healthcare Data. ACM Transactions on Computing for Healthcare. 1:3. (1-17). Online publication date: 31-Jul-2020.
+https://doi.org/10.1145/3383685
+
+Chikka V and Karlapalem K. (2020). Conformance Checking Methodology Across Discharge Summaries and Standard Treatment Guidelines. ACM Transactions on Computing for Healthcare. 1:3. (1-19). Online publication date: 31-Jul-2020.
+https://doi.org/10.1145/3377328
+
+Wang X, Yang C and Mao S. (2020). On CSI-Based Vital Sign Monitoring Using Commodity WiFi. ACM Transactions on Computing for Healthcare. 1:3. (1-27). Online publication date: 31-Jul-2020.
+https://doi.org/10.1145/3377165
+
+Adams P. (2020). Agreeing to Surveillance: Digital News Privacy Policies. Journalism & Mass Communication Quarterly. 10.1177/1077699020934197. (107769902093419).
+http://journals.sagepub.com/doi/10.1177/1077699020934197
+
+Din Z, Tigas P, King S and Livshits B. PERCIVAL. Proceedings of the 2020 USENIX Conference on Usenix Annual Technical Conference. (387-400).
+/doi/10.5555/3489146.3489172
+
+Hu X and Sastry N. What a Tangled Web We Weave: Understanding the Interconnectedness of the Third Party Cookie Ecosystem. Proceedings of the 12th ACM Conference on Web Science. (76-85).
+https://doi.org/10.1145/3394231.3397897
+
+Phung P, Pham H, Armentrout J, Hiremath P and Tran-Minh Q. (2020). A User-Oriented Approach and Tool for Security and Privacy Protection on the Web. SN Computer Science. 10.1007/s42979-020-00237-5. 1:4. Online publication date: 1-Jul-2020.
+http://link.springer.com/10.1007/s42979-020-00237-5
+
+Zhou X, Jain A, Phoha V and Zafarani R. (2020). Fake News Early Detection. Digital Threats: Research and Practice. 1:2. (1-25). Online publication date: 30-Jun-2020.
+https://doi.org/10.1145/3377478
+
+Gajrani J, Tripathi M, Laxmi V, Somani G, Zemmari A and Gaur M. (2020). Vulvet. Digital Threats: Research and Practice. 1:2. (1-25). Online publication date: 30-Jun-2020.
+https://doi.org/10.1145/3376121
+
+Shukla D, KUNDU P, Malapati R, Poudel S, Jin Z and Phoha V. (2020). Thinking Unveiled. Digital Threats: Research and Practice. 1:2. (1-29). Online publication date: 30-Jun-2020.
+https://doi.org/10.1145/3374137
+
+Chua M, Yee G, Gu Y and Lung C. (2020). Threats to Online Advertising and Countermeasures. Digital Threats: Research and Practice. 1:2. (1-27). Online publication date: 30-Jun-2020.
+https://doi.org/10.1145/3374136
+
+Laperdrix P, Bielova N, Baudry B and Avoine G. (2020). Browser Fingerprinting. ACM Transactions on the Web. 14:2. (1-33). Online publication date: 31-May-2020.
+https://doi.org/10.1145/3386040
+
+Ikram M, Masood R, Tyson G, Kaafar M, Loizon N and Ensafi R. (2020). Measuring and Analysing the Chain of Implicit Trust. ACM Transactions on Privacy and Security. 23:2. (1-27). Online publication date: 31-May-2020.
+https://doi.org/10.1145/3380466
+
+Fakis A, Karopoulos G and Kambourakis G. (2020). Neither Denied nor Exposed: Fixing WebRTC Privacy Leaks. Future Internet. 10.3390/fi12050092. 12:5. (92).
+https://www.mdpi.com/1999-5903/12/5/92
+
+Sørensen J, Van den Bulck H and Kosta S. (2020). Stop Spreading The Data: PSM, Trust, and Third-Party Services. Journal of Information Policy. 10.5325/jinfopoli.10.2020.0474. 10. (474-513). Online publication date: 1-May-2020.
+https://scholarlypublishingcollective.org/information-policy/article/doi/10.5325/jinfopoli.10.2020.0474/314444/Stop-Spreading-The-Data-PSM-Trust-and-Third-Party
+
+Sørensen J, Van den Bulck H and Kosta S. (2020). Stop Spreading The Data: PSM, Trust, and Third-Party Services. Journal of Information Policy. 10.5325/jinfopoli.10.1.0474. 10:1. (474-513). Online publication date: 1-May-2020.
+https://scholarlypublishingcollective.org/information-policy/article/10/1/474/201632/Stop-Spreading-The-Data-PSM-Trust-and-Third-Party
+
+Liu X, Liu J, Zhu S, Wang W and Zhang X. Privacy Risk Analysis and Mitigation of Analytics Libraries in the Android Ecosystem. IEEE Transactions on Mobile Computing. 10.1109/TMC.2019.2903186. 19:5. (1184-1199).
+https://ieeexplore.ieee.org/document/8660581/
+
+Matte C, Bielova N and Santos C. (2020). Do Cookie Banners Respect my Choice? : Measuring Legal Compliance of Banners from IAB Europe’s Transparency and Consent Framework 2020 IEEE Symposium on Security and Privacy (SP). 10.1109/SP40000.2020.00076. 978-1-7281-3497-0. (791-809).
+https://ieeexplore.ieee.org/document/9152617/
+
+Deuser C, Passmann S and Strufe T. (2020). Browsing Unicity: On the Limits of Anonymizing Web Tracking Data 2020 IEEE Symposium on Security and Privacy (SP). 10.1109/SP40000.2020.00018. 978-1-7281-3497-0. (777-790).
+https://ieeexplore.ieee.org/document/9152774/
+
+Iqbal U, Snyder P, Zhu S, Livshits B, Qian Z and Shafiq Z. (2020). AdGraph: A Graph-Based Approach to Ad and Tracker Blocking 2020 IEEE Symposium on Security and Privacy (SP). 10.1109/SP40000.2020.00005. 978-1-7281-3497-0. (763-776).
+https://ieeexplore.ieee.org/document/9152669/
+
+Jakobi T, Stevens G, Seufert A, Becker M and von Grafenstein M. (2020). Web Tracking Under the New Data Protection Law: Design Potentials at the Intersection of Jurisprudence and HCI. i-com. 10.1515/icom-2020-0004. 19:1. (31-45). Online publication date: 28-Apr-2020.. Online publication date: 1-Apr-2020.
+https://www.degruyter.com/document/doi/10.1515/icom-2020-0004/html
+
+Hanson J, Wei M, Veys S, Kugler M, Strahilevitz L and Ur B. Taking Data Out of Context to Hyper-Personalize Ads. Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems. (1-13).
+https://doi.org/10.1145/3313831.3376415
+
+Wagner I. Methods of Corporate Surveillance: a Primer on Experimental Transparency Research. Companion Proceedings of the Web Conference 2020. (315-316).
+https://doi.org/10.1145/3366424.3383116
+
+Agarwal P, Joglekar S, Papadopoulos P, Sastry N and Kourtellis N. Stop tracking me Bro! Differential Tracking of User Demographics on Hyper-Partisan Websites. Proceedings of The Web Conference 2020. (1479-1490).
+https://doi.org/10.1145/3366423.3380221
+
+Eriksson B and Sabelfeld A. AutoNav: Evaluation and Automatization of Web Navigation Policies. Proceedings of The Web Conference 2020. (1320-1331).
+https://doi.org/10.1145/3366423.3380207
+
+Urban T, Degeling M, Holz T and Pohlmann N. Beyond the Front Page:Measuring Third Party Dynamics in the Field. Proceedings of The Web Conference 2020. (1275-1286).
+https://doi.org/10.1145/3366423.3380203
+
+Mishra V, Laperdrix P, Vastel A, Rudametkin W, Rouvoy R and Lopatka M. Don’t Count Me Out: On the Relevance of IP Address in the Tracking Ecosystem. Proceedings of The Web Conference 2020. (808-815).
+https://doi.org/10.1145/3366423.3380161
+
+Sanchez-Rola I, Balzarotti D, Kruegel C, Vigna G and Santos I. Dirty Clicks: A Study of the Usability and Security Implications of Click-related Behaviors on the Web. Proceedings of The Web Conference 2020. (395-406).
+https://doi.org/10.1145/3366423.3380124
+
+Ahmad S, Dar M, Zaffar M, Vallina-Rodriguez N and Nithyanand R. Apophanies or Epiphanies? How Crawlers Impact Our Understanding of the Web. Proceedings of The Web Conference 2020. (271-280).
+https://doi.org/10.1145/3366423.3380113
+
+Zeber D, Bird S, Oliveira C, Rudametkin W, Segall I, Wollsén F and Lopatka M. The Representativeness of Automated Web Crawls as a Surrogate for Human Browsing. Proceedings of The Web Conference 2020. (167-178).
+https://doi.org/10.1145/3366423.3380104
+
+fouad I, Bielova N, Legout A and Sarafijanovic-Djukic N. (2020). Missed by Filter Lists: Detecting Unknown Third-Party Trackers with Invisible Pixels. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0038. 2020:2. (499-518). Online publication date: 1-Apr-2020.. Online publication date: 1-Apr-2020.
+https://petsymposium.org/popets/2020/popets-2020-0038.php
+
+Machuletz D and Böhme R. (2020). Multiple Purposes, Multiple Problems: A User Study of Consent Dialogs after GDPR. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0037. 2020:2. (481-498). Online publication date: 1-Apr-2020.. Online publication date: 1-Apr-2020.
+https://petsymposium.org/popets/2020/popets-2020-0037.php
+
+Sy E, Mueller T, Burkert C, Federrath H and Fischer M. (2020). Enhanced Performance and Privacy for TLS over TCP Fast Open. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0027. 2020:2. (271-287). Online publication date: 1-Apr-2020.. Online publication date: 1-Apr-2020.
+https://petsymposium.org/popets/2020/popets-2020-0027.php
+
+Varmarken J, Le H, Shuba A, Markopoulou A and Shafiq Z. (2020). The TV is Smart and Full of Trackers: Measuring Smart TV Advertising and Tracking. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0021. 2020:2. (129-154). Online publication date: 1-Apr-2020.. Online publication date: 1-Apr-2020.
+https://www.sciendo.com/article/10.2478/popets-2020-0021
+
+Shuba A and Markopoulou A. (2020). NoMoATS: Towards Automatic Detection of Mobile Tracking. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0017. 2020:2. (45-66). Online publication date: 1-Apr-2020.. Online publication date: 1-Apr-2020.
+https://petsymposium.org/popets/2020/popets-2020-0017.php
+
+Yang Z and Yue C. (2020). A Comparative Measurement Study of Web Tracking on Mobile and Desktop Environments. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0016. 2020:2. (24-44). Online publication date: 1-Apr-2020.. Online publication date: 1-Apr-2020.
+https://www.sciendo.com/article/10.2478/popets-2020-0016
+
+Mazhar M and Shafiq Z. (2020). Characterizing Smart Home IoT Traffic in the Wild 2020 IEEE/ACM Fifth International Conference on Internet-of-Things Design and Implementation (IoTDI). 10.1109/IoTDI49375.2020.00027. 978-1-7281-6602-5. (203-215).
+https://ieeexplore.ieee.org/document/9097598/
+
+Bortolameotti R, van Ede T, Continella A, Hupperich T, Everts M, Rafati R, Jonker W, Hartel P and Peter A. HeadPrint. Proceedings of the 35th Annual ACM Symposium on Applied Computing. (1696-1705).
+https://doi.org/10.1145/3341105.3373862
+
+Zimmerman S, Thorpe A, Chamberlain J and Kruschwitz U. Towards Search Strategies for Better Privacy and Information. Proceedings of the 2020 Conference on Human Information Interaction and Retrieval. (124-134).
+https://doi.org/10.1145/3343413.3377958
+
+Mellet K and Beauvisage T. (2019). Cookie monsters. Anatomy of a digital market infrastructure. Consumption Markets & Culture. 10.1080/10253866.2019.1661246. 23:2. (110-129). Online publication date: 3-Mar-2020.
+https://www.tandfonline.com/doi/full/10.1080/10253866.2019.1661246
+
+Amarasekara B, Mathrani A and Scogings C. (2020). Crookies. Encyclopedia of Criminal Activities and the Deep Web. 10.4018/978-1-5225-9715-5.ch073. (1062-1076).
+http://services.igi-global.com/resolvedoi/resolve.aspx?doi=10.4018/978-1-5225-9715-5.ch073
+
+Namara M, Wilkinson D, Caine K and Knijnenburg B. (2020). Emotional and Practical Considerations Towards the Adoption and Abandonment of VPNs as a Privacy-Enhancing Technology. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0006. 2020:1. (83-102). Online publication date: 1-Jan-2020.. Online publication date: 1-Jan-2020.
+https://www.sciendo.com/article/10.2478/popets-2020-0006
+
+Cook J, Nithyanand R and Shafiq Z. (2020). Inferring Tracker-Advertiser Relationships in the Online Advertising Ecosystem using Header Bidding. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2020-0005. 2020:1. (65-82). Online publication date: 1-Jan-2020.. Online publication date: 1-Jan-2020.
+https://petsymposium.org/popets/2020/popets-2020-0005.php
+
+Wei C, Gu Q, Ji S, Chen W, Wang Z and Beyah R. OB-WSPES: A Uniform Evaluation System for Obfuscation-based Web Search Privacy. IEEE Transactions on Dependable and Secure Computing. 10.1109/TDSC.2019.2962440. (1-1).
+https://ieeexplore.ieee.org/document/8943281/
+
+Amarasekara B, Mathrani A and Scogings C. (2020). Improving the Robustness of the Cross-Domain Tracking Process. Intelligent Information and Database Systems. 10.1007/978-981-15-3380-8_23. (260-270).
+http://link.springer.com/10.1007/978-981-15-3380-8_23
+
+Gabryel M and Przybyszewski K. (2020). Methods of Searching for Similar Device Fingerprints Using Changes in Unstable Parameters. Artificial Intelligence and Soft Computing. 10.1007/978-3-030-61534-5_29. (325-335).
+http://link.springer.com/10.1007/978-3-030-61534-5_29
+
+Lieber S, De Meester B, Verborgh R and Dimou A. (2020). EcoDaLo: Federating Advertisement Targeting with Linked Data. Semantic Systems. In the Era of Knowledge Graphs. 10.1007/978-3-030-59833-4_6. (87-103).
+http://link.springer.com/10.1007/978-3-030-59833-4_6
+
+Amin Azad B, Starov O, Laperdrix P and Nikiforakis N. (2020). Web Runner 2049: Evaluating Third-Party Anti-bot Services. Detection of Intrusions and Malware, and Vulnerability Assessment. 10.1007/978-3-030-52683-2_7. (135-159).
+http://link.springer.com/10.1007/978-3-030-52683-2_7
+
+Pouryousef S, Dar M, Ahmad S, Gill P and Nithyanand R. (2020). Extortion or Expansion? An Investigation into the Costs and Consequences of ICANN’s gTLD Experiments. Passive and Active Measurement. 10.1007/978-3-030-44081-7_9. (141-157).
+http://link.springer.com/10.1007/978-3-030-44081-7_9
+
+Chatzimpyrros M, Solomos K and Ioannidis S. (2020). You Shall Not Register! Detecting Privacy Leaks Across Registration Forms. Computer Security. 10.1007/978-3-030-42051-2_7. (91-104).
+http://link.springer.com/10.1007/978-3-030-42051-2_7
+
+Hespe D, Schulz C and Strash D. (2019). Scalable Kernelization for Maximum Independent Sets. ACM Journal of Experimental Algorithmics. 24. (1-22). Online publication date: 17-Dec-2019.
+https://doi.org/10.1145/3355502
+
+Heuer T, Sanders P and Schlag S. (2019). Network Flow-Based Refinement for Multilevel Hypergraph Partitioning. ACM Journal of Experimental Algorithmics. 24. (1-36). Online publication date: 17-Dec-2019.
+https://doi.org/10.1145/3329872
+
+Björklund A, Gupt B and Quesada N. (2019). A Faster Hafnian Formula for Complex Matrices and Its Benchmarking on a Supercomputer. ACM Journal of Experimental Algorithmics. 24. (1-17). Online publication date: 17-Dec-2019.
+https://doi.org/10.1145/3325111
+
+Chimani M, Hedtke I and Wiedera T. (2019). Exact Algorithms for the Maximum Planar Subgraph Problem. ACM Journal of Experimental Algorithmics. 24. (1-21). Online publication date: 17-Dec-2019.
+https://doi.org/10.1145/3320344
+
+Cantone D, Faro S and Pavone A. (2019). Linear and Efficient String Matching Algorithms Based on Weak Factor Recognition. ACM Journal of Experimental Algorithmics. 24. (1-20). Online publication date: 17-Dec-2019.
+https://doi.org/10.1145/3301295
+
+Beyer S and Chimani M. (2019). Strong Steiner Tree Approximations in Practice. ACM Journal of Experimental Algorithmics. 24. (1-33). Online publication date: 17-Dec-2019.
+https://doi.org/10.1145/3299903
+
+D'angelo G, D'emidio M and Frigioni D. (2019). Fully Dynamic 2-Hop Cover Labeling. ACM Journal of Experimental Algorithmics. 24. (1-36). Online publication date: 17-Dec-2019.
+https://doi.org/10.1145/3299901
+
+Sanchez-Rola I, Balzarotti D and Santos I. BakingTimer. Proceedings of the 35th Annual Computer Security Applications Conference. (478-488).
+https://doi.org/10.1145/3359789.3359803
+
+Urban T, Degeling M, Holz T and Pohlmann N. "Your hashed IP address: Ubuntu.". Proceedings of the 35th Annual Computer Security Applications Conference. (702-717).
+https://doi.org/10.1145/3359789.3359798
+
+Saverimoutou A, Mathieu B and Vaton S. (2019). A 6-month analysis of factors impacting web browsing quality for QoE prediction. Computer Networks: The International Journal of Computer and Telecommunications Networking. 164:C. Online publication date: 9-Dec-2019.
+https://doi.org/10.1016/j.comnet.2019.106905
+
+Rao A and Pfeffer J. (2019). Data Siphoning Across Borders: The Role of Internet Tracking 2019 First IEEE International Conference on Trust, Privacy and Security in Intelligent Systems and Applications (TPS-ISA). 10.1109/TPS-ISA48467.2019.00028. 978-1-7281-6741-1. (168-176).
+https://ieeexplore.ieee.org/document/9014362/
+
+Gómez-Boix A, Frey D, Bromberg Y and Baudry B. A Collaborative Strategy for Mitigating Tracking through Browser Fingerprinting. Proceedings of the 6th ACM Workshop on Moving Target Defense. (67-78).
+https://doi.org/10.1145/3338468.3356828
+
+Mathur A, Acar G, Friedman M, Lucherini E, Mayer J, Chetty M and Narayanan A. (2019). Dark Patterns at Scale. Proceedings of the ACM on Human-Computer Interaction. 3:CSCW. (1-32). Online publication date: 7-Nov-2019.
+https://doi.org/10.1145/3359183
+
+Weinshel B, Wei M, Mondal M, Choi E, Shan S, Dolin C, Mazurek M and Ur B. Oh, the Places You've Been! User Reactions to Longitudinal Transparency About Third-Party Web Tracking and Inferencing. Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security. (149-166).
+https://doi.org/10.1145/3319535.3363200
+
+Mohajeri Moghaddam H, Acar G, Burgess B, Mathur A, Huang D, Feamster N, Felten E, Mittal P and Narayanan A. Watching You Watch. Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security. (131-147).
+https://doi.org/10.1145/3319535.3354198
+
+Boutet A and Gambs S. Inspect What Your Location History Reveals About You. Proceedings of the 28th ACM International Conference on Information and Knowledge Management. (2861-2864).
+https://doi.org/10.1145/3357384.3357837
+
+Estrada-Jimenez J, Rodriguez-Hoyos A, Parra-Arnau J and Forne J. (2019). Measuring Online Tracking and Privacy Risks on Ecuadorian Websites 2019 IEEE Fourth Ecuador Technical Chapters Meeting (ETCM). 10.1109/ETCM48019.2019.9014888. 978-1-7281-3764-3. (1-6).
+https://ieeexplore.ieee.org/document/9014888/
+
+Jueckstock J and Kapravelos A. VisibleV8. Proceedings of the Internet Measurement Conference. (393-405).
+https://doi.org/10.1145/3355369.3355599
+
+Vallina P, Feal Á, Gamba J, Vallina-Rodriguez N and Anta A. Tales from the Porn. Proceedings of the Internet Measurement Conference. (245-258).
+https://doi.org/10.1145/3355369.3355583
+
+Hashmi S, Ikram M and Kaafar M. (2019). A Longitudinal Analysis of Online Ad-Blocking Blacklists 2019 IEEE 44th LCN Symposium on Emerging Topics in Networking (LCN Symposium). 10.1109/LCNSymposium47956.2019.9000671. 978-1-7281-2561-9. (158-165).
+https://ieeexplore.ieee.org/document/9000671/
+
+Jakobi T, Stevens G, Seufert A and Becker M. Webtracking under the New Data Protection Law. Proceedings of Mensch und Computer 2019. (309-319).
+https://doi.org/10.1145/3340764.3340790
+
+Mueller T, Klotzsche D, Herrmann D and Federrath H. (2019). Dangers and Prevalence of Unprotected Web Fonts 2019 International Conference on Software, Telecommunications and Computer Networks (SoftCOM). 10.23919/SOFTCOM.2019.8903683. 978-953-290-088-0. (1-5).
+https://ieeexplore.ieee.org/document/8903683/
+
+Trickel E, Starov O, Kapravelos A, Nikiforakis N and Doupé A. Everyone is different. Proceedings of the 28th USENIX Conference on Security Symposium. (1679-1696).
+/doi/10.5555/3361338.3361455
+
+Wu S, Li S, Cao Y and Wang N. Rendered private. Proceedings of the 28th USENIX Conference on Security Symposium. (1645-1660).
+/doi/10.5555/3361338.3361453
+
+Staicu C and Pradel M. Leaky images. Proceedings of the 28th USENIX Conference on Security Symposium. (923-939).
+/doi/10.5555/3361338.3361403
+
+Zimmerman S, Thorpe A, Fox C and Kruschwitz U. Investigating the Interplay Between Searchers' Privacy Concerns and Their Search Behavior. Proceedings of the 42nd International ACM SIGIR Conference on Research and Development in Information Retrieval. (953-956).
+https://doi.org/10.1145/3331184.3331280
+
+Sanchez-Rola I, Dell'Amico M, Kotzias P, Balzarotti D, Bilge L, Vervier P and Santos I. Can I Opt Out Yet?. Proceedings of the 2019 ACM Asia Conference on Computer and Communications Security. (340-351).
+https://doi.org/10.1145/3321705.3329806
+
+Sy E, Burkert C, Federrath H and Fischer M. (2019). A QUIC Look at Web Tracking. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2019-0046. 2019:3. (255-266). Online publication date: 1-Jul-2019.. Online publication date: 1-Jul-2019.
+https://petsymposium.org/popets/2019/popets-2019-0046.php
+
+Libert T and Binns R. Good News for People Who Love Bad News. Proceedings of the 10th ACM Conference on Web Science. (155-164).
+https://doi.org/10.1145/3292522.3326019
+
+Urban T, Tatang D, Holz T and Pohlmann N. Analyzing leakage of personal information by malware. Journal of Computer Security. 10.3233/JCS-191287. (1-24).
+https://www.medra.org/servlet/aliasResolver?alias=iospress&doi=10.3233/JCS-191287
+
+Saverimoutou A, Mathieu B and Vaton S. (2019). Influence of Internet Protocols and CDN on Web Browsing 2019 10th IFIP International Conference on New Technologies, Mobility and Security (NTMS). 10.1109/NTMS.2019.8763827. 978-1-7281-1542-9. (1-5).
+https://ieeexplore.ieee.org/document/8763827/
+
+Ferreira R and Aguiar R. (2019). Repositioning privacy concerns. Journal of Information Security and Applications. 46:C. (121-137). Online publication date: 1-Jun-2019.
+https://doi.org/10.1016/j.jisa.2019.03.010
+
+Datta A, Lu J and Tschantz M. Evaluating Anti-Fingerprinting Privacy Enhancing Technologies. The World Wide Web Conference. (351-362).
+https://doi.org/10.1145/3308558.3313703
+
+Le H, Maragh R, Ekdale B, High A, Havens T and Shafiq Z. Measuring Political Personalization of Google News Search. The World Wide Web Conference. (2957-2963).
+https://doi.org/10.1145/3308558.3313682
+
+Rochet F, Efthymiadis K, Koeune F and Pereira O. SWAT: Seamless Web Authentication Technology. The World Wide Web Conference. (1579-1589).
+https://doi.org/10.1145/3308558.3313637
+
+Ghasemisharif M, Snyder P, Aucinas A and Livshits B. SpeedReader: Reader Mode Made Fast and Private. The World Wide Web Conference. (526-537).
+https://doi.org/10.1145/3308558.3313596
+
+Papadopoulos P, Kourtellis N and Markatos E. Cookie Synchronization: Everything You Always Wanted to Know But Were Afraid to Ask. The World Wide Web Conference. (1432-1442).
+https://doi.org/10.1145/3308558.3313542
+
+Marcantoni F, Diamantaris M, Ioannidis S and Polakis J. A Large-scale Study on the Risks of the HTML5 WebAPI for Mobile Sensor-based Attacks. The World Wide Web Conference. (3063-3071).
+https://doi.org/10.1145/3308558.3313539
+
+Sørensen J and Kosta S. Before and After GDPR: The Changes in Third Party Presence at Public and Private European Websites. The World Wide Web Conference. (1590-1600).
+https://doi.org/10.1145/3308558.3313524
+
+Sakamoto T and Matsunaga M. (2019). After GDPR, Still Tracking or Not? Understanding Opt-Out States for Online Behavioral Advertising 2019 IEEE Security and Privacy Workshops (SPW). 10.1109/SPW.2019.00027. 978-1-7281-3508-3. (92-99).
+https://ieeexplore.ieee.org/document/8844599/
+
+Some D. (2019). EmPoWeb: Empowering Web Applications with Browser Extensions 2019 IEEE Symposium on Security and Privacy (SP). 10.1109/SP.2019.00058. 978-1-5386-6660-9. (227-245).
+https://ieeexplore.ieee.org/document/8835286/
+
+Calzavara S, Focardi R, Nemec M, Rabitti A and Squarcina M. (2019). Postcards from the Post-HTTP World: Amplification of HTTPS Vulnerabilities in the Web Ecosystem 2019 IEEE Symposium on Security and Privacy (SP). 10.1109/SP.2019.00053. 978-1-5386-6660-9. (281-298).
+https://ieeexplore.ieee.org/document/8835223/
+
+Dauterman E, Corrigan-Gibbs H, Mazieres D, Boneh D and Rizzo D. (2019). True2F: Backdoor-Resistant Authentication Tokens 2019 IEEE Symposium on Security and Privacy (SP). 10.1109/SP.2019.00048. 978-1-5386-6660-9. (398-416).
+https://ieeexplore.ieee.org/document/8835225/
+
+Hu H, Peng P and Wang G. (2019). Characterizing Pixel Tracking through the Lens of Disposable Email Services 2019 IEEE Symposium on Security and Privacy (SP). 10.1109/SP.2019.00033. 978-1-5386-6660-9. (365-379).
+https://ieeexplore.ieee.org/document/8835374/
+
+Zhang C, Li C, Zhao Y, Huang N and Zhang B. (2019). Cross-Platform Measurement on Ad Exchanges 2019 IEEE International Conference on Consumer Electronics - Taiwan (ICCE-TW). 10.1109/ICCE-TW46550.2019.8991685. 978-1-7281-3279-2. (1-2).
+https://ieeexplore.ieee.org/document/8991685/
+
+Mazel J, Garnier R and Fukuda K. (2019). A comparison of web privacy protection techniques. Computer Communications. 10.1016/j.comcom.2019.04.005. Online publication date: 1-May-2019.
+https://linkinghub.elsevier.com/retrieve/pii/S0140366418300604
+
+Trevisan M, Traverso S, Bassi E and Mellia M. (2019). 4 Years of EU Cookie Law: Results and Lessons Learned. Proceedings on Privacy Enhancing Technologies. 10.2478/popets-2019-0023. 2019:2. (126-145). Online publication date: 1-Apr-2019.. Online publication date: 1-Apr-2019.
+https://www.sciendo.com/article/10.2478/popets-2019-0023
+
+Dabrowski A, Merzdovnik G, Ullrich J, Sendera G and Weippl E. Measuring Cookies and Web Privacy in a Post-GDPR World. Passive and Active Measurement. (258-270).
+https://doi.org/10.1007/978-3-030-15986-3_17
+
+Zimmerman S, Thorpe A, Fox C and Kruschwitz U. Privacy Nudging in Search. Proceedings of the 2019 Conference on Human Information Interaction and Retrieval. (283-287).
+https://doi.org/10.1145/3295750.3298952
+
+Saverimoutou A, Mathieu B and Vaton S. (2019). Web View: Measuring & Monitoring Representative Information on Websites 2019 22nd Conference on Innovation in Clouds, Internet and Networks and Workshops (ICIN). 10.1109/ICIN.2019.8685876. 978-1-5386-8336-1. (133-138).
+https://ieeexplore.ieee.org/document/8685876/
+
+Beigi G, Guo R, Nou A, Zhang Y and Liu H. Protecting User Privacy. Proceedings of the Twelfth ACM International Conference on Web Search and Data Mining. (213-221).
+https://doi.org/10.1145/3289600.3291026
+
+Gil C and Parra-Arnau J. (2019). An Adversarial-Risk-Analysis Approach to Counterterrorist Online Surveillance. Sensors. 10.3390/s19030480. 19:3. (480).
+https://www.mdpi.com/1424-8220/19/3/480
+
+Woensdregt J, Al-Khateeb H, Epiphaniou G and Jahankhani H. (2019). AdPExT: Designing a Tool to Assess Information Gleaned from Browsers by Online Advertising Platforms 2019 IEEE 12th International Conference on Global Security, Safety and Sustainability (ICGS3). 10.1109/ICGS3.2019.8688328. 978-1-5386-7001-9. (204-212).
+https://ieeexplore.ieee.org/document/8688328/
+
+Saito T, Noda T, Hosoya R, Tanabe K and Saito Y. (2019). On Estimating Platforms of Web User with JavaScript Math Object. Advances in Network-Based Information Systems. 10.1007/978-3-319-98530-5_34. (407-418).
+http://link.springer.com/10.1007/978-3-319-98530-5_34
+
+Zhao R, Chow E and Li C. (2019). Traffic-Based Automatic Detection of Browser Fingerprinting. Security and Privacy in Communication Networks. 10.1007/978-3-030-37228-6_18. (365-385).
+http://link.springer.com/10.1007/978-3-030-37228-6_18
+
+Hiremath P, Armentrout J, Vu S, Nguyen T, Minh Q and Phung P. (2019). MyWebGuard: Toward a User-Oriented Tool for Security and Privacy Protection on the Web. Future Data and Security Engineering. 10.1007/978-3-030-35653-8_33. (506-525).
+http://link.springer.com/10.1007/978-3-030-35653-8_33
+
+Wiefling S, Gruschka N and Lo Iacono L. (2019). Even Turing Should Sometimes Not Be Able to Tell: Mimicking Humanoid Usage Behavior for Exploratory Studies of Online Services. Secure IT Systems. 10.1007/978-3-030-35055-0_12. (188-203).
+http://link.springer.com/10.1007/978-3-030-35055-0_12
+
+Ali S, Osman T, Mannan M and Youssef A. (2019). On Privacy Risks of Public WiFi Captive Portals. Data Privacy Management, Cryptocurrencies and Blockchain Technology. 10.1007/978-3-030-31500-9_6. (80-98).
+http://link.springer.com/10.1007/978-3-030-31500-9_6
+
+Urban T, Tatang D, Degeling M, Holz T and Pohlmann N. (2019). A Study on Subject Data Access in Online Advertising After the GDPR. Data Privacy Management, Cryptocurrencies and Blockchain Technology. 10.1007/978-3-030-31500-9_5. (61-79).
+http://link.springer.com/10.1007/978-3-030-31500-9_5
+
+Rweyemamu W, Lauinger T, Wilson C, Robertson W and Kirda E. (2019). Getting Under Alexa’s Umbrella: Infiltration Attacks Against Internet Top Domain Lists. Information Security. 10.1007/978-3-030-30215-3_13. (255-276).
+http://link.springer.com/10.1007/978-3-030-30215-3_13
+
+Jonker H, Krumnow B and Vlot G. (2019). Fingerprint Surface-Based Detection of Web Bot Detectors. Computer Security – ESORICS 2019. 10.1007/978-3-030-29962-0_28. (586-605).
+http://link.springer.com/10.1007/978-3-030-29962-0_28
+
+Cagnazzo M, Holz T and Pohlmann N. (2019). GDPiRated – Stealing Personal Information On- and Offline. Computer Security – ESORICS 2019. 10.1007/978-3-030-29962-0_18. (367-386).
+http://link.springer.com/10.1007/978-3-030-29962-0_18
+
+Laperdrix P, Avoine G, Baudry B and Nikiforakis N. (2019). Morellian Analysis for Browsers: Making Web Authentication Stronger with Canvas Fingerprinting. Detection of Intrusions and Malware, and Vulnerability Assessment. 10.1007/978-3-030-22038-9_3. (43-66).
+http://link.springer.com/10.1007/978-3-030-22038-9_3
+
+Maass M, Schwär S and Hollick M. (2019). Towards Transparency in Email Tracking. Privacy Technologies and Policy. 10.1007/978-3-030-21752-5_2. (18-27).
+http://link.springer.com/10.1007/978-3-030-21752-5_2
+
+Raschke P, Zickau S, Kröger J and Küpper A. (2019). Towards Real-Time Web Tracking Detection with T.EX - The Transparency EXtension. Privacy Technologies and Policy. 10.1007/978-3-030-21752-5_1. (3-17).
+http://link.springer.com/10.1007/978-3-030-21752-5_1
+
+Gomes H, Zúquete A, Dias G and Marques F. (2019). Usage of HTTPS by Municipal Websites in Portugal. Dynamic Programming for Impulse Feedback and Fast Controls. 10.1007/978-3-030-16184-2_16. (155-164).
+http://link.springer.com/10.1007/978-3-030-16184-2_16
+
+Rweyemamu W, Lauinger T, Wilson C, Robertson W and Kirda E. (2019). Clustering and the Weekend Effect: Recommendations for the Use of Top Domain Lists in Security Research. Passive and Active Measurement. 10.1007/978-3-030-15986-3_11. (161-177).
+https://link.springer.com/10.1007/978-3-030-15986-3_11
+
+Cozza V, Hoang V, Petrocchi M and De Nicola R. (2019). Transparency in Keyword Faceted Search: An Investigation on Google Shopping. Digital Libraries: Supporting Open Science. 10.1007/978-3-030-11226-4_3. (29-43).
+http://link.springer.com/10.1007/978-3-030-11226-4_3
+
+Tanabe K, Hosoya R and Saito T. (2019). Combining Features in Browser Fingerprinting. Advances on Broadband and Wireless Computing, Communication and Applications. 10.1007/978-3-030-02613-4_60. (671-681).
+http://link.springer.com/10.1007/978-3-030-02613-4_60
+
+Rodriguez J and Posegga J. RAPID. Proceedings of the 34th Annual Computer Security Applications Conference. (313-326).
+https://doi.org/10.1145/3274694.3274735
+
+Sy E, Burkert C, Federrath H and Fischer M. Tracking Users across the Web via TLS Session Resumption. Proceedings of the 34th Annual Computer Security Applications Conference. (289-299).
+https://doi.org/10.1145/3274694.3274708
+
+Van Acker S, Hausknecht D and Sabelfeld A. Raising the Bar. Proceedings of the 34th Annual Computer Security Applications Conference. (342-354).
+https://doi.org/10.1145/3274694.3274701
+
+Binns R, Zhao J, Kleek M and Shadbolt N. (2018). Measuring Third-party Tracker Power across Web and Mobile. ACM Transactions on Internet Technology. 18:4. (1-22). Online publication date: 30-Nov-2018.
+https://doi.org/10.1145/3176246
+
+Yang Z and Chen W. (2018). A Game Theoretic Model for the Formation of Navigable Small-World Networks—The Tradeoff between Distance and Reciprocity. ACM Transactions on Internet Technology. 18:4. (1-38). Online publication date: 19-Nov-2018.
+https://doi.org/10.1145/3183325
+
+Achara J, Parra-Arnau J and Castelluccia C. (2018). Fine-Grained Control over Tracking to Support the Ad-Based Web Economy. ACM Transactions on Internet Technology. 18:4. (1-25). Online publication date: 19-Nov-2018.
+https://doi.org/10.1145/3158372
+
+Dao H, Mazel J and Fukuda K. Understanding abusive web resources. Proceedings of the 14th Asian Internet Engineering Conference. (54-61).
+https://doi.org/10.1145/3289166.3289174
+
+Prantl D and Prantl M. (2018). Website traffic measurement and rankings: competitive intelligence tools examination. International Journal of Web Information Systems. 10.1108/IJWIS-01-2018-0001. 14:4. (423-437). Online publication date: 5-Nov-2018.
+https://www.emerald.com/insight/content/doi/10.1108/IJWIS-01-2018-0001/full/html
+
+Bashir M, Arshad S, Kirda E, Robertson W and Wilson C. How Tracking Companies Circumvented Ad Blockers Using WebSockets. Proceedings of the Internet Measurement Conference 2018. (471-477).
+https://doi.org/10.1145/3278532.3278573
+
+Tian K, Jan S, Hu H, Yao D and Wang G. Needle in a Haystack. Proceedings of the Internet Measurement Conference 2018. (429-442).
+https://doi.org/10.1145/3278532.3278569
+
+Gulyas G, Some D, Bielova N and Castelluccia C. To Extend or not to Extend. Proceedings of the 2018 Workshop on Privacy in the Electronic Society. (14-27).
+https://doi.org/10.1145/3267323.3268959
+
+Degeling M and Nierhoff J. Tracking and Tricking a Profiler. Proceedings of the 2018 Workshop on Privacy in the Electronic Society. (1-13).
+https://doi.org/10.1145/3267323.3268955
+
+Ruohonen J and Leppänen V. Invisible Pixels Are Dead, Long Live Invisible Pixels!. Proceedings of the 2018 Workshop on Privacy in the Electronic Society. (28-32).
+https://doi.org/10.1145/3267323.3268950
+
+Das A, Acar G, Borisov N and Pradeep A. The Web's Sixth Sense. Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security. (1515-1532).
+https://doi.org/10.1145/3243734.3243860
+
+Sanchez-Rola I, Santos I and Balzarotti D. Clock Around the Clock. Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security. (1502-1514).
+https://doi.org/10.1145/3243734.3243796
+
+Goldfeder S, Kalodner H, Reisman D and Narayanan A. (2018). When the cookie meets the blockchain: Privacy risks of web payments via cryptocurrencies. Proceedings on Privacy Enhancing Technologies. 10.1515/popets-2018-0038. 2018:4. (179-199). Online publication date: 1-Oct-2018.. Online publication date: 1-Oct-2018.
+https://petsymposium.org/popets/2018/popets-2018-0038.php
+
+Bashir M and Wilson C. (2018). Diffusion of User Tracking Data in the Online Advertising Ecosystem. Proceedings on Privacy Enhancing Technologies. 10.1515/popets-2018-0033. 2018:4. (85-103). Online publication date: 1-Oct-2018.. Online publication date: 1-Oct-2018.
+https://petsymposium.org/popets/2018/popets-2018-0033.php
+
+Murillo M. A Two-Factor Authorization Approach for Increasing the Resiliency of IoT-Based Autonomous Consumer-Oriented Systems. IEEE Internet of Things Journal. 10.1109/JIOT.2018.2873653. 5:5. (4132-4141).
+https://ieeexplore.ieee.org/document/8480630/
+
+Singh H and Bawa S. (2018). Scalable Metadata Management Techniques for Ultra-Large Distributed Storage Systems -- A Systematic Review. ACM Computing Surveys. 51:4. (1-37). Online publication date: 6-Sep-2018.
+https://doi.org/10.1145/3212686
+
+Mathur A, Vitak J, Narayanan A and Chetty M. Characterizing the use of browser-based blocking extensions to prevent online tracking. Proceedings of the Fourteenth USENIX Conference on Usable Privacy and Security. (103-116).
+/doi/10.5555/3291228.3291237
+
+Banerjee A, Naumann D and Nikouei M. (2018). A Logical Analysis of Framing for Specifications with Pure Method Calls. ACM Transactions on Programming Languages and Systems. 40:2. (1-90). Online publication date: 30-Jun-2018.
+https://doi.org/10.1145/3174801
+
+Wullink M, Moura G and Hesselman C. (2018). Dmap: Automating Domain Name Ecosystem Measurements and Applications 2018 Network Traffic Measurement and Analysis Conference (TMA). 10.23919/TMA.2018.8506521. 978-3-903176-09-6. (1-8).
+https://ieeexplore.ieee.org/document/8506521/
+
+Jia Z, Cui X, Liu Q, Wang X and Liu C. (2018). Micro-Honeypot: Using Browser Fingerprinting to Track Attackers 2018 IEEE Third International Conference on Data Science in Cyberspace (DSC). 10.1109/DSC.2018.00036. 978-1-5386-4210-8. (197-204).
+https://ieeexplore.ieee.org/document/8411857/
+
+Binns R, Lyngs U, Van Kleek M, Zhao J, Libert T and Shadbolt N. Third Party Tracking in the Mobile Ecosystem. Proceedings of the 10th ACM Conference on Web Science. (23-31).
+https://doi.org/10.1145/3201064.3201089
+
+Vastel A, Laperdrix P, Rudametkin W and Rouvoy R. (2018). FP-STALKER: Tracking Browser Fingerprint Evolutions 2018 IEEE Symposium on Security and Privacy (SP). 10.1109/SP.2018.00008. 978-1-5386-4353-2. (728-741).
+https://ieeexplore.ieee.org/document/8418634/
+
+Papadopoulos P, Kourtellis N and Markatos E. Exclusive. Proceedings of the 11th European Workshop on Systems Security. (1-6).
+https://doi.org/10.1145/3193111.3193117
+
+Dolin C, Weinshel B, Shan S, Hahn C, Choi E, Mazurek M and Ur B. Unpacking Perceptions of Data-Driven Inferences Underlying Online Targeting and Personalization. Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems. (1-12).
+https://doi.org/10.1145/3173574.3174067
+
+Gómez-Boix A, Laperdrix P and Baudry B. Hiding in the Crowd. Proceedings of the 2018 World Wide Web Conference. (309-318).
+https://doi.org/10.1145/3178876.3186097
+
+Wu Y, Gupta P, Wei M, Acar Y, Fahl S and Ur B. Your Secrets Are Safe. Proceedings of the 2018 World Wide Web Conference. (217-226).
+https://doi.org/10.1145/3178876.3186088
+
+Libert T. An Automated Approach to Auditing Disclosure of Third-Party Data Collection in Website Privacy Policies. Proceedings of the 2018 World Wide Web Conference. (207-216).
+https://doi.org/10.1145/3178876.3186087
+
+Papadopoulos P, Kourtellis N and Markatos E. The Cost of Digital Advertisement. Proceedings of the 2018 World Wide Web Conference. (1479-1489).
+https://doi.org/10.1145/3178876.3186060
+
+Xu H, Hao S, Sari A and Wang H. (2018). Privacy Risk Assessment on Email Tracking IEEE INFOCOM 2018 - IEEE Conference on Computer Communications. 10.1109/INFOCOM.2018.8486432. 978-1-5386-4128-6. (2519-2527).
+https://ieeexplore.ieee.org/document/8486432/
+
+Vastel A, Rudametkin W and Rouvoy R. (2018). FP -TESTER : Automated Testing of Browser Fingerprint Resilience 2018 3rd IEEE European Symposium on Security and Privacy Workshops (EuroS&PW). 10.1109/EuroSPW.2018.00020. 978-1-5386-5445-3. (103-107).
+https://ieeexplore.ieee.org/document/8406567/
+
+Aggarwal A, Viswanath B, Zhang L, Kumar S, Shah A and Kumaraguru P. (2018). I Spy with My Little Eye: Analysis and Detection of Spying Browser Extensions 2018 IEEE European Symposium on Security and Privacy (EuroS&P). 10.1109/EuroSP.2018.00012. 978-1-5386-4228-3. (47-61).
+https://ieeexplore.ieee.org/document/8406590/
+
+Korolova A and Sharma V. Cross-App Tracking via Nearby Bluetooth Low Energy Devices. Proceedings of the Eighth ACM Conference on Data and Application Security and Privacy. (43-52).
+https://doi.org/10.1145/3176258.3176313
+
+Englehardt S, Han J and Narayanan A. (2018). I never signed up for this! Privacy implications of email tracking. Proceedings on Privacy Enhancing Technologies. 10.1515/popets-2018-0006. 2018:1. (109-126). Online publication date: 1-Jan-2018.. Online publication date: 1-Jan-2018.
+https://www.sciendo.com/article/10.1515/popets-2018-0006
+
+Inala J and Singh R. (2017). WebRelate: integrating web data with spreadsheets using examples. Proceedings of the ACM on Programming Languages. 2:POPL. (1-28). Online publication date: 1-Jan-2018.
+https://doi.org/10.1145/3158090
+
+Miltner A, Fisher K, Pierce B, Walker D and Zdancewic S. (2017). Synthesizing bijective lenses. Proceedings of the ACM on Programming Languages. 2:POPL. (1-30). Online publication date: 1-Jan-2018.
+https://doi.org/10.1145/3158089
+
+Al-Fannah N, Li W and Mitchell C. (2018). Beyond Cookie Monster Amnesia: Real World Persistent Online Tracking. Developments in Language Theory. 10.1007/978-3-319-99136-8_26. (481-501).
+http://link.springer.com/10.1007/978-3-319-99136-8_26
+
+Urban T, Tatang D, Holz T and Pohlmann N. (2018). Towards Understanding Privacy Implications of Adware and Potentially Unwanted Programs. Computer Security. 10.1007/978-3-319-99073-6_22. (449-469).
+https://link.springer.com/10.1007/978-3-319-99073-6_22
+
+Hazhirpasand M and Ghafari M. (2018). One Leak Is Enough to Expose Them All. Engineering Secure Software and Systems. 10.1007/978-3-319-94496-8_5. (61-76).
+http://link.springer.com/10.1007/978-3-319-94496-8_5
+
+Le Pochat V, Van Goethem T and Joosen W. (2018). Idea: Visual Analytics for Web Security. Engineering Secure Software and Systems. 10.1007/978-3-319-94496-8_10. (124-132).
+http://link.springer.com/10.1007/978-3-319-94496-8_10
+
+Sanchez-Rola I and Santos I. (2018). Knockin’ on Trackers’ Door: Large-Scale Automatic Analysis of Web Tracking. Detection of Intrusions and Malware, and Vulnerability Assessment. 10.1007/978-3-319-93411-2_13. (281-302).
+http://link.springer.com/10.1007/978-3-319-93411-2_13
+
+Robison W. (2018). Digitizing Privacy. Core Concepts and Contemporary Issues in Privacy. 10.1007/978-3-319-74639-5_13. (189-204).
+http://link.springer.com/10.1007/978-3-319-74639-5_13
+
+Tian K, Li Z, Bowers K and Yao D. (2018). FrameHanger: Evaluating and Classifying Iframe Injection at Large Scale. Security and Privacy in Communication Networks. 10.1007/978-3-030-01704-0_17. (311-331).
+http://link.springer.com/10.1007/978-3-030-01704-0_17
+
+Bauer M, Glenn T, Monteith S, Bauer R, Whybrow P and Geddes J. (2017). Ethical perspectives on recommending digital technology for patients with mental illness. International Journal of Bipolar Disorders. 10.1186/s40345-017-0073-9. 5:1. Online publication date: 1-Dec-2017.
+http://journalbipolardisorders.springeropen.com/articles/10.1186/s40345-017-0073-9
+
+Javaid H, Khalil H, Uzmi Z and Qazi I. Online Advertising under Internet Censorship. Proceedings of the 16th ACM Workshop on Hot Topics in Networks. (8-14).
+https://doi.org/10.1145/3152434.3152455
+
+Papadopoulos P, Kourtellis N, Rodriguez P and Laoutaris N. If you are not paying for it, you are the product. Proceedings of the 2017 Internet Measurement Conference. (142-156).
+https://doi.org/10.1145/3131365.3131397
+
+Iqbal U, Shafiq Z and Qian Z. The ad wars. Proceedings of the 2017 Internet Measurement Conference. (171-183).
+https://doi.org/10.1145/3131365.3131387
+
+Kasper G, de Siqueira Braga D, Martins D and Hellingrath B. (2017). User profile acquisition: A comprehensive framework to support personal information agents 2017 IEEE Latin American Conference on Computational Intelligence (LA-CCI). 10.1109/LA-CCI.2017.8285719. 978-1-5386-3734-0. (1-6).
+http://ieeexplore.ieee.org/document/8285719/
+
+Bielova N. Web Tracking Technologies and Protection Mechanisms. Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security. (2607-2609).
+https://doi.org/10.1145/3133956.3136067
+
+Snyder P, Taylor C and Kanich C. Most Websites Don't Need to Vibrate. Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security. (179-194).
+https://doi.org/10.1145/3133956.3133966
+
+Corner M, Levine B, Ismail O and Upreti A. Advertising-based Measurement. Proceedings of the 23rd Annual International Conference on Mobile Computing and Networking. (435-447).
+https://doi.org/10.1145/3117811.3117844
+
+Al-Fannah N. (2017). One leak will sink a ship: WebRTC IP address leaks 2017 International Carnahan Conference on Security Technology (ICCST). 10.1109/CCST.2017.8167801. 978-1-5386-1585-0. (1-5).
+http://ieeexplore.ieee.org/document/8167801/
+
+Le H, Fallace F and Barlet-Ros P. (2017). Towards accurate detection of obfuscated web tracking 2017 IEEE International Workshop on Measurements & Networking (M&N). 10.1109/IWMN.2017.8078365. 978-1-5090-5679-8. (1-6).
+http://ieeexplore.ieee.org/document/8078365/
+
+Bujlow T, Carela-Espanol V, Lee B and Barlet-Ros P. A Survey on Web Tracking: Mechanisms, Implications, and Defenses. Proceedings of the IEEE. 10.1109/JPROC.2016.2637878. 105:8. (1476-1510).
+http://ieeexplore.ieee.org/document/7872467/
+
+West S. (2017). Data Capitalism: Redefining the Logics of Surveillance and Privacy. Business & Society. 10.1177/0007650317718185. (000765031771818).
+http://journals.sagepub.com/doi/10.1177/0007650317718185
+
+Mughees M, Qian Z and Shafiq Z. (2017). Detecting Anti Ad-blockers in the Wild. Proceedings on Privacy Enhancing Technologies. 10.1515/popets-2017-0032. 2017:3. (130-146). Online publication date: 1-Jul-2017.. Online publication date: 1-Jul-2017.
+https://www.sciendo.com/article/10.1515/popets-2017-0032
+
+Van Kleek M, Liccardi I, Binns R, Zhao J, Weitzner D and Shadbolt N. Better the Devil You Know. Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems. (5208-5220).
+https://doi.org/10.1145/3025453.3025556
+
+Su J, Shukla A, Goel S and Narayanan A. De-anonymizing Web Browsing Data with Social Networks. Proceedings of the 26th International Conference on World Wide Web. (1261-1269).
+https://doi.org/10.1145/3038912.3052714
+
+Kumar D, Ma Z, Durumeric Z, Mirian A, Mason J, Halderman J and Bailey M. Security Challenges in an Increasingly Tangled Web. Proceedings of the 26th International Conference on World Wide Web. (677-684).
+https://doi.org/10.1145/3038912.3052686
+
+Starov O and Nikiforakis N. Extended Tracking Powers. Proceedings of the 26th International Conference on World Wide Web. (1481-1490).
+https://doi.org/10.1145/3038912.3052596
+
+Brookman J, Rouge P, Alva A and Yeung C. (2017). Cross-Device Tracking: Measurement and Disclosures. Proceedings on Privacy Enhancing Technologies. 10.1515/popets-2017-0020. 2017:2. (133-148). Online publication date: 1-Apr-2017.
+https://www.sciendo.com/article/10.1515/popets-2017-0020
+
+Merzdovnik G, Huber M, Buhov D, Nikiforakis N, Neuner S, Schmiedecker M and Weippl E. (2017). Block Me If You Can: A Large-Scale Study of Tracker-Blocking Tools 2017 IEEE European Symposium on Security and Privacy (EuroS&P). 10.1109/EuroSP.2017.26. 978-1-5090-5762-7. (319-333).
+http://ieeexplore.ieee.org/document/7961988/
+
+Reed A and Kranch M. Identifying HTTPS-Protected Netflix Videos in Real-Time. Proceedings of the Seventh ACM on Conference on Data and Application Security and Privacy. (361-368).
+https://doi.org/10.1145/3029806.3029821
+
+Maass M, Wichmann P, Pridöhl H and Herrmann D. (2017). PrivacyScore: Improving Privacy and Security via Crowd-Sourced Benchmarks of Websites. Privacy Technologies and Policy. 10.1007/978-3-319-67280-9_10. (178-191).
+http://link.springer.com/10.1007/978-3-319-67280-9_10
+
+Gervais A, Filios A, Lenders V and Capkun S. (2017). Quantifying Web Adblocker Privacy. Computer Security – ESORICS 2017. 10.1007/978-3-319-66399-9_2. (21-42).
+https://link.springer.com/10.1007/978-3-319-66399-9_2
+
+Somé D, Bielova N and Rezk T. (2017). Control What You Include!. Engineering Secure Software and Systems. 10.1007/978-3-319-62105-0_8. (115-132).
+http://link.springer.com/10.1007/978-3-319-62105-0_8
+
+Laperdrix P, Baudry B and Mishra V. (2017). FPRandom: Randomizing Core Browser Objects to Break Advanced Device Fingerprinting Techniques. Engineering Secure Software and Systems. 10.1007/978-3-319-62105-0_7. (97-114).
+http://link.springer.com/10.1007/978-3-319-62105-0_7
+
+Zhu X, Tao H, Wu Z, Cao J, Kalish K and Kayne J. (2017). Ad Fraud Detection Tools and Systems. Fraud Prevention in Online Digital Advertising. 10.1007/978-3-319-56793-8_6. (45-49).
+http://link.springer.com/10.1007/978-3-319-56793-8_6
+
+Narayanan A and Reisman D. (2017). The Princeton Web Transparency and Accountability Project. Transparent Data Mining for Big and Small Data. 10.1007/978-3-319-54024-5_3. (45-67).
+http://link.springer.com/10.1007/978-3-319-54024-5_3
+
+Cozza V, Hoang V, Petrocchi M and Spognardi A. Experimental Measures of News Personalization in Google News. ICWE 2016 International Workshops on Current Trends in Web Engineering - Volume 9881. (93-104).
+https://doi.org/10.1007/978-3-319-46963-8_8
+
+Andersdotter A and Jensen-Urstad A. (2016). Evaluating Websites and Their Adherence to Data Protection Principles: Tools and Experiences. Privacy and Identity Management. Facing up to Next Steps. 10.1007/978-3-319-55783-0_4. (39-51).
+http://link.springer.com/10.1007/978-3-319-55783-0_4
+
+Ryan J and Santos C. An Unending Data Breach Immune to Audit? Can the TCF and RTB Be Reconciled with the GDPR?. SSRN Electronic Journal. 10.2139/ssrn.4064729.
+https://www.ssrn.com/abstract=4064729
+
+Rony R, Saliheen N and Ahmed N. Cybercrime Experiences, Handling and Practices: A Reality Check in the Perspective of Urban Bangladesh. SSRN Electronic Journal. 10.2139/ssrn.4014453.
+https://www.ssrn.com/abstract=4014453
+
+Kraemer J and Schnurr D. Big Data and Digital Markets Contestability: Theory of Harm and Data Access Remedies. SSRN Electronic Journal. 10.2139/ssrn.3789510.
+https://www.ssrn.com/abstract=3789510
+
+Zhuo R, Huffaker B, Claffy K and Greenstein S. The Impact of the General Data Protection Regulation on Internet Interconnection. SSRN Electronic Journal. 10.2139/ssrn.3761288.
+https://www.ssrn.com/abstract=3761288
+
+Fast V, Schnurr D and Wohlfarth M. Regulation of Data-driven Market Power in the Digital Economy: Business Value Creation and Competitive Advantages from Big Data. SSRN Electronic Journal. 10.2139/ssrn.3759664.
+https://www.ssrn.com/abstract=3759664
+
+Kraemer J and Zierke O. Paying for Prominence: The Effect of Sponsored Rankings on the Incentives to Invest in the Quality of Free Content on Dominant Online Platforms. SSRN Electronic Journal. 10.2139/ssrn.3584371.
+https://www.ssrn.com/abstract=3584371
+
+Martin K. Breaking the Privacy Paradox: The Value of Privacy and Associated Duty of Firms. SSRN Electronic Journal. 10.2139/ssrn.3349448.
+https://www.ssrn.com/abstract=3349448
+
+Wang Z, Hu J, Min G and Zhao Z. Intelligent Cooperative Caching at Mobile Edge based on Offline Deep Reinforcement Learning. ACM Transactions on Sensor Networks. 0:0.
+https://doi.org/10.1145/3623398
