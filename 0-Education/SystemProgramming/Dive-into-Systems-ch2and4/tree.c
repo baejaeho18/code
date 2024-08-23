@@ -15,6 +15,25 @@ TreeNode* createNode(int data) {
     return newNode;
 }
 
+// Function to insert a node into the binary search tree
+Node* insertNode(Node* root, int data) {
+    if (root == NULL) {
+        // If the tree is empty, return a new node
+        return createNode(data);
+    }
+
+    // Otherwise, recur down the tree
+    if (data < root->data) {
+        root->left = insertNode(root->left, data);
+    }
+    else if (data > root->data) {
+        root->right = insertNode(root->right, data);
+    }
+
+    // Return the (unchanged) root pointer
+    return root;
+}
+
 void inOrderTraversal(Node* root) {
     if (root == NULL)
         return;
@@ -32,11 +51,16 @@ void freeTree(Node* root) {
 }
 
 int main() {
-    Node* root = createNode(1);
-    root->left = createNode(2);
-    root->right = createNode(3);
-    root->left->left = createNode(4);
-    root->left->right = createNode(5);
+    Node* root = NULL;
+
+    // Inserting nodes into the binary search tree
+    root = insertNode(root, 50);
+    root = insertNode(root, 30);
+    root = insertNode(root, 20);
+    root = insertNode(root, 40);
+    root = insertNode(root, 70);
+    root = insertNode(root, 60);
+    root = insertNode(root, 80);
 
     printf("In-order traversal: ");
     inOrderTraversal(root);
