@@ -22,6 +22,7 @@ enum ResponseCode {
     FORBIDDEN         // 402
 };
 
+typedef enum { FALSE, TRUE } Bool;
 
 #define MAX_SIZE 10
 enum Status { SUCCESS, FAILURE };
