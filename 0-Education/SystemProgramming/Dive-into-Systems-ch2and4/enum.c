@@ -6,6 +6,12 @@ enum Color {
     BLUE          // 2
 };
 
+inf func(enum Color curColor) {
+    enum Color backgroundColor, foregroundColor;
+    // omitted
+    return curColor;
+}
+
 enum ResponseCode {
     OK = 200,         // Explicitly set to 200
     CREATED = 201,    // 201
