@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-main()
+int main()
 {
     char* s;
     int i;
 
-    gets(s);
+    fgets(s);
 
     for (i = 0; s[i] != '\0'; i++) {
         if (s[i] >= 'a'&& s[i] <= 'z')
