@@ -15,7 +15,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    // 작업 수행
+    // Do your operation, here
 
     if (chdir(swd)) {
         perror("chdir");
