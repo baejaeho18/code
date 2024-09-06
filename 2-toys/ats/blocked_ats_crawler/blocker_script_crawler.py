@@ -5,14 +5,14 @@ from selenium.webdriver.chrome.options import Options
 import requests
 
 # Brave 브라우저 경로 설정
-brave_path = "/path/to/brave-browser"
+brave_path = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
 
-# 엑셀 파일에서 웹사이트 목록 읽어오기
-excel_file = "websites.xlsx"  # 웹사이트 목록이 있는 엑셀 파일
-df = pd.read_excel(excel_file)
+# CSV 파일에서 웹사이트 목록 읽어오기
+csv_file = "sites_20k.csv"  # 웹사이트 목록이 있는 CSV 파일
+df = pd.read_csv(csv_file)
 
-# 웹사이트 목록을 리스트로 변환
-urls = df['URL'].tolist()  # 엑셀 파일에서 URL이 있는 열 이름을 'URL'로 가정
+# 웹사이트 목록을 리스트로 변환 (url 열 사용)
+urls = df['url'].tolist()
 
 # 수집된 스크립트를 저장할 디렉토리 설정
 script_dir = "collected_scripts"
